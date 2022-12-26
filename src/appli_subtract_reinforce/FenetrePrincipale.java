@@ -41,7 +41,7 @@ import javax.swing.JTextField;
  *
  * @author Eric-PC
  */
-public class FenetrePrincipale extends JFrame
+public class FenetrePrincipale extends JPanel
 {
     Dessin_Machine pano_machine ;
     PanneauActions pano_actions;
@@ -50,30 +50,33 @@ public class FenetrePrincipale extends JFrame
     int musique=-1;
     long clipTime=0;
     
-    public FenetrePrincipale(Jeu jeu) {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.jeu=jeu;
+    public FenetrePrincipale() {
+        int t[] = {1, 2};
+        jeu = new Jeu(t, 9);
+        jeu.init_machine(t, 9, 2, 6, -1, 3, 0, Adversaire.ALEA, 0);
+        new Thread(() -> jeu.partie_humaine()).start();
+
         pano_machine = new Dessin_Machine(jeu);
         pano_actions = new PanneauActions();
         pano_score = new Panneau_score(0, 0);
         
-        this.getContentPane().setLayout(new GridBagLayout());
+        setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
         cont.fill = GridBagConstraints.BOTH;
         //cont.weighty = 1.0;
         cont.gridx = 0;
         cont.gridy = 0;
         cont.gridheight = 1;
-        this.getContentPane().add(pano_machine, cont);
+        add(pano_machine, cont);
          cont.gridx = 0;
         cont.gridy = 1;
         cont.gridheight = 1;
-        this.getContentPane().add(pano_score, cont);
+        add(pano_score, cont);
         cont.gridx = 1;
         cont.gridy = 0;
         cont.gridheight = 2;
-        this.getContentPane().add(pano_actions, cont);
-        this.pack();
+        add(pano_actions, cont);
+
     }
     
     public class PanneauActions extends JPanel {
@@ -160,9 +163,9 @@ public class FenetrePrincipale extends JFrame
             cont.gridwidth = 3; 
             cont.insets=new Insets(10,0,0,0);  
             Hashtable labelTable3 = new Hashtable();
-            labelTable3.put( new Integer( 8 ), new JLabel("8") );
-            labelTable3.put( new Integer( 12 ), new JLabel("12") );
-            labelTable3.put( new Integer( 16 ), new JLabel("16") );
+            labelTable3.put( 8, new JLabel("8") );
+            labelTable3.put( 12, new JLabel("12") );
+            labelTable3.put( 16, new JLabel("16") );
             casiers_t.setLabelTable( labelTable3 );
             casiers_t.setPaintLabels(true);
             casiers_t.setPaintTicks(true);
@@ -175,9 +178,9 @@ public class FenetrePrincipale extends JFrame
             this.add(billes_init, cont);
             //Create the label table
             Hashtable labelTable2 = new Hashtable();
-            labelTable2.put( new Integer( 2 ), new JLabel("2") );
-            labelTable2.put( new Integer( 6 ), new JLabel("6") );
-            labelTable2.put( new Integer( 10 ), new JLabel("10") );
+            labelTable2.put( 2, new JLabel("2") );
+            labelTable2.put( 6, new JLabel("6") );
+            labelTable2.put( 10, new JLabel("10") );
             billes_s.setLabelTable( labelTable2 );
             billes_s.setPaintLabels(true);
             billes_s.setPaintTicks(true);
@@ -246,7 +249,7 @@ public class FenetrePrincipale extends JFrame
             ClassLoader classLoader = getClass().getClassLoader();
             URL url = classLoader.getResource("icons/play.png");
             //System.out.println(file.getCanonicalPath()+" "+file.exists());
-            next= new JButton(new ImageIcon(url));
+            next= new JButton();//new ImageIcon(url));
             next.setContentAreaFilled(true);
             next.setBackground(Color.white);
             next.setMnemonic(KeyEvent.VK_SPACE);

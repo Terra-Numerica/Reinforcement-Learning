@@ -27,10 +27,12 @@ public class Dessin_Machine extends JPanel{
         int x=0;
         this.setBorder(BorderFactory.createTitledBorder("Visualisation de la machine"));
         this.setLayout(new GridLayout(2,8));
+        // Les casiers qui doivent etre affiches
         for (int i=1;i<jeu.nb_casiers;i++){
             tab_casiers[i]=new Casier(jeu,i);
             this.add(tab_casiers[i]);
         }
+        // Les casiers qui ne doivent pas apparaitre a l ecran
         for (int i=jeu.nb_casiers;i<jeu.NB_CASIERS_MAX;i++){
             tab_casiers[i]=new Casier(jeu,i);
             this.add(tab_casiers[i]);
@@ -41,7 +43,8 @@ public class Dessin_Machine extends JPanel{
         //this.setPreferredSize(new Dimension(jeu.nb_casiers*tab_casiers[1].getPreferredSize().width,tab_casiers[1].getPreferredSize().height) );
         
     }
-    
+
+    //Agit lorsque clic sur bouton Amorcer machine
     public void update(int i){//met à jour le casier i, tout si -1
         if (i!=-1){
             for (int j=0;j<jeu.nb_couleurs;j++)

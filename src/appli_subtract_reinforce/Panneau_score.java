@@ -43,7 +43,7 @@ public class Panneau_score extends JPanel {
     
     public class Dessin_score extends JComponent{
         
-        int largeur_pixels = 800;
+        int largeur_pixels = 600;
         int hauteur_pixels = 40;
         
         public Dessin_score(){
@@ -63,14 +63,17 @@ public class Panneau_score extends JPanel {
                 largeur_v = largeur_pixels / 2;
             gr.setColor(new Color(50, 205, 50));          
             gr.drawString("victoires", 0, 30);
-            gr.fillRect(60, 40, largeur_v, hauteur_pixels);
+            //gr.fillRect(80, 40, largeur_v, hauteur_pixels);
+            gr.fillRect(85, 40, largeur_v, hauteur_pixels);
             gr.drawString(""+nb_victoires, 0, 30+hauteur_pixels);
             gr.setColor(Color.RED);          
-            gr.drawString("défaites", largeur_pixels-50, 30);
-            gr.fillRect(60+largeur_v, 40, largeur_pixels-largeur_v, hauteur_pixels);
-            gr.drawString(""+nb_defaites, 60+largeur_pixels+8, 30+hauteur_pixels);
+            gr.drawString("défaites", largeur_pixels+28, 30);
+            gr.fillRect(85+largeur_v, 40, largeur_pixels-largeur_v, hauteur_pixels);
+            //gr.drawString(""+nb_defaites, 55+largeur_pixels+8, 30+hauteur_pixels);
+            gr.drawString(""+nb_defaites, 85+largeur_pixels+8, 30+hauteur_pixels);
             gr.setColor(Color.black);    
-            gr.drawRect(60, 40, largeur_pixels, hauteur_pixels);
+            //gr.drawRect(80, 40, largeur_pixels-20, hauteur_pixels);
+            gr.drawRect(85, 40, largeur_pixels, hauteur_pixels);
             
 
 
@@ -78,7 +81,7 @@ public class Panneau_score extends JPanel {
         
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(largeur_pixels+120, hauteur_pixels+50);
+            return new Dimension(largeur_pixels+160, hauteur_pixels+50);
          }   
         
         

@@ -213,9 +213,9 @@ public class FenetrePrincipale extends JPanel
             this.add(vitesse, cont);
             //Create the label table
             Hashtable labelTable = new Hashtable();
-            labelTable.put( new Integer( 0 ), new JLabel("Un Coup") );
-            labelTable.put( new Integer( 1 ), new JLabel("Une Partie") );
-            labelTable.put( new Integer( 2 ), new JLabel("Non stop") );
+            labelTable.put(0, new JLabel("Un Coup") );
+            labelTable.put(1, new JLabel("Une Partie") );
+            labelTable.put(2, new JLabel("Non stop") );
             vitesse_s.setLabelTable( labelTable );
 
             vitesse_s.setPaintLabels(true);

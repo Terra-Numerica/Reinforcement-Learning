@@ -117,7 +117,7 @@ public class FenetrePrincipale extends JPanel
         JButton next ;
                 //=new JButton(new ImageIcon(getClass().getResource("//resources//Images//play.png")));
 
-        
+
         public PanneauActions(){
             this.setBorder(BorderFactory.createTitledBorder("Choix des paramètres"));
             //remplissage du combo

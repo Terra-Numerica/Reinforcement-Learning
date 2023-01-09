@@ -2,26 +2,17 @@ package appli_subtract_reinforce;
 
 import javax.swing.*;
 
-
+/**
+ * Author Milena
+ * Onglet expliquant les regles utilisees dans le jeu de Nim
+ */
 public class PanelExplications extends JPanel {
 
     public PanelExplications(String InfoGame){
-        String fin = "</tr></table><br><p><font size=+1>Le joueur 2 a gagné.</font> </html>";
+        InfoGame = InfoGame.replace("<img src= \"images/allu.png\">",
+                "<img src=\"" + PanelExplications.class.getResource("fichiers/images/allu.png") + "\">");
 
-        String five = addAllImagesNeeded(5);
-        String four = addAllImagesNeeded(4);
-        String two = addAllImagesNeeded(2);
-        String one = addAllImagesNeeded(1);
-        JLabel lbl = new JLabel(InfoGame + "<tr>" + five + four + two + one +fin);
+        JLabel lbl = new JLabel(InfoGame);
         add(lbl);
-    }
-
-    public String addAllImagesNeeded(int n){
-        String images = "<th>";
-        for (int i =0; i<n; i++){
-            images += "<img src=\"" + PanelExplications.class.getResource("images/allu.png") + "\">";
-        }
-        images += "</th>";
-        return images;
     }
 }

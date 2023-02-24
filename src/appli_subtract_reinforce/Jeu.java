@@ -5,7 +5,6 @@
  */
 package appli_subtract_reinforce;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Scanner;
  */
 public class Jeu {
     
-    int S[];
+    int S[]; // les coups possibles
     int nb_couleurs;
     int nb_casiers;
     int machine[][];
@@ -22,18 +21,18 @@ public class Jeu {
     int coups_machine[][];
     int reward;
     int penalty;
-    int c;
+    int c; // nombre de billes de chaque couleur dans chaque casier
     int vitesse;
     int joueur; // 0 machine
     Adversaire adversaire;
     int ppos[];
     final int NB_CASIERS_MAX=17;
     
-    public Jeu(int[] t, int longueur){
-        nb_couleurs=t.length;
+    public Jeu(int[] moves, int longueur){
+        nb_couleurs=moves.length;
         S=new int[nb_couleurs];
-        for (int i=0;i<t.length;i++)
-            S[i]=t[i];
+        for (int i=0;i<moves.length;i++)
+            S[i]=moves[i];
         nb_casiers=longueur;
         machine=new int[nb_casiers][nb_couleurs];
         coups_machine=new int[NB_CASIERS_MAX][2];//0: machine 1, 1: machine 2
@@ -58,7 +57,7 @@ public class Jeu {
         S=new int[nb_couleurs];
         int j=0;
         for (int i=0;i<t.length;i++){
-            if (t[i]!=0){
+            if (t[i]!=0){ //on ne garde que les coups non nuls
                 S[j]=t[i];
                 j++;
             }

@@ -67,7 +67,7 @@ public class Panneau_score extends JPanel {
             gr.fillRect(85, 40, largeur_v, hauteur_pixels);
             gr.drawString(""+nb_victoires, 0, 30+hauteur_pixels);
             gr.setColor(Color.RED);          
-            gr.drawString("défaites", largeur_pixels+28, 30);
+            gr.drawString("défaites", largeur_pixels-10, 30);
             gr.fillRect(85+largeur_v, 40, largeur_pixels-largeur_v, hauteur_pixels);
             //gr.drawString(""+nb_defaites, 55+largeur_pixels+8, 30+hauteur_pixels);
             gr.drawString(""+nb_defaites, 85+largeur_pixels+8, 30+hauteur_pixels);

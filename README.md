@@ -1,3 +1,3 @@
 # Apprentissage renforcé
 ## ====================
-### Auteurs: Milena K, Héba B.
+### Auteurs: Éric, Milena K, Héba B.

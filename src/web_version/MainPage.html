@@ -1,0 +1,226 @@
+<html lang="fr" onchange="setLang()">
+
+<head>
+    <meta charset="UTF-8">
+    <title translate="page_title"></title>
+
+    <!-- PLUGIN IMPORTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- LOCAL SCRIPT IMPORTS -->
+    <script type="text/javascript" src="MainPage.js"></script>
+    <script type="text/javascript" src="localization/lang_fr.js"></script>
+    <script type="text/javascript" src="localization/lang_en.js"></script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- tabs for each page -->
+    <div>
+        <button translate="rules_game" onclick="showTab('rules_game')"></button>
+        <button translate="rein_learning" onclick="showTab('rein_learning')"></button>
+        <button translate="probabilities" onclick="showTab('probabilities')"></button>
+        <button translate="goal" onclick="showTab('goal')"></button>
+        <button translate="interacting" onclick="showTab('interacting')"></button>
+        <button translate="param_tuto" onclick="showTab('param_tuto')"></button>
+        <button translate="adaptation" onclick="showTab('adaptation')"></button>
+    </div>
+    <div id="rules_game" class="tab hidden">
+        <h1 translate="rules_game"></h1>
+        <br>
+        <p translate="rules_gist"></p>
+        <h1 translate="rules_illust_title"></h1>
+        <p translate="rules_illust_statement"></p>
+        <p>
+        <table style=width:100%>
+            <tr>
+                <th translate="rules_illustr_0"></th>
+                <th translate="rules_illustr_1"></th>
+                <th translate="rules_illustr_2"></th>
+                <th translate="rules_illustr_3"></th>
+                <th translate="rules_illustr_4"></th>
+            </tr>
+            <tr>
+                <th>
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                </th>
+                <th>
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                </th>
+                <th>
+                    <img src="images/allu.png">
+                    <img src="images/allu.png">
+                </th>
+                <th>
+                    <img src="images/allu.png">
+                </th>
+                <th></th>
+            </tr>
+        </table>
+        <br>
+        <p translate="rules_illust_over"></p>
+    </div>
+
+    <div id="rein_learning" class="tab hidden">
+        <h1 translate="rein_learning"></h1>
+        <h2 translate="rein_field"></h2>
+        <p translate="rein_field_gist"></p>
+        <h2 translate="rein_tools"></h2>
+        <p translate="rein_tools_gist"></p>
+        <h2 translate="rein_examples"></h2>
+        <ul translate="rein_examples_gist"></ul>
+        <h2 translate="rein_agent"></h2>
+        <p translate="rein_agent_gist"></p>
+        <h2 translate="rein_opti"></h2>
+        <p translate="rein_opti_gist"></p>
+    </div>
+
+    <div id="probabilities" class="tab hidden">
+        <h1 translate="probabilities"></h1>
+        <table>
+            <tr>
+                <th translate="probs_initial"></th>
+                <th>
+                    <img src="images/initial.png">
+                </th>
+            </tr>
+            <tr>
+                <th translate="probs_win"></th>
+                <th>
+                    <img src="images/victoire.png">
+                </th>
+            </tr>
+            <tr>
+                <th translate="probs_lost"></th>
+                <th>
+                    <img src="images/defaite.png">
+                </th>
+            </tr>
+        </table>
+    </div>
+
+    <div id="goal" class="tab hidden">
+        <h1 translate="goal"></h1>
+        <h2 translate="goal_premise">
+            </h1>
+            <ul translate="goal_gist"></ul>
+            <p translate="goal_desc"></p>
+            <img src="./images/plusieurs.png">
+            <p translate="goal_concl"></p>
+    </div>
+
+    <div id="interacting" class="tab hidden">
+        <h1 translate="interacting"></h1>
+        <p translate="interacting_gist"></p>
+        <p translate="interacting_start"></p>
+    </div>
+
+    <div id="param_tuto" class="tab hidden">
+        <h1>Description des paramètres de la simulation (1)</h1>
+        <p>Chaque allumette est représentée par un casier. Le casier et son contenu servent à modéliser ce qui se passe
+            lors de l'application de l'algorithme.
+            Schéma de la représentation des actions possibles par l'IA pour une allumette.</p>
+        <img src="./images/SchemaCasier.png">
+        <br>
+        <p>Il y a autant de casiers que d'allumettes.</p>
+        <p>Le contenu de chaque casier est indépendant du contenu des autres casiers.</p>
+        <p>Il ne peut y avoir dans les casiers des boules retirant plus d'allumettes que les allumettes restantes
+            correspondant au casier.</p>
+        <p>Par exemple, dans le dernier casier, il ne peut y avoir que des boules jaunes.</p>
+
+        <h1>Description des paramètres de la simulation (2)</h1>
+        <br>
+        <table style=width:100%>
+            <tr>
+                <th>
+                    <img src="./images/Coups.png">
+                </th>
+                <th>
+                    La couleur des boules est attribuée dans l'ordre croissant des coups cochés.
+                    <br>L'ordre d'attribution des couleurs est le suivant : jaune, rouge, bleu, vert, violet.
+                    <br>Il est possible de cocher des cases qui ne se suivent pas.
+                    <br> Par exemple, si on coche 1 et 2 le jaune correspondra à 1 et le rouge à 2.
+                    <br> Mais si on coche 1 et 3, le jaune correspondra à 1 et le rouge à 3.
+                    <br>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <img src="./images/adversaire.png">
+                </th>
+                <th>
+                    Trois adversaires possibles :
+                    <br>- Aléatoire : aucune stratégie de la part de l'adversaire.
+                    <br>- Machine : une autre IA ayant appris avec le même algorithme d'apprentissage par renforcement.
+                    <br>- Expert : une stratégie mise en place afin de rendre plus difficile les victoires pour l'IA.
+                    <br>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <img src="./images/recompense.png">
+                </th>
+                <th>
+                    On attribue au départ des valeurs par défaut pour la récompense/punition en cas de victoire/défaite
+                    de l'IA.
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <img src="./images/vitesse.png">
+                </th>
+                <th>
+                    Trois vitesses d'exécution de l'algorithme :
+                    <br>- Un coup : un choix est fait soit par l'IA soit par l'autre joueur.
+                    <br>- Une partie : les allumettes sont tirées jusqu'à obtenir un vainqueur.
+                    Le nombre de boules est actualisé selon le résultat.
+                    <br>- Non stop : les parties s'enchainent sans pause les unes après les autres.
+                    <br>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <img src="./images/amorcer.png">
+                </th>
+                <th>
+                    Si on a effectué des modifications dans les paramètres, il faut cliquer sur ce bouton pour que les
+                    <br>modifications soient prises en compte.
+                    <br>
+                </th>
+            </tr>
+        </table>
+    </div>
+
+    <!-- BOOTSTRAP IMPORTS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

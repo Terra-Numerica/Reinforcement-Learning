@@ -19,10 +19,19 @@ function setLang(){
     $("[translate]").each(function () {
         var key = $(this).attr("translate");
         if(lang_picked == "en") {
-            var value = en[key];
+            var value = texts[key][lang_picked];
         } else if(lang_picked == "fr") {
-            var value = fr[key];
+            var value = texts[key][lang_picked];
         }
         $(this).html(value);
     });
+}
+
+function switchLang(){
+    if(lang_picked == "en") {
+        lang_picked = "fr";
+    } else if(lang_picked == "fr") {
+        lang_picked = "en";
+    }
+    setLang();
 }

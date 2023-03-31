@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 let lang_picked = $('html')[0].lang;
 
-function showTab(page) {
+function showTab(page, event) {
     //hide all other tabs
     var tabs = document.getElementsByClassName("tab");
     for (var i = 0; i < tabs.length; i++) {
@@ -13,6 +13,13 @@ function showTab(page) {
     //show the targeted tab
     var content = document.getElementById(page);
     content.classList.toggle("hidden");
+
+    //change the class of the pressed button
+    var buttons = document.getElementsByClassName("nav-tab");
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("curr-tab");
+    }
+    event.classList.add("curr-tab");    
 }
 
 function setLang(){

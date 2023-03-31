@@ -7,9 +7,9 @@ import javax.swing.*;
  * Onglet expliquant ce qu'est un apprentissage par renforcement de maniere generale
  */
 
-public class PanelApprentissage extends JPanel {
+public class PanelLearning extends JPanel {
 
-    public PanelApprentissage(String InfoReinforce){
+    public PanelLearning(String InfoReinforce){
         JLabel lbl = new JLabel(InfoReinforce);
         add(lbl);
     }

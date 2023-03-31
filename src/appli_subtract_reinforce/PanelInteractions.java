@@ -192,6 +192,7 @@ public class PanelInteractions extends JPanel implements ActionListener{
                 "</font></font></center>" +
                 "</body></html>");
     }
+    
     public void actionIA(){
         if (this.nbAllu == 1){
             poss[nbCoups] = this.nbAllu - 1;

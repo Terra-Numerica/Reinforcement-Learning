@@ -33,6 +33,10 @@
             background-color: gainsboro;
         }
 
+        .curr-tab {
+            background-color: #afafaf;
+        }
+
         .navbar-nav {
             justify-content: space-evenly;
             align-items: center;
@@ -48,6 +52,11 @@
         td {
             border: 1px solid black;
         }
+
+        .int_btn{
+            margin-block: 10px;
+            max-width: 200px;
+        }
     </style>
 </head>
 
@@ -62,13 +71,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTabs">
             <ul class="navbar-nav">
-                <button class="nav-tab" translate="rules_game" onclick="showTab('rules_game')"></button>
-                <button class="nav-tab" translate="rein_learning" onclick="showTab('rein_learning')"></button>
-                <button class="nav-tab" translate="probabilities" onclick="showTab('probabilities')"></button>
-                <button class="nav-tab" translate="goal" onclick="showTab('goal')"></button>
-                <button class="nav-tab" translate="interacting" onclick="showTab('interacting')"></button>
-                <button class="nav-tab" translate="param_tuto" onclick="showTab('param_tuto')"></button>
-                <button class="nav-tab" translate="adaptation" onclick="showTab('adaptation')"></button>
+                <button class="nav-tab curr-tab" translate="rules_game" onclick="showTab('rules_game', this)"></button>
+                <button class="nav-tab" translate="rein_learning" onclick="showTab('rein_learning', this)"></button>
+                <button class="nav-tab" translate="probabilities" onclick="showTab('probabilities', this)"></button>
+                <button class="nav-tab" translate="goal" onclick="showTab('goal', this)"></button>
+                <button class="nav-tab" translate="interacting" onclick="showTab('interacting', this)"></button>
+                <button class="nav-tab" translate="param_tuto" onclick="showTab('param_tuto', this)"></button>
+                <button class="nav-tab" translate="adaptation" onclick="showTab('adaptation', this)"></button>
             </ul>
         </div>
     </nav>
@@ -167,6 +176,17 @@
         <h1 translate="interacting"></h1>
         <p translate="interacting_gist"></p>
         <p translate="interacting_start"></p>
+
+        <p translate="interacting_matches_left" class="text-center"></p>
+        <p id="int_AI_state"></p>
+        <p id="int_end"></p>
+        <p id="int_basket_state"></p>
+        <div class="btn-group-vertical d-flex align-items-center">
+            <button class="btn btn-primary int_btn" translate="interacting_take_1" onclick="interact(1)"></button>
+            <button class="btn btn-primary int_btn" translate="interacting_take_2" onclick="interact(2)"></button>
+            <button class="btn btn-primary int_btn" translate="interacting_restart" onclick="interact(3)"></button>
+            <button class="btn btn-primary int_btn" translate="interacting_reinitialize" onclick="interact(4)"></button>
+        </div>
     </div>
 
     <div id="param_tuto" class="tab hidden">

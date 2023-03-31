@@ -7,11 +7,11 @@ import javax.swing.*;
  * Onglet decrivant le contenu des casiers
  */
 
-public class PanelExplicationsInterfaceIA extends JPanel {
+public class PanelExplanationsInterfaceAI extends JPanel {
 
-    public PanelExplicationsInterfaceIA(String content){
+    public PanelExplanationsInterfaceAI(String content){
         content = content.replace("<img src=\"./images/SchemaCasier.png\">",
-        "<img src=\"" + PanelExplications.class.getResource("fichiers/images/SchemaCasier.png") + "\">");
+        "<img src=\"" + PanelExplanations.class.getResource("fichiers/images/SchemaCasier.png") + "\">");
 
         JLabel lbl = new JLabel(content);
         add(lbl);

@@ -168,6 +168,26 @@ let texts = {
         fr: "Vous commencez :",
         en: "You start:"
     },
+    "interacting_matches_left": {
+        fr: "Allumettes restantes : ",
+        en: "Matches left: "
+    },
+    "interacting_take_1": {
+        fr: "Retirer 1 allumette",
+        en: "Take 1 match"
+    },
+    "interacting_take_2": {
+        fr: "Retirer 2 allumettes",
+        en: "Take 2 matches"
+    },
+    "interacting_restart": {
+        fr: "Recommencer",
+        en: "Restart"
+    },
+    "interacting_reinitialize": {
+        fr: "Réinitialiser",
+        en: "Reinitialize"
+    },
 
     /* PARAMETERS PART */
 

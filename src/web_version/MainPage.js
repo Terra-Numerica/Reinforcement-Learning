@@ -2,7 +2,7 @@ $(document).ready(function () {
     setLang()
 });
 
-let lang_picked = $('html')[0].lang;
+let langPicked = $('html')[0].lang;
 
 function showTab(page, event) {
     //hide all other tabs
@@ -19,26 +19,31 @@ function showTab(page, event) {
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("curr-tab");
     }
-    event.classList.add("curr-tab");    
+    event.classList.add("curr-tab");
+
+    //special cases
+    if(page == "interacting"){
+        initInteracting();
+    }
 }
 
 function setLang(){
     $("[translate]").each(function () {
         var key = $(this).attr("translate");
-        if(lang_picked == "en") {
-            var value = texts[key][lang_picked];
-        } else if(lang_picked == "fr") {
-            var value = texts[key][lang_picked];
+        if(langPicked == "en") {
+            var value = texts[key][langPicked];
+        } else if(langPicked == "fr") {
+            var value = texts[key][langPicked];
         }
         $(this).html(value);
     });
 }
 
 function switchLang(){
-    if(lang_picked == "en") {
-        lang_picked = "fr";
-    } else if(lang_picked == "fr") {
-        lang_picked = "en";
+    if(langPicked == "en") {
+        langPicked = "fr";
+    } else if(langPicked == "fr") {
+        langPicked = "en";
     }
     setLang();
 }

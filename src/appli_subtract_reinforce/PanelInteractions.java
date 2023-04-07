@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  * Author Milena
- * Onglet interactif afin de mieux comprendre comment fonction un apprentissage par renforcement dans le cas du jeu de Nim
+ * Onglet interactif afin de mieux comprendre comment fonctionne un apprentissage par renforcement dans le cas du jeu de Nim
  */
 
 public class PanelInteractions extends JPanel implements ActionListener{
@@ -109,13 +109,13 @@ public class PanelInteractions extends JPanel implements ActionListener{
                         "</body></html>"
         );
     }
-    public void fillRedYellow(int recompense){
+    public void fillRedYellow(int reward){
         for(int i=0; i< 5; i++){
             if(numSticks[i] == 1){
-                yellow[poss[i]] += recompense;
+                yellow[poss[i]] += reward;
             }
             if (numSticks[i] == 2){
-                red[poss[i]] +=recompense;
+                red[poss[i]] += reward;
             }
         }
         for (int i=0; i<5;i++){
@@ -165,7 +165,6 @@ public class PanelInteractions extends JPanel implements ActionListener{
                     "</body></html>");
         }
     }
-
 
     public void fillActionIA2(int i){
         this.ActionsIA2.setText("<html><body><center><font size=+1>" +
@@ -231,12 +230,12 @@ public class PanelInteractions extends JPanel implements ActionListener{
             if (randomNum == 1) {
                 poss[nbCoups] = this.nbAllu - 1;
                 numSticks[nbCoups] = 1;
-                nbCoups+=1;
+                nbCoups++;
             }
             if (randomNum == 2){
                 poss[nbCoups] = this.nbAllu - 1;
                 numSticks[nbCoups] = 2;
-                nbCoups+=1;
+                nbCoups++;
             }
             if (randomNum != 3){
                 this.nbAllu -= randomNum;

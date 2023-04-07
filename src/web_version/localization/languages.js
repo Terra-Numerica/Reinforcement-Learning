@@ -169,8 +169,32 @@ let texts = {
         en: "You start:"
     },
     "interacting_matches_left": {
-        fr: "Allumettes restantes : ",
-        en: "Matches left: "
+        fr: "Il reste NMATCHES allumette(s).",
+        en: "There are NMATCHES match(es) left."
+    },
+    "int_last_move": {
+        fr: "L'IA a également joué : elle a enlevé NMATCHES allumette(s).",
+        en: "The AI also played: it removed NMATCHES match(es)."
+    },
+    "int_error": {
+        fr: "On remet 8 allumettes",
+        en: "We put back 8 matches"
+    },
+    "int_end_error": {
+        fr: "Il ne reste plus aucun coup possible à l'IA par faute de boules disponibles.<br>Réinitialisation forcée du jeu.",
+        en: "There is no more possible move for the AI due to lack of available balls.<br>Forced game reset." 
+    },
+    "int_end_won": {
+        fr: "L'IA a gagné !<br>L'IA va recevoir une récompense : pour chacun des coups qu'elle a fait, elle récupère trois boules de la couleur correspondant au nombre d'allumettes enlevées.",
+        en: "The AI has won!<br>The AI will receive a reward: for each move it has made, it gets three balls of the color corresponding to the number of matches removed."
+    },
+    "int_end_lost": {
+        fr: "L'IA a perdu !<br>L'IA va recevoir une punition : pour chacun des coups qu'elle a fait, elle doit enlever une boule de la couleur correspondant au nombre d'allumettes enlevées.",
+        en: "The AI has lost!<br>The AI will receive a punishment: for each move it has made, it must remove a ball of the color corresponding to the number of matches removed."
+    },
+    "int_basket_state": {
+        fr: "Le contenu du casier : <br>les boules jaunes YBALLS<br>les boules rouges RBALLS",
+        en: "The basket content: <br>the yellow balls YBALLS<br>the red balls RBALLS"
     },
     "interacting_take_1": {
         fr: "Retirer 1 allumette",

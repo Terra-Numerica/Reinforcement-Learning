@@ -11,6 +11,7 @@
 
     <!-- LOCAL SCRIPTS IMPORTS -->
     <script type="text/javascript" src="MainPage.js"></script>
+    <script type="text/javascript" src="Interaction.js"></script>
     <script type="text/javascript" src="localization/languages.js"></script>
 
     <style>
@@ -177,10 +178,10 @@
         <p translate="interacting_gist"></p>
         <p translate="interacting_start"></p>
 
-        <p translate="interacting_matches_left" class="text-center"></p>
-        <p id="int_AI_state"></p>
-        <p id="int_end"></p>
-        <p id="int_basket_state"></p>
+        <p id="int_matches_left" translate="interacting_matches_left" class="text-center"></p>
+        <p id="int_last_move"></p>
+        <p id="int_end_report"></p>
+        <p id="int_basket_state" translate="int_basket_state"></p>
         <div class="btn-group-vertical d-flex align-items-center">
             <button class="btn btn-primary int_btn" translate="interacting_take_1" onclick="interact(1)"></button>
             <button class="btn btn-primary int_btn" translate="interacting_take_2" onclick="interact(2)"></button>

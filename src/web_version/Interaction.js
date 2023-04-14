@@ -11,12 +11,17 @@ basketState = null;
 gameResult = null;
 lastmove = null;
 matchesLeft = null;
+buttons = null;
+
+htmlNbOfMatchesTakenByLastMove = 0; //needed for the handling of the translation during a language & tab switch
 
 function initInteracting(){
+    //retrieve the html elements used for displaying the game state
     basketState = document.getElementById("int_basket_state");
     gameResult = document.getElementById("int_end_report");
     lastmove = document.getElementById("int_last_move");
     matchesLeft = document.getElementById("int_matches_left");
+    buttons = document.getElementsByClassName("int_btn");
 
     for(let i=0; i<8; i++){
         red[i] = 6;
@@ -29,10 +34,17 @@ function initInteracting(){
         nbMatchesPerMove[i] = 0;
     }
 
+    enableBtns();
     fillTextBasketState();
     fillMatchesLeft();
     console.log(red);
     console.log(yellow);
+}
+
+function enableBtns(){
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = false;
+    }
 }
 
 function fillRedYellow(reward){
@@ -56,31 +68,39 @@ function fillRedYellow(reward){
 }
 
 function fillTextBasketState(){
-    txt = basketState.innerHTML;
+    txt = texts["int_basket_state"][langPicked];
     txt = txt.replace("YBALLS", JSON.stringify(yellow));
     txt = txt.replace("RBALLS", JSON.stringify(red));
     basketState.innerHTML = txt;
+    basketState.setAttribute("translate", "int_basket_state");
 }
 
 function fillResult(result){
     if (result == 0){ //The AI won
-        gameResult.translate = "int_end_won";
+        gameResult.classList.toggle("text-success");
+        gameResult.setAttribute("translate", "int_end_won");
+        gameResult.innerHTML = texts["int_end_won"][langPicked];
     } else { // The AI lost
-        gameResult.translate ="int_end_lost";
+        gameResult.classList.toggle("text-danger");
+        gameResult.setAttribute("translate", "int_end_lost");
+        gameResult.innerHTML = texts["int_end_lost"][langPicked];
     }
 }
 
-//TODO: display the player's latest move as well in another function
+//TODO: should display the player's latest move as well in another function
 function fillLastMove(nbOfMatchesTaken){
-    lastmove.innerHTML = texts["int_last_move"][langPicked];
-    txt = lastmove.innerHTML;
-    txt = txt.replace("NMATCHES", nbOfMatchesTaken);
+    htmlNbOfMatchesTakenByLastMove = nbOfMatchesTaken;
+    if(lastmove.getAttribute("translate") == undefined){
+        lastmove.setAttribute("translate", "int_last_move");
+    }
+    txt = texts["int_last_move"][langPicked];
+    txt = txt.replace("NMATCHES" || "/[0-9]+/", nbOfMatchesTaken);
     lastmove.innerHTML = txt;
 }
 
 function fillMatchesLeft(){
-    txt = matchesLeft.innerHTML;
-    txt = txt.replace("NMATCHES", nbMatches);
+    txt = texts["interacting_matches_left"][langPicked];
+    txt = txt.replace("NMATCHES" || "/[0-9]+/", nbMatches);
     matchesLeft.innerHTML = txt;
 }
 
@@ -89,12 +109,21 @@ function errorMessage(){
     gameResult.innerHTML = texts["int_end_error"][langPicked];
 }
 
+function updateData(){
+    txt = texts["int_basket_state"][langPicked];
+    txt = txt.replace("YBALLS", JSON.stringify(yellow));
+    txt = txt.replace("RBALLS", JSON.stringify(red));
+    texts["int_basket_state"][langPicked] = txt;
+}
+
 function actionAI(){
     if (nbMatches == 1){
+        lastmove.innerHTML = "";
         AImoves[nbMoves] = nbMatches - 1;
         nbMatchesPerMove[nbMoves] = 1;
         nbMatches = 0;
         fillMatchesLeft();
+        fillResult(0);
         fillLastMove(0);
         fillRedYellow(3);
         nbMoves = 0;
@@ -104,7 +133,7 @@ function actionAI(){
         let randomNb = 0;
         if (nbRed == 0 && nbYellow == 0){
             nbMatches = 8;
-            init();
+            initInteracting();
             basketState.innerHTML = "";
             gameResult.innerHTML = "";
             lastmove.innerHTML = "";
@@ -139,6 +168,7 @@ function actionAI(){
             fillLastMove(randomNb);
             fillMatchesLeft();
             if (nbMatches == 0) {
+                lastmove.innerHTML = "";
                 fillResult(0);
                 fillRedYellow(3);
                 nbMoves = 0;
@@ -150,9 +180,17 @@ function actionAI(){
 function interact(btn){
     if (btn == 1 && nbMatches - 1 >= 0) {
         nbMatches--;
+        if(nbMatches < 2){
+            buttons[1].disabled = true;
+        }
+        if(nbMatches < 1){
+            buttons[0].disabled = true;
+        }
         fillMatchesLeft();
         gameResult.innerHTML = "";
+        basketState.innerHTML = "";
         if (nbMatches == 0){
+            lastmove.innerHTML = "";
             fillResult(1);
             fillRedYellow(-1);
         } else if (nbMatches > 0) {
@@ -163,7 +201,9 @@ function interact(btn){
         nbMatches -= 2;
         fillMatchesLeft();
         gameResult.innerHTML = "";
+        basketState.innerHTML = "";
         if (nbMatches == 0) {
+            lastmove.innerHTML = "";
             fillResult(1);
             fillRedYellow(-1);
         } else if (nbMatches > 0) {
@@ -172,8 +212,10 @@ function interact(btn){
         }
     } else if (btn == 3){
         nbMatches = 8;
+        enableBtns();
         fillMatchesLeft();
         fillRedYellow(0);
+        basketState.innerHTML = "";
         gameResult.innerHTML = "";
         lastmove.innerHTML = "";
     } else if (btn == 4){
@@ -183,4 +225,19 @@ function interact(btn){
         gameResult.innerHTML = "";
         lastmove.innerHTML = "";
     }
+
+    
+    if(nbMatches < 2){
+        buttons[1].disabled = true;
+    }
+
+    if(nbMatches < 1){
+        buttons[0].disabled = true;
+    }
 }
+
+/**
+ * errors found:
+ *  - the keys for the translations are not correct (should be interacting instead of int)
+ *  - lang switch reinitializing the interacting app is not good
+ */

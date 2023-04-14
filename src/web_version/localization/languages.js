@@ -161,8 +161,8 @@ let texts = {
     /* INTERACTING PART */
 
     "interacting_gist": {
-        fr: "On vous propose ici de jouer face à une IA ayant appris à jouer à un jeu de Nim grâce à un algorithme d'apprentissage par renforcement. Il y a 8 allumettes au début. Les coups possibles sont de retirer 1 ou 2 allumettes.",
-        en: "Here we propose you to play against an AI that has learned to play a Nim game thanks to a reinforcement learning algorithm. There are 8 matches at the beginning. The possible moves are to remove 1 or 2 matches."
+        fr: "On vous propose ici de jouer face à une IA ayant appris à jouer à un jeu de Nim grâce à un algorithme d'apprentissage par renforcement. Il y a <b>8 allumettes</b> au début. Les coups possibles sont de retirer <span style='color:#ffc107;'>1</span> ou <span style='color:red;'>2</span> allumettes.",
+        en: "Here we offer you to play against an AI that has learned to play a Nim game thanks to a reinforcement learning algorithm. There are <b>8 matches</b> at the beginning. The possible moves are to remove <span style='color:#ffc107;'>1</span> or <span style='color:red;'>2</span> matches."
     },
     "interacting_start": {
         fr: "Vous commencez :",
@@ -209,8 +209,8 @@ let texts = {
         en: "Restart"
     },
     "interacting_reinitialize": {
-        fr: "Réinitialiser",
-        en: "Reinitialize"
+        fr: "Réinitialiser l'IA",
+        en: "Reinitialize the AI"
     },
 
     /* PARAMETERS PART */

@@ -15,6 +15,16 @@
     <script type="text/javascript" src="localization/languages.js"></script>
 
     <style>
+        h1{
+            text-align: center;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
         .hidden {
             display: none;
         }
@@ -48,10 +58,9 @@
             min-height: 50px;    
         }
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
+        #interacting{
+            width: 80%;
+            margin: auto;
         }
 
         .int_btn{
@@ -173,18 +182,19 @@
             <p translate="goal_concl"></p>
     </div>
 
-    <div id="interacting" class="tab hidden">
+    <div id="interacting" class="tab hidden text-center">
         <h1 translate="interacting"></h1>
-        <p translate="interacting_gist"></p>
+        <h5 translate="interacting_gist"></h5>
         <p translate="interacting_start"></p>
 
-        <p id="int_matches_left" translate="interacting_matches_left" class="text-center"></p>
+        <p id="int_matches_left" translate="interacting_matches_left"></p>
         <p id="int_last_move"></p>
-        <p id="int_end_report"></p>
+        <p id="int_end_report" class="font-weight-bold"></p>
         <p id="int_basket_state" translate="int_basket_state"></p>
+
         <div class="btn-group-vertical d-flex align-items-center">
-            <button class="btn btn-primary int_btn" translate="interacting_take_1" onclick="interact(1)"></button>
-            <button class="btn btn-primary int_btn" translate="interacting_take_2" onclick="interact(2)"></button>
+            <button class="btn btn-warning int_btn" translate="interacting_take_1" onclick="interact(1)"></button>
+            <button class="btn btn-danger int_btn" translate="interacting_take_2" onclick="interact(2)"></button>
             <button class="btn btn-primary int_btn" translate="interacting_restart" onclick="interact(3)"></button>
             <button class="btn btn-primary int_btn" translate="interacting_reinitialize" onclick="interact(4)"></button>
         </div>

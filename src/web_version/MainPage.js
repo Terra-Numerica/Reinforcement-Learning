@@ -46,4 +46,13 @@ function switchLang(){
         langPicked = "en";
     }
     setLang();
+
+    //special cases
+    openedTab = document.getElementsByClassName("curr-tab")[0].getAttribute("translate");
+    if(openedTab == "interacting"){
+        initInteracting();
+        if(lastmove.innerHTML != ""){
+            fillLastMove(htmlNbOfMatchesTakenByLastMove);
+        }
+    }
 }

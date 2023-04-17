@@ -13,66 +13,12 @@
     <script type="text/javascript" src="MainPage.js"></script>
     <script type="text/javascript" src="Interaction.js"></script>
     <script type="text/javascript" src="localization/languages.js"></script>
-
-    <style>
-        h1{
-            text-align: center;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .navbar {
-            width: fit-content;
-            min-width: 100%;
-        }
-
-        .nav-tab {
-            margin: 10px;
-            min-width: 150px;
-            width: 100%;
-            min-height: 80px;
-            height: fit-content;
-            border-style: hidden;
-            background-color: gainsboro;
-        }
-
-        .curr-tab {
-            background-color: #afafaf;
-        }
-
-        .navbar-nav {
-            justify-content: space-evenly;
-            align-items: center;
-        }
-
-        #navbarTabs.collapsing > .navbar-nav > .nav-tab,
-        #navbarTabs.show > .navbar-nav > .nav-tab {
-            min-height: 50px;    
-        }
-
-        #interacting{
-            width: 80%;
-            margin: auto;
-        }
-
-        .int_btn{
-            margin-block: 10px;
-            max-width: 200px;
-        }
-    </style>
+    <link rel="stylesheet" href="styling/style.css">
 </head>
 
 <body>
     <!-- tabs for each page -->
-    <button class="btn btn-primary btn-sm" translate="lang_switch" onclick="switchLang()"></button>
+    <button id="lang_switch" class="btn btn-primary btn-sm" translate="lang_switch" onclick="switchLang()"></button>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <span class="navbar-brand" translate="discovery"></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTabs"
@@ -185,12 +131,25 @@
     <div id="interacting" class="tab hidden text-center">
         <h1 translate="interacting"></h1>
         <h5 translate="interacting_gist"></h5>
-        <p translate="interacting_start"></p>
+        <p translate="interacting_start" class="font-italic"></p>
 
-        <p id="int_matches_left" translate="interacting_matches_left"></p>
-        <p id="int_last_move"></p>
+        <div>
+            <p id="int_matches_left" translate="interacting_matches_left"></p>
+            <span id="NMATCHES_left" class="int_dyn_data"></span>
+        </div>
+
+        <div>
+            <p id="int_last_move"></p>
+            <span id="NMATCHES_taken" class="int_dyn_data"></span>
+        </div>
+
         <p id="int_end_report" class="font-weight-bold"></p>
-        <p id="int_basket_state" translate="int_basket_state"></p>
+
+        <div>
+            <p id="int_basket_state" translate="interacting_basket_state"></p>
+            <span id="YBALLS" class="int_dyn_data"></span>
+            <span id="RBALLS" class="int_dyn_data"></span>
+        </div>
 
         <div class="btn-group-vertical d-flex align-items-center">
             <button class="btn btn-warning int_btn" translate="interacting_take_1" onclick="interact(1)"></button>
@@ -241,7 +200,58 @@
         </table>
     </div>
 
-    <div id="adaptation" class="tab hidden">
+    <div id="adaptation" class="tab hidden">        
+        <div id="adapt_visualization">
+            <label for="adapt_visualization" translate="adaptation_vizualisation"></label>
+            <!-- 
+                TODO: 
+                - Create one basket
+                - Create one ball of each color
+                
+                - Has to be able to contain 2 rows of 8 baskets
+                - And everything has to be responsive :)
+            -->
+        </div>
+        
+        <div id="adapt_score">
+            <label for="adapt_score" translate="adaptation_score"></label>
+            <span id="adapt_victories" translate="adaptation_victories"></span>
+            <span id="adapt_defeats" translate="adaptation_defeats"></span>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            
+        </div>
+        
+        <form id="adapt_param">
+            <label for="adapt_param" translate="adaptation_parameters"></label>
+            <fieldset>
+                <legend translate="adaptation_possible_moves"></legend>
+                <div>
+                  <input type="radio" id="one_move" name="nb_moves" value="1" checked>
+                  <label for="1">1</label>
+                </div>
+                <div>
+                    <input type="radio" id="two_move" name="nb_moves" value="2">
+                    <label for="2">2</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="three_move" name="nb_moves" value="3">
+                    <label for="3">3</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="four_move" name="nb_moves" value="4">
+                    <label for="4">4</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="five_move" name="nb_moves" value="5">
+                    <label for="5">5</label>
+                  </div>
+                
+            </fieldset>
+
+        </form>
     </div>
 
     <!-- BOOTSTRAP IMPORTS -->

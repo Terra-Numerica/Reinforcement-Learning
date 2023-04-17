@@ -1,19 +1,26 @@
-
 nbMatches = 8; //number of matches in the game
 nbMoves = 0;
+
+newStart = true; //true if the game has just started, false otherwise
+restart = false; //true if the game has just been restarted, false otherwise
 
 red =  //number of red balls for each match
 yellow = new Array(8); //number of yellow balls for each match
 AImoves = new Array(5); //record of the moves made by the AI
 nbMatchesPerMove = new Array(5); //number of removed matches
 
+//html elements
 basketState = null;
 gameResult = null;
 lastmove = null;
 matchesLeft = null;
 buttons = null;
 
-htmlNbOfMatchesTakenByLastMove = 0; //needed for the handling of the translation during a language & tab switch
+//dynamic html elements
+htmlYellowBalls = null;
+htmlRedBalls = null;
+htmlNbMatches = null;
+htmlNbOfMatchesTakenByLastMove = null;
 
 function initInteracting(){
     //retrieve the html elements used for displaying the game state
@@ -23,17 +30,24 @@ function initInteracting(){
     matchesLeft = document.getElementById("int_matches_left");
     buttons = document.getElementsByClassName("int_btn");
 
+    htmlNbMatches = document.getElementById("NMATCHES_left");
+    htmlYellowBalls = document.getElementById("YBALLS");
+    htmlRedBalls = document.getElementById("RBALLS");
+    htmlNbOfMatchesTakenByLastMove = document.getElementById("NMATCHES_taken");
+
     for(let i=0; i<8; i++){
         red[i] = 6;
         yellow[i] = 6;
     }
-
     red[0] = 0;
     for (let i=0; i<5;i++){
         AImoves[i] = 0;
         nbMatchesPerMove[i] = 0;
     }
 
+    if(newStart){
+        gameResult.innerHTML = "";
+    }
     enableBtns();
     fillTextBasketState();
     fillMatchesLeft();
@@ -68,57 +82,51 @@ function fillRedYellow(reward){
 }
 
 function fillTextBasketState(){
-    txt = texts["int_basket_state"][langPicked];
-    txt = txt.replace("YBALLS", JSON.stringify(yellow));
-    txt = txt.replace("RBALLS", JSON.stringify(red));
-    basketState.innerHTML = txt;
-    basketState.setAttribute("translate", "int_basket_state");
+    basketState.parentNode.classList.remove("d-none");
+    if(basketState.getAttribute("translate") == undefined){
+        basketState.setAttribute("translate", "interacting_basket_state");
+    }
+    basketState.innerHTML = texts["interacting_basket_state"][langPicked];
+    htmlYellowBalls.innerHTML = JSON.stringify(yellow);
+    htmlRedBalls.innerHTML = JSON.stringify(red);
 }
 
 function fillResult(result){
     if (result == 0){ //The AI won
-        gameResult.classList.toggle("text-success");
-        gameResult.setAttribute("translate", "int_end_won");
-        gameResult.innerHTML = texts["int_end_won"][langPicked];
+        gameResult.classList.remove("text-danger");
+        gameResult.classList.add("text-success");
+        gameResult.setAttribute("translate", "interacting_end_won");
+        gameResult.innerHTML = texts["interacting_end_won"][langPicked];
     } else { // The AI lost
-        gameResult.classList.toggle("text-danger");
-        gameResult.setAttribute("translate", "int_end_lost");
-        gameResult.innerHTML = texts["int_end_lost"][langPicked];
+        gameResult.classList.remove("text-success");
+        gameResult.classList.add("text-danger");
+        gameResult.setAttribute("translate", "interacting_end_lost");
+        gameResult.innerHTML = texts["interacting_end_lost"][langPicked];
     }
 }
 
 //TODO: should display the player's latest move as well in another function
 function fillLastMove(nbOfMatchesTaken){
-    htmlNbOfMatchesTakenByLastMove = nbOfMatchesTaken;
+    lastmove.parentNode.classList.remove("d-none");
     if(lastmove.getAttribute("translate") == undefined){
-        lastmove.setAttribute("translate", "int_last_move");
+        lastmove.setAttribute("translate", "interacting_last_move");
     }
-    txt = texts["int_last_move"][langPicked];
-    txt = txt.replace("NMATCHES" || "/[0-9]+/", nbOfMatchesTaken);
-    lastmove.innerHTML = txt;
+    lastmove.innerHTML = texts["interacting_last_move"][langPicked];
+    htmlNbOfMatchesTakenByLastMove.innerHTML = nbOfMatchesTaken;
 }
 
 function fillMatchesLeft(){
-    txt = texts["interacting_matches_left"][langPicked];
-    txt = txt.replace("NMATCHES" || "/[0-9]+/", nbMatches);
-    matchesLeft.innerHTML = txt;
+    htmlNbMatches.parentNode.classList.remove("d-none");
+    htmlNbMatches.innerHTML = nbMatches;
 }
 
 function errorMessage(){
-    matchesLeft.innerHTML = texts["int_error"][langPicked];
-    gameResult.innerHTML = texts["int_end_error"][langPicked];
-}
-
-function updateData(){
-    txt = texts["int_basket_state"][langPicked];
-    txt = txt.replace("YBALLS", JSON.stringify(yellow));
-    txt = txt.replace("RBALLS", JSON.stringify(red));
-    texts["int_basket_state"][langPicked] = txt;
+    matchesLeft.innerHTML = texts["interacting_error"][langPicked];
+    gameResult.innerHTML = texts["interacting_end_error"][langPicked];
 }
 
 function actionAI(){
     if (nbMatches == 1){
-        lastmove.innerHTML = "";
         AImoves[nbMoves] = nbMatches - 1;
         nbMatchesPerMove[nbMoves] = 1;
         nbMatches = 0;
@@ -126,6 +134,7 @@ function actionAI(){
         fillResult(0);
         fillLastMove(0);
         fillRedYellow(3);
+        lastmove.parentNode.classList.add("d-none");
         nbMoves = 0;
     } else {
         let nbRed = red[nbMatches - 1];
@@ -134,10 +143,10 @@ function actionAI(){
         if (nbRed == 0 && nbYellow == 0){
             nbMatches = 8;
             initInteracting();
-            basketState.innerHTML = "";
+            basketState.parentNode.classList.add("d-none");
             gameResult.innerHTML = "";
-            lastmove.innerHTML = "";
-            matchesLeft.innerHTML = "";
+            lastmove.parentNode.classList.add("d-none");
+            matchesLeft.parentNode.classList.add("d-none");
             errorMessage();
             randomNb = 3;
         } else if (nbRed == 0) {
@@ -168,7 +177,7 @@ function actionAI(){
             fillLastMove(randomNb);
             fillMatchesLeft();
             if (nbMatches == 0) {
-                lastmove.innerHTML = "";
+                lastmove.parentNode.classList.add("d-none");
                 fillResult(0);
                 fillRedYellow(3);
                 nbMoves = 0;
@@ -178,6 +187,8 @@ function actionAI(){
 }
 
 function interact(btn){
+    newStart = false;
+    restart = false;
     if (btn == 1 && nbMatches - 1 >= 0) {
         nbMatches--;
         if(nbMatches < 2){
@@ -188,9 +199,9 @@ function interact(btn){
         }
         fillMatchesLeft();
         gameResult.innerHTML = "";
-        basketState.innerHTML = "";
+        basketState.parentNode.classList.add("d-none");
         if (nbMatches == 0){
-            lastmove.innerHTML = "";
+            lastmove.parentNode.classList.add("d-none");
             fillResult(1);
             fillRedYellow(-1);
         } else if (nbMatches > 0) {
@@ -201,9 +212,9 @@ function interact(btn){
         nbMatches -= 2;
         fillMatchesLeft();
         gameResult.innerHTML = "";
-        basketState.innerHTML = "";
+        basketState.parentNode.classList.add("d-none");
         if (nbMatches == 0) {
-            lastmove.innerHTML = "";
+            lastmove.parentNode.classList.add("d-none");
             fillResult(1);
             fillRedYellow(-1);
         } else if (nbMatches > 0) {
@@ -211,22 +222,22 @@ function interact(btn){
             actionAI();
         }
     } else if (btn == 3){
+        restart = true;
         nbMatches = 8;
         enableBtns();
         fillMatchesLeft();
         fillRedYellow(0);
-        basketState.innerHTML = "";
+        basketState.parentNode.classList.add("d-none");
         gameResult.innerHTML = "";
-        lastmove.innerHTML = "";
+        lastmove.parentNode.classList.add("d-none");
     } else if (btn == 4){
+        initInteracting();
         nbMatches = 8;
         fillMatchesLeft();
-        initInteracting();
         gameResult.innerHTML = "";
-        lastmove.innerHTML = "";
+        lastmove.parentNode.classList.add("d-none");
     }
 
-    
     if(nbMatches < 2){
         buttons[1].disabled = true;
     }
@@ -240,4 +251,5 @@ function interact(btn){
  * errors found:
  *  - the keys for the translations are not correct (should be interacting instead of int)
  *  - lang switch reinitializing the interacting app is not good
+ *  - there are 2 ways to change the basket state: that's not good
  */

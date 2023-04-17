@@ -23,13 +23,19 @@ function showTab(page, event) {
 
     //special cases
     if(page == "interacting"){
-        initInteracting();
+        if(newStart){
+            interact(4);
+        } else if(restart){
+            interact(3);
+        }
     }
+
 }
 
 function setLang(){
     $("[translate]").each(function () {
         var key = $(this).attr("translate");
+        console.log(key)
         if(langPicked == "en") {
             var value = texts[key][langPicked];
         } else if(langPicked == "fr") {
@@ -46,13 +52,4 @@ function switchLang(){
         langPicked = "en";
     }
     setLang();
-
-    //special cases
-    openedTab = document.getElementsByClassName("curr-tab")[0].getAttribute("translate");
-    if(openedTab == "interacting"){
-        initInteracting();
-        if(lastmove.innerHTML != ""){
-            fillLastMove(htmlNbOfMatchesTakenByLastMove);
-        }
-    }
 }

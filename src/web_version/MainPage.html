@@ -12,6 +12,7 @@
     <!-- LOCAL SCRIPTS IMPORTS -->
     <script type="text/javascript" src="MainPage.js"></script>
     <script type="text/javascript" src="Interaction.js"></script>
+    <script type="text/javascript" src="Adaptation.js"></script>
     <script type="text/javascript" src="localization/languages.js"></script>
     <link rel="stylesheet" href="styling/style.css">
 </head>
@@ -37,7 +38,7 @@
             </ul>
         </div>
     </nav>
-    <div id="rules_game" class="tab">
+    <div id="rules_game" class="tab hidden">
         <h1 translate="rules_game"></h1>
         <br>
         <p translate="rules_gist"></p>
@@ -200,9 +201,9 @@
         </table>
     </div>
 
-    <div id="adaptation" class="tab hidden">        
+    <div id="adaptation" class="tab">
         <div id="adapt_visualization">
-            <label for="adapt_visualization" translate="adaptation_vizualisation"></label>
+            <legend for="adapt_visualization" translate="adaptation_vizualisation"></legend>
             <!-- 
                 TODO: 
                 - Create one basket
@@ -212,45 +213,100 @@
                 - And everything has to be responsive :)
             -->
         </div>
-        
+
         <div id="adapt_score">
-            <label for="adapt_score" translate="adaptation_score"></label>
+            <legend for="adapt_score" translate="adaptation_score"></legend>
+            <div class="d-flex row justify-content-between">
             <span id="adapt_victories" translate="adaptation_victories"></span>
             <span id="adapt_defeats" translate="adaptation_defeats"></span>
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
         </div>
-        
-        <form id="adapt_param">
-            <label for="adapt_param" translate="adaptation_parameters"></label>
-            <fieldset>
-                <legend translate="adaptation_possible_moves"></legend>
-                <div>
-                  <input type="radio" id="one_move" name="nb_moves" value="1" checked>
-                  <label for="1">1</label>
-                </div>
-                <div>
-                    <input type="radio" id="two_move" name="nb_moves" value="2">
-                    <label for="2">2</label>
-                  </div>
-                  <div>
-                    <input type="radio" id="three_move" name="nb_moves" value="3">
-                    <label for="3">3</label>
-                  </div>
-                  <div>
-                    <input type="radio" id="four_move" name="nb_moves" value="4">
-                    <label for="4">4</label>
-                  </div>
-                  <div>
-                    <input type="radio" id="five_move" name="nb_moves" value="5">
-                    <label for="5">5</label>
-                  </div>
-                
-            </fieldset>
 
+        <form id="adapt_param">
+            <legend for="adapt_param" translate="adaptation_parameters"></legend>
+            <fieldset class="form-group row align-items-center">
+                <label for="pick_nb_of_moves_possible" class="col-sm-3 col-form-label"
+                    translate="adaptation_possible_moves"></label>
+                <div class="col-sm align-self-end" id="pick_nb_of_moves_possible">
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="one_move" name="nb_moves" value="1" checked>
+                        <label for="1">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="two_move" name="nb_moves" value="2">
+                        <label for="2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="three_move" name="nb_moves" value="3">
+                        <label for="3">3</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="four_move" name="nb_moves" value="4">
+                        <label for="4">4</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="five_move" name="nb_moves" value="5">
+                        <label for="5">5</label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <label for="select_opponent" translate="adaptation_select_opp"></label>
+                <select class="form-control" id="select_opponent">
+                    <option translate="adaptation_random"></option>
+                    <option translate="adaptation_machine"></option>
+                    <option translate="adaptation_expert"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pick_baskets_nb" translate="adaptation_nb_baskets"></label>
+                <span>&nbsp;8</span>
+                <input type="range" id="pick_baskets_nb" class="custom-range" min="8" max="16" step="1" value="8"
+                    data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
+            </div>
+            <div class="form-group">
+                <label for="balls_per_color" translate="adaptation_balls_color"></label>
+                <span>&nbsp;6</span>
+                <input type="range" id="balls_per_color" class="custom-range" min="2" max="10" step="1" value="6"
+                    data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
+            </div>
+            <div class="form-group">
+                <label for="pick_reward" translate="adaptation_reward"></label>
+                <input type="number" id="pick_reward" class="form-control" placeholder=3 value=3 min=0>
+            </div>
+            <div class="form-group">
+                <label for="pick_penalty" translate="adaptation_penalty"></label>
+                <input type="number" id="pick_penalty" class="form-control" placeholder=-1 value=-1 max=0>
+            </div>
+            <div class="form-group">
+                <label for="pick_speed" translate="adaptation_speed"></label>
+                <select class="form-control" id="pick_speed">
+                    <option translate="adaptation_one_move"></option>
+                    <option translate="adaptation_one_game"></option>
+                    <option translate="adaptation_non_stop"></option>
+                </select>
+            </div>
+            <fieldset class="form-group row align-items-center">
+                <label class="col-sm-3 col-form-label" translate="adaptation_who_starts"></label>
+                <div id="picks_who_starts" class="col-sm align-self-end">
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="machine_starts" name="picks_who_starts" value="1" checked>
+                        <label for="1" translate="adaptation_machine"></label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="opponent_starts" name="picks_who_starts" value="1">
+                        <label for="2" translate="adaptation_select_opp"></label>
+                    </div>
+                </div>
+            </fieldset>
+            <button type="button" class="btn btn-primary" translate="adaptation_preview"></button>
+            <button type="submit" class="btn btn-success" onclick="return false" translate="adaptation_start"></button>
         </form>
     </div>
 

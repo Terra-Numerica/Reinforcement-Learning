@@ -8,6 +8,11 @@ td {
     border: 1px solid black;
 }
 
+legend {
+    font-weight: bold;
+    /* displace it on the corner left like in the swing version */
+}
+
 #lang_switch{
     margin: 10px;
 }
@@ -69,8 +74,15 @@ td {
     grid-template-columns: auto auto auto;
 }
 
+#adapt_visualization, #adapt_score, #adapt_param{
+    border: 1px solid black;
+    border-radius: 5%;
+    padding: 20px;
+    margin: 10px;
+}
+
 #adapt_visualization{
-    background-color: forestgreen;
+    /*background-color: forestgreen;*/
     min-height: 60%;
     min-width: 60%;
     grid-column: 1 / 3;
@@ -78,16 +90,18 @@ td {
 }
 
 #adapt_score{
-    background-color: purple;
-    min-width: 50%;
-    max-width: 80%;
-    margin: auto;
+    /*background-color: purple;*/
+    min-width: 100%;
+    max-height: 50%;
     grid-column: 1/3;
     grid-row: 2;
 }
 
+#adapt_score > .progress{
+    height: 50px;
+}
+
 #adapt_param{
-    background-color: aqua;
     grid-column: 3 ;
     grid-row: 1 / 3;
 }

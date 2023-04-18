@@ -1,5 +1,6 @@
 $(document).ready(function () {
     setLang()
+    $('[data-toggle="tooltip"]').tooltip()
 });
 
 let langPicked = $('html')[0].lang;
@@ -35,7 +36,6 @@ function showTab(page, event) {
 function setLang(){
     $("[translate]").each(function () {
         var key = $(this).attr("translate");
-        console.log(key)
         if(langPicked == "en") {
             var value = texts[key][langPicked];
         } else if(langPicked == "fr") {

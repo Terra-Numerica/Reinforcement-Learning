@@ -267,7 +267,67 @@ let texts = {
         en: "Choice of parameters"
     },
     "adaptation_possible_moves": {
-        fr: "Coups possibles",
-        en: "Possible moves"
+        fr: "Coups possibles :",
+        en: "Possible moves:"
+    },
+    "adaptation_select_opp": {
+        fr: "Adversaire :",
+        en: "Opponent:"
+    },
+    "adaptation_random": {
+        fr: "Aléatoire",
+        en: "Random"
+    },
+    "adaptation_machine": {
+        fr: "Machine",
+        en: "Machine"
+    },
+    "adaptation_expert": {
+        fr: "Expert",
+        en: "Expert"
+    },
+    "adaptation_nb_baskets": {
+        fr: "Nombre de casiers :",
+        en: "Number of baskets:"
+    },
+    "adaptation_balls_color" : {
+        fr: "Billes par couleur :",
+        en: "Balls per color:"
+    },
+    "adaptation_reward": {
+        fr: "Récompense :",
+        en: "Reward:"
+    },
+    "adaptation_penalty" : {
+        fr: "Pénalité :",
+        en: "Penalty:"
+    },
+    "adaptation_speed": {
+        fr: "Vitesse :",
+        en: "Speed:"
+    },
+    "adaptation_one_move": {
+        fr: "Un coup",
+        en: "One move"
+    },
+    "adaptation_one_game": {
+        fr: "Une partie",
+        en: "One game"
+    },
+    "adaptation_non_stop": {
+        fr: "Non stop",
+        en: "Non stop"
+    },
+    "adaptation_who_starts": {
+        fr: "Qui commence ?",
+        en: "Who starts ?"
+    },
+    "adaptation_preview": {
+        fr: "Prévisualisation",
+        en: "Preview"
+    },
+    "adaptation_start": {
+        fr: "Démarrer",
+        en: "Start"
     },
 }

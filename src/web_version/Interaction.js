@@ -246,10 +246,3 @@ function interact(btn){
         buttons[0].disabled = true;
     }
 }
-
-/**
- * errors found:
- *  - the keys for the translations are not correct (should be interacting instead of int)
- *  - lang switch reinitializing the interacting app is not good
- *  - there are 2 ways to change the basket state: that's not good
- */

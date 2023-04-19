@@ -38,92 +38,96 @@
             </ul>
         </div>
     </nav>
-    <div id="rules_game" class="tab hidden">
+    <div id="rules_game" class="tab text-center m-3">
         <h1 translate="rules_game"></h1>
-        <br>
         <p translate="rules_gist"></p>
         <h2 translate="rules_illustr_title"></h2>
         <p translate="rules_illust_statement"></p>
-        <p>
-        <table style=width:100%>
-            <tr>
-                <th translate="rules_illustr_0"></th>
-                <th translate="rules_illustr_1"></th>
-                <th translate="rules_illustr_2"></th>
-                <th translate="rules_illustr_3"></th>
-                <th translate="rules_illustr_4"></th>
-            </tr>
-            <tr>
-                <th>
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                </th>
-                <th>
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                </th>
-                <th>
-                    <img src="images/allu.png">
-                    <img src="images/allu.png">
-                </th>
-                <th>
-                    <img src="images/allu.png">
-                </th>
-                <th></th>
-            </tr>
-        </table>
-        <br>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th translate="rules_illustr_0"></th>
+                        <th translate="rules_illustr_1"></th>
+                        <th translate="rules_illustr_2"></th>
+                        <th translate="rules_illustr_3"></th>
+                        <th translate="rules_illustr_4"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                        </th>
+                        <th>
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                        </th>
+                        <th>
+                            <img src="images/allu.png">
+                            <img src="images/allu.png">
+                        </th>
+                        <th>
+                            <img src="images/allu.png">
+                        </th>
+                        <th></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <p translate="rules_illust_over"></p>
     </div>
 
-    <div id="rein_learning" class="tab hidden">
+    <div id="rein_learning" class="tab text-center m-3 hidden">
         <h1 translate="rein_learning"></h1>
         <h2 translate="rein_field"></h2>
         <p translate="rein_field_gist"></p>
         <h2 translate="rein_tools"></h2>
         <p translate="rein_tools_gist"></p>
         <h2 translate="rein_examples"></h2>
-        <ul translate="rein_examples_gist"></ul>
+        <ul class="list-group-flush" translate="rein_examples_gist"></ul>
         <h2 translate="rein_agent"></h2>
         <p translate="rein_agent_gist"></p>
         <h2 translate="rein_opti"></h2>
         <p translate="rein_opti_gist"></p>
     </div>
 
-    <div id="probabilities" class="tab hidden">
+    <div id="probabilities" class="tab text-center m-3 hidden">
         <h1 translate="probabilities"></h1>
-        <table>
+        <table class="table w-75 m-auto text-center">
             <tr>
-                <th translate="probs_initial"></th>
-                <th>
+                <th class="probs_steps" translate="probs_initial"></th>
+                <th class="probs_steps">
                     <img src="images/initial.png">
                 </th>
             </tr>
             <tr>
-                <th translate="probs_win"></th>
-                <th>
+                <th class="probs_steps" translate="probs_win"></th>
+                <th class="probs_steps">
                     <img src="images/victoire.png">
                 </th>
             </tr>
             <tr>
-                <th translate="probs_lost"></th>
-                <th>
+                <th class="probs_steps" translate="probs_lost"></th>
+                <th class="probs_steps">
                     <img src="images/defaite.png">
                 </th>
             </tr>
         </table>
     </div>
 
-    <div id="goal" class="tab hidden">
+    <div id="goal" class="tab text-center m-3 hidden">
         <h1 translate="goal"></h1>
         <h2 translate="goal_premise">
             </h1>
-            <ul translate="goal_gist"></ul>
+            <!--<ul class='m-auto' style='width: fit-content;' translate="goal_gist"></ul>-->
+            <ul class='list-group' translate="goal_gist"></ul>
             <p translate="goal_desc"></p>
             <img src="./images/plusieurs.png">
             <p translate="goal_concl"></p>
@@ -201,7 +205,7 @@
         </table>
     </div>
 
-    <div id="adaptation" class="tab">
+    <div id="adaptation" class="tab hidden">
         <div id="adapt_visualization">
             <legend for="adapt_visualization" translate="adaptation_vizualisation"></legend>
             <!-- 
@@ -217,14 +221,14 @@
         <div id="adapt_score">
             <legend for="adapt_score" translate="adaptation_score"></legend>
             <div class="d-flex row justify-content-between">
-            <span id="adapt_victories" translate="adaptation_victories"></span>
-            <span id="adapt_defeats" translate="adaptation_defeats"></span>
+                <span id="adapt_victories" translate="adaptation_victories"></span>
+                <span id="adapt_defeats" translate="adaptation_defeats"></span>
             </div>
             <div class="progress">
                 <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                    aria-valuemin="0" aria-valuemax="100">nb victories</div>
                 <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                    aria-valuemin="0" aria-valuemax="100">nb losses</div>
             </div>
         </div>
 
@@ -235,46 +239,38 @@
                     translate="adaptation_possible_moves"></label>
                 <div class="col-sm align-self-end" id="pick_nb_of_moves_possible">
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="one_move" name="nb_moves" value="1" checked>
+                        <input type="radio" id="one_move" class="form-control" name="nb_moves" value="1">
                         <label for="1">1</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="two_move" name="nb_moves" value="2">
+                        <input type="radio" id="two_move" class="form-control" name="nb_moves" value="2" checked>
                         <label for="2">2</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="three_move" name="nb_moves" value="3">
+                        <input type="radio" id="three_move" class="form-control" name="nb_moves" value="3">
                         <label for="3">3</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="four_move" name="nb_moves" value="4">
+                        <input type="radio" id="four_move" class="form-control" name="nb_moves" value="4">
                         <label for="4">4</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="five_move" name="nb_moves" value="5">
+                        <input type="radio" id="five_move" class="form-control" name="nb_moves" value="5">
                         <label for="5">5</label>
                     </div>
                 </div>
             </fieldset>
             <div class="form-group">
-                <label for="select_opponent" translate="adaptation_select_opp"></label>
-                <select class="form-control" id="select_opponent">
-                    <option translate="adaptation_random"></option>
-                    <option translate="adaptation_machine"></option>
-                    <option translate="adaptation_expert"></option>
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="pick_baskets_nb" translate="adaptation_nb_baskets"></label>
                 <span>&nbsp;8</span>
-                <input type="range" id="pick_baskets_nb" class="custom-range" min="8" max="16" step="1" value="8"
-                    data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
+                <input type="range" id="pick_baskets_nb" class="custom-range form-control" min="8" max="16" step="1"
+                    value="8" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
             </div>
             <div class="form-group">
                 <label for="balls_per_color" translate="adaptation_balls_color"></label>
                 <span>&nbsp;6</span>
-                <input type="range" id="balls_per_color" class="custom-range" min="2" max="10" step="1" value="6"
-                    data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
+                <input type="range" id="balls_per_color" class="custom-range form-control" min="2" max="10" step="1"
+                    value="6" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
             </div>
             <div class="form-group">
                 <label for="pick_reward" translate="adaptation_reward"></label>
@@ -287,26 +283,38 @@
             <div class="form-group">
                 <label for="pick_speed" translate="adaptation_speed"></label>
                 <select class="form-control" id="pick_speed">
-                    <option translate="adaptation_one_move"></option>
-                    <option translate="adaptation_one_game"></option>
-                    <option translate="adaptation_non_stop"></option>
+                    <option translate="adaptation_one_move" value="1"></option>
+                    <option translate="adaptation_one_game" value="2"></option>
+                    <option translate="adaptation_non_stop" value="3"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pick_opponent" translate="adaptation_select_opp"></label>
+                <select class="form-control" id="pick_opponent">
+                    <option translate="adaptation_random" value="1"></option>
+                    <option translate="adaptation_machine" value="2"></option>
+                    <option translate="adaptation_expert" value="3"></option>
                 </select>
             </div>
             <fieldset class="form-group row align-items-center">
                 <label class="col-sm-3 col-form-label" translate="adaptation_who_starts"></label>
                 <div id="picks_who_starts" class="col-sm align-self-end">
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="machine_starts" name="picks_who_starts" value="1" checked>
-                        <label for="1" translate="adaptation_machine"></label>
+                        <input type="radio" id="machine_starts" class="form-control" name="picks_who_starts"
+                            value="true" checked>
+                        <label for="1" translate="adaptation_machine_starts"></label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="opponent_starts" name="picks_who_starts" value="1">
-                        <label for="2" translate="adaptation_select_opp"></label>
+                        <input type="radio" id="opponent_starts" class="form-control" name="picks_who_starts"
+                            value="false">
+                        <label for="2" translate="adaptation_opponent_starts"></label>
                     </div>
                 </div>
             </fieldset>
-            <button type="button" class="btn btn-primary" translate="adaptation_preview"></button>
-            <button type="submit" class="btn btn-success" onclick="return false" translate="adaptation_start"></button>
+            <button type="button" class="btn btn-primary" translate="adaptation_preview"
+                onclick="getFormValues()"></button>
+            <button type="submit" class="btn btn-success" onclick="playGame();return false"
+                translate="adaptation_start"></button>
         </form>
     </div>
 

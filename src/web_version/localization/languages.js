@@ -104,8 +104,8 @@ let texts = {
         en: "Some examples of autonomous agents:"
     },
     "rein_examples_gist": {
-        fr: "<li>Agent robot : un agent logiciel intelligent qui est mobile dans le monde réel.</li> <li>Agent utilisateur : l'interface utilisateur pour une application réseau sophistiquée. Par exemple, le navigateur web.</li> <li>Agent système : il fonctionne de façon continue en tâche de fond sur le bureau.</li>",
-        en: "<li>Robot agent: a smart software agent that is mobile in the real world.</li> <li>User agent: the user interface for a sophisticated network application. For example, the web browser.</li> <li>System agent: it works continuously in the background on the desktop.</li>"
+        fr: "<li class='list-group-item'>Agent robot : un agent logiciel intelligent qui est mobile dans le monde réel.</li> <li class='list-group-item'>Agent utilisateur : l'interface utilisateur pour une application réseau sophistiquée. Par exemple, le navigateur web.</li> <li class='list-group-item'>Agent système : il fonctionne de façon continue en tâche de fond sur le bureau.</li>",
+        en: "<li class='list-group-item'>Robot agent: a smart software agent that is mobile in the real world.</li> <li class='list-group-item'>User agent: the user interface for a sophisticated network application. For example, the web browser.</li> <li class='list-group-item'>System agent: it works continuously in the background on the desktop.</li>"
     },
     "rein_agent": {
         fr: "Quel est le but de l'agent autonome ?",
@@ -127,8 +127,8 @@ let texts = {
     /* PROBABILITIES PART */
 
     "probs_initial": {
-        fr: "Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs : <ul> <li>jaune pour 1 allumette retirée</li> <li>rouge pour 2 allumettes retirées</li> </ul> Au début il y a 2 boules jaunes et 2 boules rouges. <br>La probabilité de retirer une boule jaune est la même que la probabilité de retirer une boule rouge.",
-        en: "To represent the number of matches removed, we use balls of different colors: <ul> <li>yellow for 1 match removed</li> <li>red for 2 matches removed</li> </ul> At the beginning there are 2 yellow balls and 2 red balls. <br>The probability of removing a yellow ball is the same as the probability of removing a red ball."
+        fr: "Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs : <ul class='m-auto' style='width: fit-content;'> <li>jaune pour 1 allumette retirée</li> <li>rouge pour 2 allumettes retirées</li> </ul> Au début il y a 2 boules jaunes et 2 boules rouges. <br>La probabilité de retirer une boule jaune est la même que la probabilité de retirer une boule rouge.",
+        en: "To represent the number of matches removed we use balls of different colors: <ul class='m-auto' style='width: fit-content;'> <li>yellow for 1 match removed</li> <li>red for 2 matches removed</li> </ul> At the beginning there are 2 yellow balls and 2 red balls. <br>The probability of removing a yellow ball is the same as the probability of removing a red ball."
     },
     "probs_win": {
         fr: "Si l'IA a gagné la partie, elle ajoutera 3 boules de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une boule rouge. <br>Comme c'est une action qui lui a permis de gagner, 3 boules rouges vont être ajoutés. <br>La probabilité de retirer une boule rouge augmente.",
@@ -146,8 +146,8 @@ let texts = {
         en: "The operation principle of reinforcement learning in a Nim game"
     },
     "goal_gist": {
-        fr: "<li>Son but : maximiser sa récompense au cours des parties.</li><li>C'est quoi sa récompense ? Obtenir le plus grand nombre de boules.</li><li>Comment obtenir sa récompense ? En gagnant face à son adversaire.</li><li>Chaque allumette est représentée par un casier.</li><li>Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs :</li><ul><li>jaune pour 1 allumette retirée.</li><li>rouge pour 2 allumettes retirées.</li></ul>",
-        en: "<li>Its goal: maximize its reward over the games.</li><li>What is its reward? Get the most balls.</li><li>How to get its reward? By winning against its opponent.</li><li>Each match is represented by a basket.</li><li>To represent the number of matches removed, we use balls of different colors:</li><ul><li>yellow for 1 match removed.</li><li>red for 2 matches removed.</li></ul>"
+        fr: "<li class='list-group-item'>Son but : maximiser sa récompense au cours des parties.</li><li class='list-group-item'>C'est quoi sa récompense ? Obtenir le plus grand nombre de boules.</li><li class='list-group-item'>Comment obtenir sa récompense ? En gagnant face à son adversaire.</li><li class='list-group-item'>Chaque allumette est représentée par un casier.</li><li class='list-group-item'>Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs :</li><ul class='list-group'><li class='list-group-item'>jaune pour 1 allumette retirée.</li><li class='list-group-item'>rouge pour 2 allumettes retirées.</li></ul>",
+        en: "<li class='list-group-item'>Its goal: maximize its reward over the games.</li><li class='list-group-item'>What is its reward? To get the largest number of balls.</li><li class='list-group-item'>How to get its reward? By winning against its opponent.</li><li class='list-group-item'>Each match is represented by a drawer.</li><li class='list-group-item'>To represent the number of matches removed we use balls of different colors:</li><ul class='list-group'><li class='list-group-item'>yellow for 1 match removed.</li><li class='list-group-item'>red for 2 matches removed.</li></ul>"
     },
     "goal_desc": {
         fr: "Il y a au début le même nombre de boules de couleur jaune que de couleur rouge. Pour chaque nombre d'allumettes restantes au cours des parties, la probabilité de retirer une boule jaune ou une boule rouge (donc de retirer une ou deux allumettes) varie avec le temps.",
@@ -321,6 +321,14 @@ let texts = {
     "adaptation_who_starts": {
         fr: "Qui commence ?",
         en: "Who starts ?"
+    },
+    "adaptation_machine_starts": {
+        fr: "La machine",
+        en: "The machine"
+    },
+    "adaptation_opponent_starts": {
+        fr: "L'adversaire",
+        en: "The opponent"
     },
     "adaptation_preview": {
         fr: "Prévisualisation",

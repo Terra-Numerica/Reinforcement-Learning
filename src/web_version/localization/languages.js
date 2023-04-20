@@ -9,9 +9,9 @@ let texts = {
         fr: "English",
         en: "Français"
     },
-    "discovery": {
-        fr: "Découverte",
-        en: "Discovery"
+    "nim_game": {
+        fr: "Jeu de Nim",
+        en: "Nim game"
     },
     "rules_game": {
         fr: "Règles appliquées du jeu de Nim",
@@ -77,8 +77,8 @@ let texts = {
         en: "Player 2 removes 1 match.<br>There is 0 match left."
     },
     "rules_illust_over": {
-        fr: "Le joueur 2 a gagné.",
-        en: "Player 2 won."
+        fr: "<b>Le joueur 2 a gagné.</b>",
+        en: "<b>Player 2 won.</b>"
     },
 
     /* REINFORCEMENT LEARNING PART */
@@ -146,8 +146,12 @@ let texts = {
         en: "The operation principle of reinforcement learning in a Nim game"
     },
     "goal_gist": {
-        fr: "<li class='list-group-item'>Son but : maximiser sa récompense au cours des parties.</li><li class='list-group-item'>C'est quoi sa récompense ? Obtenir le plus grand nombre de boules.</li><li class='list-group-item'>Comment obtenir sa récompense ? En gagnant face à son adversaire.</li><li class='list-group-item'>Chaque allumette est représentée par un casier.</li><li class='list-group-item'>Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs :</li><ul class='list-group'><li class='list-group-item'>jaune pour 1 allumette retirée.</li><li class='list-group-item'>rouge pour 2 allumettes retirées.</li></ul>",
-        en: "<li class='list-group-item'>Its goal: maximize its reward over the games.</li><li class='list-group-item'>What is its reward? To get the largest number of balls.</li><li class='list-group-item'>How to get its reward? By winning against its opponent.</li><li class='list-group-item'>Each match is represented by a drawer.</li><li class='list-group-item'>To represent the number of matches removed we use balls of different colors:</li><ul class='list-group'><li class='list-group-item'>yellow for 1 match removed.</li><li class='list-group-item'>red for 2 matches removed.</li></ul>"
+        fr: "Son but : maximiser sa récompense au cours des parties.<br>Quelle est sa récompense ? Obtenir le plus grand nombre de boules.<br>Comment obtenir sa récompense ? En gagnant face à son adversaire.",
+        en: "Its goal: to maximize its reward over the games.<br>What is its reward? To get the most balls.<br>How to get its reward? By winning against its opponent."
+    },
+    "goal_about_matches": {
+        fr: "Chaque allumette est représentée par un casier. Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs :<ul><li style='width: fit-content;'>jaune pour 1 allumette retirée.</li><li style='width: fit-content;'>rouge pour 2 allumettes retirées.</li></ul>",
+        en: "Each match is represented by a drawer. To represent the number of matches removed we use balls of different colors: <ul> <li style='width: fit-content;'>yellow for 1 match removed.</li> <li style='width: fit-content;'>red for 2 matches removed.</li> </ul>"
     },
     "goal_desc": {
         fr: "Il y a au début le même nombre de boules de couleur jaune que de couleur rouge. Pour chaque nombre d'allumettes restantes au cours des parties, la probabilité de retirer une boule jaune ou une boule rouge (donc de retirer une ou deux allumettes) varie avec le temps.",

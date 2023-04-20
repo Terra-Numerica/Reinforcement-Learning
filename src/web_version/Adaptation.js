@@ -4,7 +4,7 @@
 //nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts (bool)
 var formValues = {};
 
-function getFormValues() {   
+function getFormValues() {
     //retrieve the nb of moves possible
     var formNbMoves = document.getElementById("pick_nb_of_moves_possible");
     var formNbMovesChoices = formNbMoves.getElementsByClassName("form-control");
@@ -16,7 +16,7 @@ function getFormValues() {
 
     //retrieve the nb of baskets
     formValues["nbBaskets"] = document.getElementById("pick_baskets_nb").value;
-    
+
     //retrieve the nb of balls
     formValues["nbBalls"] = document.getElementById("balls_per_color").value;
 
@@ -41,7 +41,6 @@ function getFormValues() {
 }
 
 function playGame() {
-    getFormValues();
     updateCanvas();
     //launchGame(); //in Game.js
 
@@ -60,53 +59,73 @@ function updateTooltipValue(element) {
 
 var canvas = null;
 
-function updateCanvas(){
+function updateCanvas() {
+    getFormValues();
     canvas = document.getElementById("adapt_visualization");
     updateBaskets();
+    updateBalls();
+    window.addEventListener("resize", function () {
+        if (!document.getElementById("adaptation").classList.contains("hidden")) {
+            var balls = document.getElementsByClassName("ball_drawings");
+            for (var i = 0; i < balls.length; i++) {
+                var basketID = "basket" + Math.floor(i / (parseInt(formValues["nbBalls"]) * parseInt(formValues["nbMoves"])));
+                positionBall(balls[i], basketID);
+            }
+        }
+    });
 }
 
-function updateBaskets(){
-    canvas.innerHTML = "";
-    var basket = '<img src="./images/new_basket.png" width="150px" height="150px" usemap="#basket_map" alt="A basket/un casier">';
+function updateBaskets() {
+    canvas.innerHTML = '<legend for="adapt_visualization" translate="adaptation_vizualisation">' + texts["adaptation_vizualisation"][langPicked] + '</legend>';
+    var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" alt="A basket/un casier">';
     for (var i = 0; i < parseInt(formValues["nbBaskets"]); i++) {
         canvas.innerHTML += basket;
-        updateBalls(canvas.lastChild);
+        canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + (i + 1) + '</span>';
+        canvas.children[canvas.children.length - 2].id = "basket" + i;
     }
 }
 
-function updateBalls(basket){
-    var redBall = '<img src="./images/new_redball.png" width="10px" height="10px" alt="A red ball/une bille rouge">';
-    var yellowBall = '<img src="./images/new_yellowball.png" width="10px" height="10px" alt="A yellow ball/une bille jaune">';
-    for (var i = 0; i < parseInt(formValues["nbBalls"]); i++) {
-        //TODO : add the balls in the map of the basket image
-        canvas.innerHTML += redBall;
-        positionBall(canvas.lastChild, basket);
-        canvas.innerHTML += yellowBall;
-        positionBall(canvas.lastChild, basket);
+function updateBalls() {
+    var redBall = '<img src="./images/new_redball.png" width="10px" height="10px" class="ball_drawings" alt="A red ball/une bille rouge">';
+    var yellowBall = '<img src="./images/new_yellowball.png" width="10px" height="10px" class="ball_drawings" alt="A yellow ball/une bille jaune">';
+    for (var i = 0; i < parseInt(formValues["nbBaskets"]); i++) {
+        for (var j = 0; j < parseInt(formValues["nbBalls"]); j++) {
+            canvas.innerHTML += redBall;
+            var redB = canvas.lastChild;
+            var idB = "basket" + i;
+            positionBall(redB, idB);
+            canvas.innerHTML += yellowBall;
+            var yellowB = canvas.lastChild;
+            positionBall(yellowB, idB);
+        }
     }
 }
 
-function positionBall(ball, basket){
-    var sizeBall = 10;
-    var sizeBasket = 150;
+function positionBall(ball, basketID) {
+    var basket = document.getElementById(basketID);
+    var sizeBasket = basket.width - 30;
 
-    //retrieve position of the basket
-    var basketPosition = basket.getBoundingClientRect();
-    var basketX = basketPosition.x;
-    var basketY = basketPosition.y;
-    
+    //retrieve position of document
+    var documentPosition = document.documentElement.getBoundingClientRect();
+
+    //retrieve position of the basket according to documentPosition
+    var basketPosition = basket.getBoundingClientRect()
+    var basketX = basketPosition.left - documentPosition.left;
+    var basketY = basketPosition.top - documentPosition.top;
+
     //calculate the max position of the ball
-    var maxBallX = basketX + sizeBasket - sizeBall;
-    var maxBallY = basketY + sizeBasket - sizeBall;
+    var maxBallX = basketX + sizeBasket;
+    var maxBallY = basketY + sizeBasket;
 
-    //calculate the min position of the ball
-    var minBallX = basketX;
-    var minBallY = basketY;
+    //retrieve the min position of the ball
+    var minBallX = basketX + 10;
+    var minBallY = basketY + 50;
 
-    //calculate the position of the ball
-    var ballX = Math.floor(Math.random() * (maxBallX - minBallX + 1)) + minBallX;
-    var ballY = Math.floor(Math.random() * (maxBallY - minBallY + 1)) + minBallY;
+    //calculate the position of the ball randomly
+    var ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
+    var ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
 
+    //modify ball position
     ball.style.position = "absolute";
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
@@ -117,6 +136,9 @@ function positionBall(ball, basket){
 
 var htmlScore = document.getElementById("adapt_score");
 
-function updateScore(){
-    //TODO : update the score
+var nbWins = 0;
+var nbLosses = 0;
+
+function updateScore() {
+    //TODO : update the score 
 }

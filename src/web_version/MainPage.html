@@ -21,7 +21,7 @@
     <!-- tabs for each page -->
     <button id="lang_switch" class="btn btn-primary btn-sm" translate="lang_switch" onclick="switchLang()"></button>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <span class="navbar-brand" translate="discovery"></span>
+        <span class="navbar-brand" translate="nim_game"></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTabs"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -122,18 +122,21 @@
         </table>
     </div>
 
-    <div id="goal" class="tab text-center m-3 hidden">
+    <div id="goal" class="tab text-center m-3 d-flex flex-column justify-content-center hidden">
         <h1 translate="goal"></h1>
-        <h2 translate="goal_premise">
-            </h1>
-            <!--<ul class='m-auto' style='width: fit-content;' translate="goal_gist"></ul>-->
-            <ul class='list-group' translate="goal_gist"></ul>
-            <p translate="goal_desc"></p>
-            <img src="./images/plusieurs.png">
-            <p translate="goal_concl"></p>
+        <h3 translate="goal_premise"></h3>
+        <div id="bubbles_speech" class="d-flex flex-column align-items-center">
+            <img src="images/Bubble Speech 1.png" width="800px" height="500px">
+            <p id="left" class="overlay-text h5" translate="goal_gist"></p>
+            <img src="images/Bubble Speech 2.png" width="700px" height="600px">
+            <p id="right" class="overlay-text h5" translate="goal_about_matches"></p>
+        </div>
+        <p translate="goal_desc"></p>
+        <img id="goal_example_multi" src="./images/plusieurs.png">
+        <p translate="goal_concl"></p>
     </div>
 
-    <div id="interacting" class="tab hidden text-center">
+    <div id="interacting" class="tab text-center hidden">
         <h1 translate="interacting"></h1>
         <h5 translate="interacting_gist"></h5>
         <p translate="interacting_start" class="font-italic"></p>
@@ -164,7 +167,7 @@
         </div>
     </div>
 
-    <div id="param_tuto" class="tab hidden">
+    <div id="param_tuto" class="tab text-center m-3 hidden">
         <h1 translate="param_tuto"></h1>
         <p translate="param_desc_1"></p>
         <img src="./images/SchemaCasier.png">
@@ -208,15 +211,6 @@
     <div id="adaptation" class="tab hidden">
         <div id="adapt_visualization">
             <legend for="adapt_visualization" translate="adaptation_vizualisation"></legend>
-            <!--<img src="./images/new_redball.png">
-            <img src="./images/new_yellowball.png">-->
-
-
-            <!-- 
-                TODO:                
-                - Has to be able to contain 2 rows of 8 baskets
-                - And everything has to be responsive :)
-            -->
         </div>
 
         <div id="adapt_score">
@@ -313,9 +307,8 @@
                 </div>
             </fieldset>
             <button type="button" class="btn btn-primary" translate="adaptation_preview"
-                onclick="getFormValues()"></button>
-            <button type="button" class="btn btn-success" onclick="playGame()"
-                translate="adaptation_start"></button>
+                onclick="updateCanvas()"></button>
+            <button type="button" class="btn btn-success" onclick="playGame()" translate="adaptation_start"></button>
         </form>
     </div>
 

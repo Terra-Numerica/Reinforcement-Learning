@@ -151,6 +151,11 @@ function updateCanvas() {
             }
         }
     });
+
+    //if the grid is one column, scroll to the visualization part
+    if (window.innerWidth < 1000) {
+        document.getElementById("adapt_visualization").scrollIntoView({behavior: "smooth"});
+    }
 }
 
 function updateBaskets(nbBaskets, nbMoves) {
@@ -251,6 +256,7 @@ function updateScore() {
     } else {
         var wins = nb_wins / (nb_wins + nb_defeats) * 100;
         var defeats = nb_defeats / (nb_wins + nb_defeats) * 100;
+
         progressBars[0].setAttribute("aria-valuenow", wins);
         progressBars[0].style.width = wins + "%";
         progressBars[0].innerHTML = Math.round(wins) + "%";

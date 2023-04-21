@@ -28,7 +28,7 @@ public class Game {
     int ppos[];
     final int NB_CASIERS_MAX=17;
     
-    public Game(int[] moves, int longueur){
+    Game(int[] moves, int longueur){
         nb_couleurs=moves.length;
         S=new int[nb_couleurs];
         for (int i=0;i<moves.length;i++)

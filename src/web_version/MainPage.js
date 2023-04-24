@@ -5,6 +5,7 @@ $(document).ready(function () {
 
 let langPicked = $('html')[0].lang;
 
+/* Used to switch the tabs throgh the navbar */
 function showTab(page, event) {
     //hide all other tabs
     var tabs = document.getElementsByClassName("tab");

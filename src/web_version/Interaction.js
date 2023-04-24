@@ -1,5 +1,5 @@
 nbMatches = 8; //number of matches in the game
-nbMoves = 0;
+nbMoves = 0; //number of moves made by the AI
 
 newStart = true; //true if the game has just started, false otherwise
 restart = false; //true if the game has just been restarted, false otherwise
@@ -30,6 +30,7 @@ function initInteracting(){
     matchesLeft = document.getElementById("int_matches_left");
     buttons = document.getElementsByClassName("int_btn");
 
+    //retrieve the dynamic html elements used for displaying the game state
     htmlNbMatches = document.getElementById("NMATCHES_left");
     htmlYellowBalls = document.getElementById("YBALLS");
     htmlRedBalls = document.getElementById("RBALLS");
@@ -105,7 +106,7 @@ function fillResult(result){
     }
 }
 
-//TODO: should display the player's latest move as well in another function
+//TODO: should display the player's latest move as well in another function, or a way to have a full history of the match
 function fillLastMove(nbOfMatchesTaken){
     lastmove.parentNode.classList.remove("d-none");
     if(lastmove.getAttribute("translate") == undefined){
@@ -186,6 +187,7 @@ function actionAI(){
     }
 }
 
+//the function used by all the buttons
 function interact(btn){
     newStart = false;
     restart = false;

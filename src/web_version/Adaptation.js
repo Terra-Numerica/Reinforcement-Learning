@@ -44,6 +44,8 @@ function getFormValues() {
     console.log(formValues);
 }
 
+/* PART ABOUT THE GAME */
+
 function playGame() {
     updateCanvas();
     //TODO : send the formValues to the server (?)
@@ -131,6 +133,7 @@ function updateTooltipValue(element) {
     $(element).attr('data-original-title', element.value).tooltip('show');
     $(element).siblings('span').text('\xa0' + element.value);
 }
+
 /* PART ABOUT THE VISUALIZATION */
 
 var canvas = null;
@@ -189,7 +192,6 @@ function updateBalls(nbBalls, nbMoves, nbBaskets) {
 
 function updateASingleBasket(basketID, nbMoves) { //nb of balls and badges values
     var basket = document.getElementById("basket" + (basketID + 1));
-    var nbBalls = 0;
     var nbBallsForEachColor = [0, 0, 0, 0, 0];
     //use overal_game "machine"
     for (var i = 0; i < nbMoves; i++) {
@@ -242,7 +244,6 @@ function positionBall(ball, basketID) {
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
 }
-
 
 /* PART ABOUT THE SCORE */
 

@@ -138,30 +138,74 @@ function updateTooltipValue(element) {
 
 var canvas = null;
 var colors = ["yellow", "red", "blue", "green", "purple"];
+var eventAdded = false;
+var basketPositions = [];
 
 function updateCanvas() {
     getFormValues();
 
-    canvas = document.getElementById("adapt_visualization");
-    updateBaskets(formValues["nbBaskets"], formValues["nbMoves"]);
-    updateBalls(formValues["nbBalls"], formValues["nbMoves"], formValues["nbBaskets"]);
-    window.addEventListener("resize", function () {
-        if (!document.getElementById("adaptation").classList.contains("hidden")) {
-            var balls = document.getElementsByClassName("ball_drawings");
-            for (var i = 0; i < balls.length; i++) {
-                var basketID = "basket" + Math.floor(i / (parseInt(formValues["nbBalls"]) * parseInt(formValues["nbMoves"])));
-                positionBall(balls[i], basketID);
-            }
-        }
-    });
+    if (!eventAdded) {
+        /* EVENTS NEEDED FOR THE RESPONSIVENESS OF THE BALLS */
+        window.addEventListener("resize", function () {
+            hideBalls();
+            updateBasketPositions();
+            positionBalls(false, formValues["nbBalls"], formValues["nbMoves"], formValues["nbBaskets"]);
+            showBalls();
+        });
 
-    //if the grid is one column, scroll to the visualization part
-    if (window.innerWidth < 1000) {
-        document.getElementById("adapt_visualization").scrollIntoView({behavior: "smooth"});
+        $('#navbarTabs').on('hide.bs.collapse', function () {
+            hideBalls();
+        });
+
+        $('#navbarTabs').on('hidden.bs.collapse', function () {
+            showBalls();
+            updateBasketPositions();
+            positionBalls(false, formValues["nbBalls"], formValues["nbMoves"], formValues["nbBaskets"]);
+        });
+
+        $('#navbarTabs').on('show.bs.collapse', function () {
+            hideBalls();
+        });
+
+        $('#navbarTabs').on('shown.bs.collapse', function () {
+            showBalls();
+            updateBasketPositions();
+            positionBalls(false, formValues["nbBalls"], formValues["nbMoves"], formValues["nbBaskets"]);
+        });
     }
+
+    //disable preview and start btns
+    var prev = document.getElementById("adapt_preview");
+    var start = document.getElementById("adapt_start");
+    prev.disabled = true;
+    start.disabled = true; //doesn't disable?? Maybe there is a way to control the order of the calls
+
+    setTimeout(() => {
+        console.profile("updateCanvas");
+        canvas = document.getElementById("adapt_visualization");
+        var nbBaskets = formValues["nbBaskets"];
+        var nbMoves = formValues["nbMoves"];
+        var nbBalls = formValues["nbBalls"];
+
+        canvas.innerHTML = "";
+        createBaskets(nbBaskets, nbMoves);
+        createBalls(nbBalls, nbMoves, nbBaskets);
+        updateBasketPositions();
+        positionBalls(true, nbBalls, nbMoves, nbBaskets);
+
+        //if the grid is one column, scroll to the visualization part
+        if (window.innerWidth < 1000) {
+            document.getElementById("adapt_visualization").scrollIntoView({ behavior: "smooth" });
+        }
+
+        //enable preview and start btns
+        prev.disabled = false;
+        start.disabled = false;
+        console.profileEnd("updateCanvas");
+    }, 100);
 }
 
-function updateBaskets(nbBaskets, nbMoves) {
+function createBaskets(nbBaskets, nbMoves) {
     canvas.innerHTML = '<legend for="adapt_visualization" translate="adaptation_vizualisation">' + texts["adaptation_vizualisation"][langPicked] + '</legend>';
     var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" alt="A basket/un casier">';
     for (var i = 0; i < nbBaskets; i++) {
@@ -169,25 +213,38 @@ function updateBaskets(nbBaskets, nbMoves) {
         canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + (i + 1) + '</span>';
         canvas.children[canvas.children.length - 2].id = "basket" + i;
         var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color COLOR_counter">0</span>';
+        var result = "";
         for (var j = 0; j < nbMoves; j++) {
-            canvas.innerHTML += badgeForEachColor.replace("COLOR", colors[j]);
+            result += badgeForEachColor.replace("COLOR", colors[j]);
         }
+        canvas.innerHTML += result;
     }
 }
 
-function updateBalls(nbBalls, nbMoves, nbBaskets) {
-    var singleBall = '<img src="./images/new_COLORball.png" width="10px" height="10px" class="ball_drawings" alt="A COLOR ball/une bille COLOR">';
+function createBalls(nbBalls, nbMoves, nbBaskets) {
+    var singleBalls = [];
+    for (var i = 0; i < nbMoves; i++) {
+        singleBalls.push('<div class="div_balls" style="background-color: ' + colors[i] + ';"></div>');
+    }
+
+    var result = "";
+    var ids = [];
     for (var i = 0; i < nbBaskets; i++) {
         var idB = "basket" + i;
         for (var j = 0; j < nbBalls; j++) {
             for (var k = 0; k < nbMoves; k++) {
-                canvas.innerHTML += singleBall.replace("COLOR", colors[k]);
-                var ball = canvas.lastChild;
-                ball.id = "ball" + i + "_" + j + "_" + k;
-                positionBall(ball, idB);
+                result += singleBalls[k];
+                ids.push("ball_" + i + "_" + j + "_" + k);
             }
         }
     }
+    canvas.innerHTML += result;
+    //put balls ids
+    var balls = canvas.getElementsByClassName("div_balls");
+    for (var i = 0; i < balls.length; i++) {
+        balls[i].id = ids[i];
+    }
+
 }
 
 function updateASingleBasket(basketID, nbMoves) { //nb of balls and badges values
@@ -215,34 +272,75 @@ function updateASingleBasket(basketID, nbMoves) { //nb of balls and badges value
     }
 }
 
-function positionBall(ball, basketID) {
-    var basket = document.getElementById(basketID);
-    var sizeBasket = basket.width - 30;
+function updateBasketPositions() {
+    basketPositions = [];
+    var baskets = canvas.getElementsByClassName("basket_drawing");
+    for (var i = 0; i < baskets.length; i++) {
+        basketPositions.push([baskets[i].offsetLeft, baskets[i].offsetTop, baskets[i].width]);
+    }
+}
 
-    //retrieve position of document
-    var documentPosition = document.documentElement.getBoundingClientRect();
+function positionBalls(randomly, nbBalls, nbMoves, nbBaskets) {
+    for (var i = 0; i < nbBaskets; i++) {
+        for (var j = 0; j < nbBalls; j++) {
+            for (var k = 0; k < nbMoves; k++) {
+                positionBall(randomly, document.getElementById("ball_" + i + "_" + j + "_" + k), i);
+            }
+        }
+    }
+}
 
-    //retrieve position of the basket according to documentPosition
-    var basketPosition = basket.getBoundingClientRect()
-    var basketX = basketPosition.left - documentPosition.left;
-    var basketY = basketPosition.top - documentPosition.top;
+
+function positionBall(randomly, ball, basketID) {
+    //retrieve the position of the basket
+    var basketX = basketPositions[basketID][0];
+    var basketY = basketPositions[basketID][1];
 
     //calculate the max position of the ball
+    var sizeBasket = basketPositions[basketID][2] - 30;
     var maxBallX = basketX + sizeBasket;
     var maxBallY = basketY + sizeBasket;
 
     //retrieve the min position of the ball
     var minBallX = basketX + 10;
-    var minBallY = basketY + 50;
+    var minBallY = basketY + 45;
 
+    var ballX = parseInt(ball.style.left);
+    var ballY = parseInt(ball.style.top);
+
+    if(randomly) {
     //calculate the position of the ball randomly
-    var ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
-    var ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
+        ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
+        ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
+    } else {
+        //if the basket's position changed, put the balls randomly in the basket
+        if (ballX < minBallX || ballX > maxBallX || ballY < minBallY || ballY > maxBallY) {
+            ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
+            ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
+        }
+    }
 
     //modify ball position
     ball.style.position = "absolute";
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
+}
+
+
+function showBalls() {
+    if (!document.getElementById("adaptation").classList.contains("hidden")) {
+        var balls = document.getElementsByClassName("div_balls");
+        for (var i = 0; i < balls.length; i++) {
+            balls[i].style.display = "block";
+        }
+    }
+}
+
+function hideBalls() {
+    var balls = document.getElementsByClassName("div_balls");
+    for (var i = 0; i < balls.length; i++) {
+        balls[i].style.display = "none";
+    }
 }
 
 /* PART ABOUT THE SCORE */

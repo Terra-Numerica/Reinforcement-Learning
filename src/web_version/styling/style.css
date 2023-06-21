@@ -157,6 +157,13 @@ input[type=range].form-control {
     margin-block: 30px;
 }
 
+.div_balls {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: black solid 1pt;
+}
+
 .badge_nb_basket {
     translate: -90px 180px;
 }

@@ -31,7 +31,7 @@ legend {
 
 .navbar {
     width: fit-content;
-    min-width: 100%;
+    min-width: 100%
 }
 
 .nav-tab {
@@ -133,9 +133,8 @@ legend {
 
 #adapt_score{
     width: 100%;
-    height: 13vw;
     grid-row: 2;
-    min-height: fit-content;
+    height: fit-content;
 }
 
 #adapt_score > .progress{
@@ -202,7 +201,7 @@ input[type=range].form-control {
         grid-template-columns: 100vw;
     }
     #adapt_visualization, #adapt_score, #adapt_param{
-        min-width: 100%;
+        max-width: 95%;
         min-height: 100%;
     }
     #adapt_param{

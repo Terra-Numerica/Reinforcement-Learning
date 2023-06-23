@@ -178,7 +178,7 @@ function updateCanvas() {
     var prev = document.getElementById("adapt_preview");
     var start = document.getElementById("adapt_start");
     prev.disabled = true;
-    start.disabled = true; //doesn't disable?? Maybe there is a way to control the order of the calls
+    start.disabled = true;
 
     setTimeout(() => {
         console.profile("updateCanvas");
@@ -208,14 +208,19 @@ function updateCanvas() {
 function createBaskets(nbBaskets, nbMoves) {
     canvas.innerHTML = '<legend for="adapt_visualization" translate="adaptation_vizualisation">' + texts["adaptation_vizualisation"][langPicked] + '</legend>';
     var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" alt="A basket/un casier">';
+    var nbBalls = formValues["nbBalls"];
     for (var i = 0; i < nbBaskets; i++) {
         canvas.innerHTML += basket;
         canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + (i + 1) + '</span>';
         canvas.children[canvas.children.length - 2].id = "basket" + i;
-        var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color COLOR_counter">0</span>';
+        var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color COLOR_counter">NB</span>';
         var result = "";
         for (var j = 0; j < nbMoves; j++) {
-            result += badgeForEachColor.replace("COLOR", colors[j]);
+            var tmp_res = result;
+            if(j <= i + 1) {
+                tmp_res += badgeForEachColor.replace("NB", nbBalls);
+            }
+            result += tmp_res.replace("COLOR", colors[j]);
         }
         canvas.innerHTML += result;
     }
@@ -233,8 +238,10 @@ function createBalls(nbBalls, nbMoves, nbBaskets) {
         var idB = "basket" + i;
         for (var j = 0; j < nbBalls; j++) {
             for (var k = 0; k < nbMoves; k++) {
-                result += singleBalls[k];
-                ids.push("ball_" + i + "_" + j + "_" + k);
+                if(k <= i){
+                    result += singleBalls[k];
+                    ids.push("ball_" + i + "_" + j + "_" + k);
+                }
             }
         }
     }
@@ -284,7 +291,9 @@ function positionBalls(randomly, nbBalls, nbMoves, nbBaskets) {
     for (var i = 0; i < nbBaskets; i++) {
         for (var j = 0; j < nbBalls; j++) {
             for (var k = 0; k < nbMoves; k++) {
-                positionBall(randomly, document.getElementById("ball_" + i + "_" + j + "_" + k), i);
+                if(k <= i){
+                    positionBall(randomly, document.getElementById("ball_" + i + "_" + j + "_" + k), i);
+                }
             }
         }
     }
@@ -308,17 +317,9 @@ function positionBall(randomly, ball, basketID) {
     var ballX = parseInt(ball.style.left);
     var ballY = parseInt(ball.style.top);
 
-    if(randomly) {
     //calculate the position of the ball randomly
-        ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
-        ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
-    } else {
-        //if the basket's position changed, put the balls randomly in the basket
-        if (ballX < minBallX || ballX > maxBallX || ballY < minBallY || ballY > maxBallY) {
-            ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
-            ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
-        }
-    }
+    ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
+    ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
 
     //modify ball position
     ball.style.position = "absolute";

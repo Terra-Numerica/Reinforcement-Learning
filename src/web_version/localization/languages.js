@@ -334,12 +334,16 @@ let texts = {
         fr: "L'adversaire",
         en: "The opponent"
     },
-    "adaptation_preview": {
-        fr: "Prévisualisation",
-        en: "Preview"
+    "adaptation_new_game": {
+        fr: '<span class="glyphicon glyphicon-plus"></span> Nouvelle partie',
+        en: '<span class="glyphicon glyphicon-plus"></span> New game'        
     },
-    "adaptation_start": {
-        fr: "Démarrer",
-        en: "Start"
+    "adaptation_continue": {
+        fr: '<span class="glyphicon glyphicon-play-circle"></span> Continuer',
+        en: '<span class="glyphicon glyphicon-play-circle"></span> Continue'
+    },
+    "adaptation_pause": {
+        fr: '<span class="glyphicon glyphicon-pause"></span> Pause',
+        en: '<span class="glyphicon glyphicon-pause"></span> Pause'
     },
 }

@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Game {
     
-    int S[]; // les coups possibles
+    int S[]; // tableau des coups possibles
     int nb_couleurs;
     int nb_casiers;
     int machine[][];
@@ -25,7 +25,7 @@ public class Game {
     int vitesse;
     int joueur; // 0 machine
     Opponent adversaire;
-    int ppos[];
+    int ppos[]; //ppos is a boolean array that indicates if a position is a winning position for the expert
     final int NB_CASIERS_MAX=17;
     
     Game(int[] moves, int longueur){
@@ -76,7 +76,6 @@ public class Game {
              coups_machine[i][0]=coups_machine[i][1]=-1; //pas joué
         }
         position_courante=nb_casiers-1;
-        
     }
     
     
@@ -227,7 +226,7 @@ public class Game {
                 case MACHINE: j=coup_machine(1);break;
                 case EXPERT: j=coup_expert();break;
             }
-        }                
+        }
         return jouer_coup(j);
     }
 

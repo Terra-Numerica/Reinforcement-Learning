@@ -307,9 +307,10 @@
                     </div>
                 </div>
             </fieldset>
-            <button type="button" class="btn btn-primary" translate="adaptation_preview"
-                onclick="updateCanvas()" id="adapt_preview"></button>
-            <button type="button" class="btn btn-success" onclick="playGame()" translate="adaptation_start" id="adapt_start"></button>
+            <!--TODO: find icons to import and put them in the languages.js file-->
+            <button type="button" class="btn btn-success" onclick="startGame()" translate="adaptation_new_game" id="adapt_new_game"></button>
+            <button type="button" class="btn btn-primary d-none" onclick="continueGame()" translate="adaptation_continue" id="adapt_continue"></button>
+            <button type="button" class="btn btn-warning d-none" onclick="pauseGame()" translate="adaptation_pause" id="adapt_pause"></button>
         </form>
     </div>
 

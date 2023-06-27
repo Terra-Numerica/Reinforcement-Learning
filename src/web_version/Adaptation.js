@@ -1,7 +1,7 @@
-var overall_game = null;
+var overallGame = null;
 
-var nb_defeats = 0;
-var nb_wins = 0;
+var nbDefeats = 0;
+var nbWins = 0;
 
 /* PART ABOUT THE PARAMETERS */
 
@@ -46,10 +46,8 @@ function getFormValues() {
 
 /* PART ABOUT THE GAME */
 
-function playGame() {
+function startGame() {
     updateCanvas();
-    //TODO : send the formValues to the server (?)
-    //TODO : the btn text & color has to change and become "pause" and "stop" depending on the state of the game
 
     let nbMoves = formValues["nbMoves"];
     let nbBaskets = formValues["nbBaskets"];
@@ -58,80 +56,60 @@ function playGame() {
     let penalty = formValues["penalty"];
     let speed = formValues["speed"];
     let opponent = formValues["opponent"];
-    let machineStarts = formValues["machineStarts"];
 
-    overall_game = new Game(nbMoves, nbBaskets);
-    overall_game.init_machine(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts ? 0 : 1);
+    overallGame = new Game(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent);
 
-    let actif = false; //for the nonstop mode
-
-    if (speed == 0) {
-        var fin_partie = overall_game.jouerUnCoup();
-        if (fin_partie) {
-            if (overall_game.joueur == 0) {//adversaire a gagné
-                nb_defeats++;
-                console.log("Adversaire gagne");
-                overall_game.renforcement(false, 0);
-                if (overall_game.adversaire == opponent[MACHINE])
-                    overall_game.renforcement(true, 1);
-            }
-            else {
-                nb_wins++;
-                console.log("Machine gagne");
-                overall_game.renforcement(true, 0);
-                if (overall_game.adversaire == opponent[MACHINE])
-                    overall_game.renforcement(false, 1);
-            }
-            console.log("Mise à jour des valeurs...");
-
-            for (let j = 1; j < overall_game.nb_casiers; j++) {
-                if (overall_game.coups_machine[j][0] != -1 || overall_game.coups_machine[j][1] != -1) {
-                    updateASingleBasket(j);
-                }
-            }
-            updateScore();
-            overall_game.reinit_partie();
-            if (!machineStarts)
-                overall_game.joueur = 1;
-            else overall_game.joueur = 0;
-        }
-    } else if (speed == 1) {
-        jeu.jouerUnePartie();
-        if (jeu.joueur == 0) {//adversaire a gagné
-            nb_defeats++;
-            console.log("Adversaire gagne");
-            jeu.renforcement(false, 0);
-            if (jeu.adversaire == opponents[MACHINE])
-                jeu.renforcement(true, 1);
-        }
-        else {
-            nbWins++;
-            console.log("Machine gagne");
-            jeu.renforcement(true, 0);
-            if (jeu.adversaire == opponents[MACHINE])
-                jeu.renforcement(false, 1);
-        }
-        console.log("Mise à jour des valeurs...");
-        for (let j = 1; j < jeu.nb_casiers; j++) {
-            if (jeu.coups_machine[j][0] != -1 || jeu.coups_machine[j][1] != -1) {
-                updateASingleBasket(j);
-            }
-        }
-        updateScore();
-        jeu.reinit_partie();
-        if (!machineStarts)
-            jeu.joueur = 1;
-        else jeu.joueur = 0;
-    } else {
-        //TODO : implement the speed 2 (non-stop, which uses threads in java)
-    }
-
-    return false;
+    //show hiden btns
+    document.getElementById("adapt_continue").classList.remove("d-none");
+    if(speed == 2) document.getElementById("adapt_pause").classList.remove("d-none");
 }
 
 function updateTooltipValue(element) {
     $(element).attr('data-original-title', element.value).tooltip('show');
     $(element).siblings('span').text('\xa0' + element.value);
+}
+
+function continueGame(){
+    let speed = formValues["speed"];
+    let opponent = formValues["opponent"];
+    let machineStarts = formValues["machineStarts"];
+
+    if (speed == 0) { // one move at the time
+        let endGame = overallGame.playOneMove();
+        if (endGame) {
+            var win = overallGame.player == 0;
+            if (!win) {//opponent won
+                nbDefeats++;
+                console.log("Opponent won");
+                overallGame.reinforcement(false, 0);
+                if (overallGame.opponent == opponent[0]) {
+                    overallGame.reinforcement(true, 1);
+                }
+            } else {
+                nbWins++;
+                console.log("Machine won");
+                overallGame.reinforcement(true, 0);
+                if (overallGame.opponent == opponent[0]){
+                    overallGame.reinforcement(false, 1);
+                }
+            }
+            console.log("Updating values...");
+            for (let j = 1; j < overallGame.nbBaskets; j++) {
+                if (overallGame.gameMovesHistory[j][0] > 0) {
+                    updateASingleBasket(j, overallGame.gameMovesHistory[j][0], win);
+                }
+            }
+
+            updateScore();
+            overallGame.restartGame();
+            if(!machineStarts) {
+                overallGame.player = 1;
+            } else {
+                overallGame.player = 0;
+            }
+        }
+    }
+    return false;
 }
 
 /* PART ABOUT THE VISUALIZATION */
@@ -174,14 +152,11 @@ function updateCanvas() {
         });
     }
 
-    //disable preview and start btns
-    var prev = document.getElementById("adapt_preview");
-    var start = document.getElementById("adapt_start");
-    prev.disabled = true;
-    start.disabled = true;
+    var newG = document.getElementById("adapt_new_game");
+    newG.disabled = true;
 
     setTimeout(() => {
-        console.profile("updateCanvas");
+        //console.profile("updateCanvas");
         canvas = document.getElementById("adapt_visualization");
         var nbBaskets = formValues["nbBaskets"];
         var nbMoves = formValues["nbMoves"];
@@ -198,10 +173,8 @@ function updateCanvas() {
             document.getElementById("adapt_visualization").scrollIntoView({ behavior: "smooth" });
         }
 
-        //enable preview and start btns
-        prev.disabled = false;
-        start.disabled = false;
-        console.profileEnd("updateCanvas");
+        newG.disabled = false;
+        //console.profileEnd("updateCanvas");
     }, 100);
 }
 
@@ -213,12 +186,13 @@ function createBaskets(nbBaskets, nbMoves) {
         canvas.innerHTML += basket;
         canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + (i + 1) + '</span>';
         canvas.children[canvas.children.length - 2].id = "basket" + i;
-        var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color COLOR_counter">NB</span>';
+        var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color badge_NBASKET COLOR_counter">NBALLS</span>';
         var result = "";
         for (var j = 0; j < nbMoves; j++) {
             var tmp_res = result;
-            if(j <= i + 1) {
-                tmp_res += badgeForEachColor.replace("NB", nbBalls);
+            if(j <= i) {
+                tmp_res += badgeForEachColor.replace("NBALLS", nbBalls);
+                tmp_res = tmp_res.replace("NBASKET", i + 1);
             }
             result += tmp_res.replace("COLOR", colors[j]);
         }
@@ -226,6 +200,7 @@ function createBaskets(nbBaskets, nbMoves) {
     }
 }
 
+//TODO: separate the creation of a single ball and the creation of all the balls
 function createBalls(nbBalls, nbMoves, nbBaskets) {
     var singleBalls = [];
     for (var i = 0; i < nbMoves; i++) {
@@ -246,7 +221,7 @@ function createBalls(nbBalls, nbMoves, nbBaskets) {
         }
     }
     canvas.innerHTML += result;
-    //put balls ids
+    //set balls ids
     var balls = canvas.getElementsByClassName("div_balls");
     for (var i = 0; i < balls.length; i++) {
         balls[i].id = ids[i];
@@ -254,30 +229,63 @@ function createBalls(nbBalls, nbMoves, nbBaskets) {
 
 }
 
-function updateASingleBasket(basketID, nbMoves) { //nb of balls and badges values
-    var basket = document.getElementById("basket" + (basketID + 1));
-    var nbBallsForEachColor = [0, 0, 0, 0, 0];
-    //use overal_game "machine"
-    for (var i = 0; i < nbMoves; i++) {
-        console.log(overall_game.machine);
-        nbBalls += overall_game.machine[basketID][i];
-        nbBallsForEachColor[i] = overall_game.machine[basketID][i];
+
+function updateASingleBasket(basketID, move, hasWon) {
+    var badges = document.getElementsByClassName("badge_nb_color");
+    for (var i = 0; i < badges.length; i++) {
+        if (badges[i].classList.contains("badge_" + (basketID + 1)) && badges[i].classList.contains(colors[move - 1] + "_counter")) {
+            badges[i].innerHTML -= move;
+        }
     }
-    //update the number of balls in the basket for each color
-    var currBadge = basket.nextSibling.nextSibling;
-    while (currBadge != null && currBadge.classList.contains("badge_nb_color")) {
-        //get the class with _counter in it
-        var thisColor = "";
-        for (var i = 0; i < currBadge.classList.length; i++) {
-            if (currBadge.classList[i].includes("_counter")) {
-                thisColor = currBadge.classList[i].split("_")[2];
+    //retrieve the balls of the basket basketID
+    var balls = document.getElementsByClassName("div_balls");
+    var ballsOfBasket = [];
+    for (var i = 0; i < balls.length; i++) {
+        if (balls[i].id.includes("ball_" + basketID)) {
+            ballsOfBasket.push(balls[i]);
+        }
+    }
+    //if lost, remove "penalty" balls depending on the move done
+    if (!hasWon) {
+        var penalty = -formValues["penalty"];
+        var counter = 0;
+        for (var i = 0; i < ballsOfBasket.length; i++) {
+            if (ballsOfBasket[i].style.backgroundColor == colors[move - 1] && ballsOfBasket[i].style.display != "none") {
+                ballsOfBasket[i].style.display = "none";
+                counter++;
+            }
+            if (counter == penalty) {
                 break;
             }
         }
-        currBadge.innerHTML = nbBallsForEachColor[colors.indexOf(thisColor)];
-        currBadge = currBadge.nextSibling;
+    } else {//if won, create "reward" balls depending on the move done
+        var singleBalls = [];
+        for (var i = 0; i < nbMoves; i++) {
+            singleBalls.push('<div class="div_balls" style="background-color: ' + colors[i] + ';"></div>');
+        }
+        var reward = formValues["reward"];
+        var counter = 0;
+        for (var i = 0; i < ballsOfBasket.length; i++) {
+            if (ballsOfBasket[i].style.display == "none") {
+                ballsOfBasket[i].style.display = "block";
+                ballsOfBasket[i].style.backgroundColor = colors[move - 1];
+                counter++;
+            }
+            if (counter == reward) {
+                break;
+            }
+        }
+        if(counter != reward){
+            var result = "";
+            for (var i = 0; i < reward - counter; i++) {
+                result += singleBalls[move - 1];
+            }
+            canvas.innerHTML += result;
+            positionBall(true, canvas.lastChild, basketID);
+        }
     }
 }
+
 
 function updateBasketPositions() {
     basketPositions = [];
@@ -348,6 +356,7 @@ function hideBalls() {
 
 var htmlScore = document.getElementById("adapt_score");
 
+//redo
 function updateScore() {
     var progressBars = htmlScore.getElementsByClassName("progress-bar");
     if (nb_wins + nb_defeats == 0) {

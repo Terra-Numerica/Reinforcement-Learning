@@ -46,6 +46,8 @@ function getFormValues() {
 
 /* PART ABOUT THE GAME */
 
+var interval = null;
+
 function startGame() {
     updateCanvas();
 
@@ -61,7 +63,7 @@ function startGame() {
 
     //show hiden btns
     document.getElementById("adapt_continue").classList.remove("d-none");
-    if(speed == 2) document.getElementById("adapt_pause").classList.remove("d-none");
+    if (speed == 2) document.getElementById("adapt_pause").classList.remove("d-none");
 }
 
 function updateTooltipValue(element) {
@@ -69,47 +71,67 @@ function updateTooltipValue(element) {
     $(element).siblings('span').text('\xa0' + element.value);
 }
 
-function continueGame(){
+function continueGame() {
     let speed = formValues["speed"];
     let opponent = formValues["opponent"];
     let machineStarts = formValues["machineStarts"];
 
+    let endGame = false;
     if (speed == 0) { // one move at the time
-        let endGame = overallGame.playOneMove();
-        if (endGame) {
-            var win = overallGame.player == 0;
-            if (!win) {//opponent won
-                nbDefeats++;
-                console.log("Opponent won");
-                overallGame.reinforcement(false, 0);
-                if (overallGame.opponent == opponent[0]) {
-                    overallGame.reinforcement(true, 1);
-                }
-            } else {
-                nbWins++;
-                console.log("Machine won");
-                overallGame.reinforcement(true, 0);
-                if (overallGame.opponent == opponent[0]){
-                    overallGame.reinforcement(false, 1);
-                }
-            }
-            console.log("Updating values...");
-            for (let j = 1; j < overallGame.nbBaskets; j++) {
-                if (overallGame.gameMovesHistory[j][0] > 0) {
-                    updateASingleBasket(j, overallGame.gameMovesHistory[j][0], win);
-                }
-            }
-
-            updateScore();
-            overallGame.restartGame();
-            if(!machineStarts) {
-                overallGame.player = 1;
-            } else {
-                overallGame.player = 0;
-            }
-        }
+        endGame = overallGame.playOneMove();
+        updateGame(endGame, opponent, machineStarts);
+        overallGame.restartGame();
+    } else if (speed == 1) { // one game at the time
+        endGame = overallGame.playOneGame();
+        updateGame(endGame, opponent, machineStarts);
+        overallGame.restartGame();
+    } else { // non-stop
+        document.getElementById("adapt_pause").classList.remove("d-none");
+        document.getElementById("adapt_continue").classList.add("d-none");
+        interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, machineStarts), 2000);
+        overallGame.restartGame();
     }
     return false;
+}
+
+function updateGame(endGame, opponent, machineStarts) {
+    if (endGame) {
+        var win = overallGame.player == 0;
+        if (!win) {//opponent won
+            nbDefeats++;
+            console.log("Opponent won");
+            overallGame.reinforcement(false, 0);
+            if (overallGame.opponent == opponent[0]) {
+                overallGame.reinforcement(true, 1);
+            }
+        } else { //machine won
+            nbWins++;
+            console.log("Machine won");
+            overallGame.reinforcement(true, 0);
+            if (overallGame.opponent == opponent[0]) {
+                overallGame.reinforcement(false, 1);
+            }
+        }
+        console.log("Updating values...");
+        for (let j = 1; j < overallGame.nbBaskets; j++) {
+            if (overallGame.gameMovesHistory[j][0] > 0) {
+                updateASingleBasket(j, overallGame.gameMovesHistory[j][0], win);
+            }
+        }
+        updateScore();
+        overallGame.restartGame();
+        if (!machineStarts) {
+            overallGame.player = 1;
+        } else {
+            overallGame.player = 0;
+        }
+    }   
+}
+
+function pauseGame(){
+    clearInterval(interval);
+    document.getElementById("adapt_continue").classList.remove("d-none");
+    document.getElementById("adapt_pause").classList.add("d-none");
 }
 
 /* PART ABOUT THE VISUALIZATION */
@@ -121,6 +143,10 @@ var basketPositions = [];
 
 function updateCanvas() {
     getFormValues();
+
+    nbDefeats = 0;
+    nbWins = 0;
+    updateScore();
 
     if (!eventAdded) {
         /* EVENTS NEEDED FOR THE RESPONSIVENESS OF THE BALLS */
@@ -190,7 +216,7 @@ function createBaskets(nbBaskets, nbMoves) {
         var result = "";
         for (var j = 0; j < nbMoves; j++) {
             var tmp_res = result;
-            if(j <= i) {
+            if (j <= i) {
                 tmp_res += badgeForEachColor.replace("NBALLS", nbBalls);
                 tmp_res = tmp_res.replace("NBASKET", i + 1);
             }
@@ -213,7 +239,7 @@ function createBalls(nbBalls, nbMoves, nbBaskets) {
         var idB = "basket" + i;
         for (var j = 0; j < nbBalls; j++) {
             for (var k = 0; k < nbMoves; k++) {
-                if(k <= i){
+                if (k <= i) {
                     result += singleBalls[k];
                     ids.push("ball_" + i + "_" + j + "_" + k);
                 }
@@ -275,7 +301,7 @@ function updateASingleBasket(basketID, move, hasWon) {
                 break;
             }
         }
-        if(counter != reward){
+        if (counter != reward) {
             var result = "";
             for (var i = 0; i < reward - counter; i++) {
                 result += singleBalls[move - 1];
@@ -299,7 +325,7 @@ function positionBalls(randomly, nbBalls, nbMoves, nbBaskets) {
     for (var i = 0; i < nbBaskets; i++) {
         for (var j = 0; j < nbBalls; j++) {
             for (var k = 0; k < nbMoves; k++) {
-                if(k <= i){
+                if (k <= i) {
                     positionBall(randomly, document.getElementById("ball_" + i + "_" + j + "_" + k), i);
                 }
             }
@@ -354,17 +380,19 @@ function hideBalls() {
 
 /* PART ABOUT THE SCORE */
 
-var htmlScore = document.getElementById("adapt_score");
-
-//redo
 function updateScore() {
+    var htmlScore = document.getElementById("adapt_score");
     var progressBars = htmlScore.getElementsByClassName("progress-bar");
-    if (nb_wins + nb_defeats == 0) {
+    if (nbWins + nbDefeats == 0) {
         progressBars[0].style.width = "50%";
+        progressBars[0].innerHTML = "0%";
+        progressBars[0].setAttribute("aria-valuenow", 0);
         progressBars[1].style.width = "50%";
+        progressBars[1].innerHTML = "0%";
+        progressBars[1].setAttribute("aria-valuenow", 0);
     } else {
-        var wins = nb_wins / (nb_wins + nb_defeats) * 100;
-        var defeats = nb_defeats / (nb_wins + nb_defeats) * 100;
+        var wins = nbWins / (nbWins + nbDefeats) * 100;
+        var defeats = nbDefeats / (nbWins + nbDefeats) * 100;
 
         progressBars[0].setAttribute("aria-valuenow", wins);
         progressBars[0].style.width = wins + "%";

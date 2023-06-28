@@ -19,7 +19,7 @@ class Game {
 
     player; //0 if machine, 1 if opponent
     machineState; //format: machineState[basket][move] = current number of balls for said move in said basket
-    currPosition; //format: currPosition = current basket
+    currPosition; //format: currPosition = the basket currently visited
     gameMovesHistory; //format: gameMovesHistory[basket][player] = move done by player in basket
     winningMoves; //format: winningMoves[nbBalls] = 1 if winning move, 0 otherwise
 
@@ -37,7 +37,7 @@ class Game {
         for (var i = 0; i < nbBaskets; i++) {
             this.machineState[i] = [];
             for (var j = 0; j < nbMoves; j++) {
-                if(j <= i) {
+                if (j <= i) {
                     this.machineState[i][j] = nbBalls;
                 } else {
                     this.machineState[i][j] = 0;
@@ -58,12 +58,6 @@ class Game {
         }
         this.winningMoves = [];
         this.computeWinningMoves();
-
-        console.log("Possible moves: " + this.possibleMoves);
-        console.log("Machine: " + this.machineState);
-        console.log("Current position: " + this.currPosition);
-        console.log("Machine moves: " + this.gameMovesHistory);
-        console.log("Winning moves: " + this.winningMoves);
     }
 
     restartGame() {
@@ -86,11 +80,11 @@ class Game {
         }
     }
 
-    playMove(move){
+    playMove(move) {
         console.log("Current position: " + (this.currPosition + 1) + " Move: " + this.possibleMoves[move]);
         this.currPosition -= this.possibleMoves[move];
         this.player = 1 - this.player;
-        if (this.currPosition < this.possibleMoves[0]){
+        if (this.currPosition < this.possibleMoves[0]) {
             console.log("Game ended");
             return true;
         } else {
@@ -102,21 +96,21 @@ class Game {
         var currNbBalls = 0;
         for (var i = 0; i < this.nbMoves; i++) {
             currNbBalls += this.machineState[this.currPosition][i];
-            var rnd = parseInt(Math.random() * currNbBalls);
-            for (var j = 0; j < this.nbMoves; j++) {
-                for (var k = 0; k < this.machineState[this.currPosition][j]; k++) {
-                    rnd--;
-                    if (rnd < 0) {
-                        this.gameMovesHistory[this.currPosition][id] = j + 1;
-                        return j;
-                    }
+        }
+        var rnd = parseInt(Math.random() * currNbBalls);
+        for (var j = 0; j < this.nbMoves; j++) {
+            for (var k = 0; k < this.machineState[this.currPosition][j]; k++) {
+                rnd--;
+                if (rnd < 0) {
+                    this.gameMovesHistory[this.currPosition][id] = j + 1;
+                    return j;
                 }
             }
         }
         return -1;
     }
 
-    expertMove(){
+    expertMove() {
         for (var i = 0; i < this.nbMoves; i++) {
             if (this.currPosition - this.possibleMoves[i] >= 0 && this.winningMoves[this.currPosition - this.possibleMoves[i]] == 0) {
                 return i;
@@ -125,7 +119,7 @@ class Game {
         return hazardMove();
     }
 
-    hazardMove(){
+    hazardMove() {
         move = parseInt(Math.random() * this.nbMoves);
         while (this.currPosition - this.possibleMoves[move] < 0) {
             move = parseInt(Math.random() * this.nbMoves);
@@ -133,7 +127,7 @@ class Game {
         return move;
     }
 
-    reinforcement(hasWon, idMachine){
+    reinforcement(hasWon, idMachine) {
         for (var i = 1; i < this.nbBaskets; i++) {
             if (this.gameMovesHistory[i][idMachine] >= 0) {
                 this.machineState[i][this.gameMovesHistory[i][idMachine]] += (hasWon) ? this.reward : this.penalty;
@@ -155,10 +149,10 @@ class Game {
 
     playOneMove() {
         var move = 0;
-        if (this.player == 0){ //machine's turn
+        if (this.player == 0) { //machine's turn
             move = this.machineMove(0);
         } else { //opponent's turn
-            switch (this.opponent){
+            switch (this.opponent) {
                 case opponents.MACHINE:
                     move = this.machineMove(1);
                     break;
@@ -178,11 +172,11 @@ class Game {
         while (!this.gameOver) {
             this.gameOver = this.playOneMove();
         }
+        return this.gameOver;
     }
 
-    playNonStop(){
-        while (true) {
-            this.playOneGame();
-        }
+    playNonStop() {
+        var endGame = this.playOneGame();
+        return endGame;
     }
 }

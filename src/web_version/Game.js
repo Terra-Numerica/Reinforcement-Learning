@@ -36,13 +36,6 @@ class Game {
         this.machineState = [];
         for (var i = 0; i < nbBaskets; i++) {
             this.machineState[i] = [];
-            for (var j = 0; j < nbMoves; j++) {
-                if (j <= i) {
-                    this.machineState[i][j] = nbBalls;
-                } else {
-                    this.machineState[i][j] = 0;
-                }
-            }
         }
         this.currPosition = nbBaskets - 1;
         this.possibleMoves = [];
@@ -58,6 +51,9 @@ class Game {
         }
         this.winningMoves = [];
         this.computeWinningMoves();
+        for (var i = 0; i < nbBaskets; i++) {
+            this.initBaskets(i);
+        }
     }
 
     restartGame() {
@@ -81,10 +77,10 @@ class Game {
     }
 
     playMove(move) {
-        console.log("Current position: " + (this.currPosition + 1) + " Move: " + this.possibleMoves[move]);
+        console.log("Current basket: " + (this.currPosition + 1) + " Move: " + this.possibleMoves[move] + " Player: " + this.player);
         this.currPosition -= this.possibleMoves[move];
         this.player = 1 - this.player;
-        if (this.currPosition < this.possibleMoves[0]) {
+        if (this.currPosition < 1) {
             console.log("Game ended");
             return true;
         } else {
@@ -102,7 +98,8 @@ class Game {
             for (var k = 0; k < this.machineState[this.currPosition][j]; k++) {
                 rnd--;
                 if (rnd < 0) {
-                    this.gameMovesHistory[this.currPosition][id] = j + 1;
+                    console.log("CURRENT MOVE: " + j + " CURRENT BASKET: " + this.currPosition + " CURRENT PLAYER: " + id);
+                    this.gameMovesHistory[this.currPosition][id] = j;
                     return j;
                 }
             }
@@ -128,9 +125,10 @@ class Game {
     }
 
     reinforcement(hasWon, idMachine) {
-        for (var i = 1; i < this.nbBaskets; i++) {
+        console.log(this.gameMovesHistory)
+        for (var i = 0; i < this.nbBaskets; i++) {
             if (this.gameMovesHistory[i][idMachine] >= 0) {
-                this.machineState[i][this.gameMovesHistory[i][idMachine]] += (hasWon) ? this.reward : this.penalty;
+                this.machineState[i][this.gameMovesHistory[i][idMachine]] += ((hasWon) ? this.reward : this.penalty);
                 if (this.machineState[i][this.gameMovesHistory[i][idMachine]] < 0) {
                     this.machineState[i][this.gameMovesHistory[i][idMachine]] = 0;
                 }
@@ -143,6 +141,17 @@ class Game {
             }
             if (sum == 0) {
                 this.initBaskets(i);
+            }
+        }
+        //console.log(this.machineState)
+    }
+
+    initBaskets(basket){
+        for(var i = 0; i < this.nbMoves; i++){
+            if(this.possibleMoves[i] - 1 <= basket){
+                this.machineState[basket][i] = this.nbBalls;
+            } else {
+                this.machineState[basket][i] = 0;
             }
         }
     }

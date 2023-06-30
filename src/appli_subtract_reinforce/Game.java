@@ -144,7 +144,7 @@ public class Game {
     public void renforcement(boolean victoire, int numero_machine){
         for (int i=1;i<nb_casiers;i++){
             if (coups_machine[i][numero_machine]>=0){
-                machine[i][coups_machine[i][numero_machine]] += (victoire)? reward : penalty ;
+                machine[i][coups_machine[i][numero_machine]] += ((victoire)? reward : penalty) ;
                 if (machine[i][coups_machine[i][numero_machine]] <0)
                     machine[i][coups_machine[i][numero_machine]]=0;
             }

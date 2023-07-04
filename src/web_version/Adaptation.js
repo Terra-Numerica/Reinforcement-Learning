@@ -58,8 +58,9 @@ function startGame() {
     let penalty = formValues["penalty"];
     let speed = formValues["speed"];
     let opponent = formValues["opponent"];
+    let machineStarts = formValues["machineStarts"];
 
-    overallGame = new Game(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent);
+    overallGame = new Game(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts);
 
     //show hiden btns
     document.getElementById("adapt_continue").classList.remove("d-none");
@@ -80,23 +81,20 @@ function continueGame() {
     if (speed == 0) { // one move at the time
         endGame = overallGame.playOneMove();
         updateGame(endGame, opponent, machineStarts);
-        overallGame.restartGame();
     } else if (speed == 1) { // one game at the time
         endGame = overallGame.playOneGame();
         updateGame(endGame, opponent, machineStarts);
-        overallGame.restartGame();
     } else { // non-stop
         document.getElementById("adapt_pause").classList.remove("d-none");
         document.getElementById("adapt_continue").classList.add("d-none");
         interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, machineStarts), 1000);
-        overallGame.restartGame();
     }
     return false;
 }
 
 function updateGame(endGame, opponent, machineStarts) {
     if (endGame) {
-        var win = overallGame.player == 0;
+        var win = overallGame.player == 1;
         if (!win) {//opponent won
             nbDefeats++;
             console.log("Opponent won");
@@ -113,10 +111,13 @@ function updateGame(endGame, opponent, machineStarts) {
             }
         }
         console.log("Updating values...");
-        for (let j = 1; j < overallGame.nbBaskets; j++) {
-            if (overallGame.gameMovesHistory[j][0] >= 0 || overallGame.gameMovesHistory[j][1] >= 0) {
+        for (let j = 0; j < overallGame.nbBaskets; j++) {
+            
+            if (overallGame.gameMovesHistory[j][0] >= 0) {
+                updateBadges(j);
                 updateASingleBasket(j, overallGame.gameMovesHistory[j][0], win);
             }
+            
         }
         updateScore();
         overallGame.restartGame();
@@ -231,7 +232,6 @@ function createBall(basketID, ballID, move) {
     return ball;
 }
 
-//TODO: separate the creation of a single ball and the creation of all the balls
 function createBalls(nbBalls, nbMoves, nbBaskets) {
     var result = "";
     for (var i = 0; i < nbBaskets; i++) {
@@ -247,17 +247,24 @@ function createBalls(nbBalls, nbMoves, nbBaskets) {
     canvas.innerHTML += result;
 }
 
-
-function updateASingleBasket(basketID, move, hasWon) {
+function updateBadges(basketID) {
     var badges = document.getElementsByClassName("badge_nb_color");
-    var reward = formValues["reward"];
-    var penalty = formValues["penalty"];
+    var nbMoves = formValues["nbMoves"];
     for (var i = 0; i < badges.length; i++) {
-        if (badges[i].classList.contains("badge_" + (basketID + 1)) && badges[i].classList.contains(colors[move] + "_counter")) {
-            badges[i].innerHTML = parseInt(badges[i].innerHTML) + ((hasWon) ? reward : penalty);
-            break;
+        for(var j = 0; j < nbMoves; j++){
+            var move = j;
+            if (badges[i].classList.contains("badge_" + (basketID + 1)) && badges[i].classList.contains(colors[move] + "_counter")) {
+                badges[i].innerHTML = overallGame.machineState[basketID][move];
+                break;
+            }
         }
     }
+}
+
+function updateASingleBasket(basketID, move, hasWon) {
+    var reward = formValues["reward"];
+    var penalty = formValues["penalty"];
+    
     //retrieve the balls of the basket basketID
     var balls = document.getElementsByClassName("div_balls");
     var ballsOfBasket = [];
@@ -337,12 +344,9 @@ function positionBall(ball, basketID) {
     var minBallX = basketX + 10;
     var minBallY = basketY + 45;
 
-    var ballX = parseInt(ball.style.left);
-    var ballY = parseInt(ball.style.top);
-
     //calculate the position of the ball randomly
-    ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
-    ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
+    var ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
+    var ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
 
     //modify ball position
     ball.style.position = "absolute";

@@ -1,7 +1,7 @@
 const opponents = {
-    MACHINE: 0,
-    EXPERT: 1,
-    HAZARD: 2
+    MACHINE: "MACHINE",
+    EXPERT: "EXPERT",
+    HAZARD: "HAZARD"
 }
 
 const NB_CASIERS_MAX = 17;
@@ -23,7 +23,7 @@ class Game {
     gameMovesHistory; //format: gameMovesHistory[basket][player] = move done by player in basket
     winningMoves; //format: winningMoves[nbBalls] = 1 if winning move, 0 otherwise
 
-    constructor(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent) {
+    constructor(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts) {
         this.nbMoves = nbMoves;
         this.nbBaskets = nbBaskets;
         this.nbBalls = nbBalls;
@@ -32,7 +32,7 @@ class Game {
         this.speed = speed;
         this.opponent = opponent;
 
-        this.player = 0;
+        this.player = (machineStarts) ? 0 : 1;
         this.machineState = [];
         for (var i = 0; i < nbBaskets; i++) {
             this.machineState[i] = [];
@@ -52,7 +52,7 @@ class Game {
         this.winningMoves = [];
         this.computeWinningMoves();
         for (var i = 0; i < nbBaskets; i++) {
-            this.initBaskets(i);
+            this.initBasket(i);
         }
     }
 
@@ -65,13 +65,15 @@ class Game {
 
     computeWinningMoves() {
         this.winningMoves[0] = 0;
-        for (var i = 1; i < NB_CASIERS_MAX; i++) {
+        for (var i = 1; i < this.nbBaskets; i++) {
             this.winningMoves[i] = 0;
-            for (var j = 0; j < this.nbMoves; j++) {
+            var j = 0;
+            while(j < this.nbMoves){
                 if (i - this.possibleMoves[j] >= 0 && this.winningMoves[i - this.possibleMoves[j]] == 0) {
                     this.winningMoves[i] = 1;
                     break;
                 }
+                j++;
             }
         }
     }
@@ -79,8 +81,8 @@ class Game {
     playMove(move) {
         console.log("Current basket: " + (this.currPosition + 1) + " Move: " + this.possibleMoves[move] + " Player: " + this.player);
         this.currPosition -= this.possibleMoves[move];
-        this.player = 1 - this.player;
-        if (this.currPosition < 1) {
+        this.player = (this.player + 1) % 2;
+        if (this.currPosition < this.possibleMoves[0] - 1) {
             console.log("Game ended");
             return true;
         } else {
@@ -98,34 +100,32 @@ class Game {
             for (var k = 0; k < this.machineState[this.currPosition][j]; k++) {
                 rnd--;
                 if (rnd < 0) {
-                    console.log("CURRENT MOVE: " + j + " CURRENT BASKET: " + this.currPosition + " CURRENT PLAYER: " + id);
                     this.gameMovesHistory[this.currPosition][id] = j;
                     return j;
                 }
             }
         }
+
         return -1;
     }
 
     expertMove() {
-        for (var i = 0; i < this.nbMoves; i++) {
-            if (this.currPosition - this.possibleMoves[i] >= 0 && this.winningMoves[this.currPosition - this.possibleMoves[i]] == 0) {
-                return i;
-            }
+        if(this.currPosition < this.nbMoves){
+            return this.currPosition;
+        } else {
+            return this.winningMoves[this.currPosition];
         }
-        return hazardMove();
     }
 
     hazardMove() {
-        move = parseInt(Math.random() * this.nbMoves);
-        while (this.currPosition - this.possibleMoves[move] < 0) {
-            move = parseInt(Math.random() * this.nbMoves);
+        var max = this.nbMoves;
+        if(max > this.currPosition){
+            max = this.currPosition;
         }
-        return move;
+        return parseInt(Math.random() * max);
     }
 
     reinforcement(hasWon, idMachine) {
-        console.log(this.gameMovesHistory)
         for (var i = 0; i < this.nbBaskets; i++) {
             if (this.gameMovesHistory[i][idMachine] >= 0) {
                 this.machineState[i][this.gameMovesHistory[i][idMachine]] += ((hasWon) ? this.reward : this.penalty);
@@ -139,16 +139,15 @@ class Game {
             for (var j = 0; j < this.nbMoves; j++) {
                 sum += this.machineState[i][j];
             }
-            if (sum == 0) {
-                this.initBaskets(i);
+            if (sum <= 0) {
+                this.initBasket(i);
             }
         }
-        //console.log(this.machineState)
     }
 
-    initBaskets(basket){
+    initBasket(basket){
         for(var i = 0; i < this.nbMoves; i++){
-            if(this.possibleMoves[i] - 1 <= basket){
+            if(this.possibleMoves[i] <= basket){
                 this.machineState[basket][i] = this.nbBalls;
             } else {
                 this.machineState[basket][i] = 0;

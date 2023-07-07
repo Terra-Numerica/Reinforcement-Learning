@@ -219,8 +219,6 @@ function createBaskets(nbBaskets, nbMoves) {
             var tmp_res = "";
             if (j < i) {
                 tmp_res += badgeForEachColor.replace("NBALLS", nbBalls);
-            } else {
-                tmp_res += badgeForEachColor.replace("NBALLS", 0);
             }
             tmp_res = tmp_res.replace("NBASKET", i);
             result += tmp_res.replace("COLOR", colors[j]);
@@ -264,25 +262,24 @@ function updateBadges(basketID) {
 
 function updateASingleBasket(basketID) {
     var basketState = overallGame.machineState[basketID];
-    console.log("Updating basket " + basketID + " with state " + basketState);
     var nbMoves = formValues["nbMoves"];
-
     var balls = document.getElementsByClassName("div_balls");
     var ballsOfBasket = [];
     for (var i = 0; i < balls.length; i++) {
-        if (balls[i].id.includes("ball_" + basketID)) {
+        if (balls[i].id.split("_")[1] == basketID) {
             ballsOfBasket.push(balls[i]);
         }
     }
-    
     for(var i = 0; i < nbMoves; i++){
         var ballsOfMove = [];
         var hiddenBallsOfMove = [];
         for(var j = 0; j < ballsOfBasket.length; j++){
-            if(ballsOfBasket[j].id.split("_")[3] == i && ballsOfBasket[j].style.display != "none"){
-                ballsOfMove.push(ballsOfBasket[j]);
-            } else if(ballsOfBasket[j].id.split("_")[3] == i && ballsOfBasket[j].style.display == "none"){
-                hiddenBallsOfMove.push(ballsOfBasket[j]);
+            if (ballsOfBasket[j].id.split("_")[3] == i){
+                if(ballsOfBasket[j].style.display == "none"){
+                    hiddenBallsOfMove.push(ballsOfBasket[j]);
+                } else {
+                    ballsOfMove.push(ballsOfBasket[j]);
+                }
             }
         }
         if(ballsOfMove.length > basketState[i]){
@@ -292,15 +289,16 @@ function updateASingleBasket(basketID) {
             }
         } else if(ballsOfMove.length < basketState[i]){
             var difference = basketState[i] - ballsOfMove.length;
-            for(var j = 0; j < hiddenBallsOfMove.length; j++){
+            for(var j = 0; j < hiddenBallsOfMove.length && j < difference; j++){
                 hiddenBallsOfMove[j].style.display = "block";
             }
-            if(hiddenBallsOfMove.length < difference){                
+            if(j < difference){            
                 for(var j = 0; j < difference - hiddenBallsOfMove.length; j++){
                     var newBall = createBall(basketID, ballsOfBasket.length, i);
                     canvas.innerHTML += newBall;
                     ballsOfBasket.push(canvas.children[canvas.children.length - 1]);
                     positionBall(ballsOfBasket[ballsOfBasket.length - 1], basketID - 1);
+                    ballsOfBasket[ballsOfBasket.length - 1].style.display = "block";
                 }
             }
         }

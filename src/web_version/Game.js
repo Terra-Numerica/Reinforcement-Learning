@@ -172,9 +172,6 @@ class Game {
     }
 
     playOneMove() {
-        /*if(isNaN(this.currPosition)){
-            console.log("ERROR: currPosition is NaN");
-        }*/
         var move = 0;
         if (this.player == 0) { // machine's turn
             move = this.machineMove(0);

@@ -19,7 +19,7 @@ function getFormValues() {
     }
 
     //retrieve the nb of baskets
-    formValues["nbBaskets"] = parseInt(document.getElementById("pick_baskets_nb").value);
+    formValues["nbBaskets"] = parseInt(document.getElementById("pick_baskets_nb").value) + 1;
 
     //retrieve the nb of balls
     formValues["nbBalls"] = parseInt(document.getElementById("balls_per_color").value);
@@ -60,6 +60,7 @@ function startGame() {
     let opponent = formValues["opponent"];
     let machineStarts = formValues["machineStarts"];
 
+    //we create the buttons
     overallGame = new Game(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts);
 
     //show hiden btns
@@ -111,11 +112,10 @@ function updateGame(endGame, opponent, machineStarts) {
             }
         }
         console.log("Updating values...");
-        for (let j = 0; j < overallGame.nbBaskets; j++) {
-            
+        for (let j = 1; j < overallGame.nbBaskets; j++) {
             if (overallGame.gameMovesHistory[j][0] >= 0) {
                 updateBadges(j);
-                updateASingleBasket(j, overallGame.gameMovesHistory[j][0], win);
+                updateASingleBasket(j);
             }
             
         }
@@ -209,18 +209,20 @@ function createBaskets(nbBaskets, nbMoves) {
     canvas.innerHTML = '<legend for="adapt_visualization" translate="adaptation_vizualisation">' + texts["adaptation_vizualisation"][langPicked] + '</legend>';
     var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" alt="A basket/un casier">';
     var nbBalls = formValues["nbBalls"];
-    for (var i = 0; i < nbBaskets; i++) {
+    for (var i = 1; i < nbBaskets; i++) {
         canvas.innerHTML += basket;
-        canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + (i + 1) + '</span>';
+        canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + i + '</span>';
         canvas.children[canvas.children.length - 2].id = "basket" + i;
         var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color badge_NBASKET COLOR_counter">NBALLS</span>';
         var result = "";
         for (var j = 0; j < nbMoves; j++) {
             var tmp_res = "";
-            if (j <= i) {
+            if (j < i) {
                 tmp_res += badgeForEachColor.replace("NBALLS", nbBalls);
-                tmp_res = tmp_res.replace("NBASKET", i + 1);
+            } else {
+                tmp_res += badgeForEachColor.replace("NBALLS", 0);
             }
+            tmp_res = tmp_res.replace("NBASKET", i);
             result += tmp_res.replace("COLOR", colors[j]);
         }
         canvas.innerHTML += result;
@@ -234,11 +236,10 @@ function createBall(basketID, ballID, move) {
 
 function createBalls(nbBalls, nbMoves, nbBaskets) {
     var result = "";
-    for (var i = 0; i < nbBaskets; i++) {
-        var idB = "basket" + i;
+    for (var i = 1; i < nbBaskets; i++) {
         for (var j = 0; j < nbBalls; j++) {
             for (var k = 0; k < nbMoves; k++) {
-                if (k <= i) {
+                if (k < i) {
                     result += createBall(i, j, k);
                 }
             }
@@ -253,7 +254,7 @@ function updateBadges(basketID) {
     for (var i = 0; i < badges.length; i++) {
         for(var j = 0; j < nbMoves; j++){
             var move = j;
-            if (badges[i].classList.contains("badge_" + (basketID + 1)) && badges[i].classList.contains(colors[move] + "_counter")) {
+            if (badges[i].classList.contains("badge_" + (basketID)) && badges[i].classList.contains(colors[move] + "_counter")) {
                 badges[i].innerHTML = overallGame.machineState[basketID][move];
                 break;
             }
@@ -261,11 +262,11 @@ function updateBadges(basketID) {
     }
 }
 
-function updateASingleBasket(basketID, move, hasWon) {
-    var reward = formValues["reward"];
-    var penalty = formValues["penalty"];
-    
-    //retrieve the balls of the basket basketID
+function updateASingleBasket(basketID) {
+    var basketState = overallGame.machineState[basketID];
+    console.log("Updating basket " + basketID + " with state " + basketState);
+    var nbMoves = formValues["nbMoves"];
+
     var balls = document.getElementsByClassName("div_balls");
     var ballsOfBasket = [];
     for (var i = 0; i < balls.length; i++) {
@@ -273,42 +274,38 @@ function updateASingleBasket(basketID, move, hasWon) {
             ballsOfBasket.push(balls[i]);
         }
     }
-    //if lost, remove "penalty" balls depending on the move done
-    if (!hasWon) {
-        var penalty = -formValues["penalty"];
-        var counter = 0;
-        for (var i = 0; i < ballsOfBasket.length; i++) {
-            if (ballsOfBasket[i].style.backgroundColor == colors[move] && ballsOfBasket[i].style.display != "none") {
-                ballsOfBasket[i].style.display = "none";
-                counter++;
-            }
-            if (counter == penalty) {
-                break;
+    
+    for(var i = 0; i < nbMoves; i++){
+        var ballsOfMove = [];
+        var hiddenBallsOfMove = [];
+        for(var j = 0; j < ballsOfBasket.length; j++){
+            if(ballsOfBasket[j].id.split("_")[3] == i && ballsOfBasket[j].style.display != "none"){
+                ballsOfMove.push(ballsOfBasket[j]);
+            } else if(ballsOfBasket[j].id.split("_")[3] == i && ballsOfBasket[j].style.display == "none"){
+                hiddenBallsOfMove.push(ballsOfBasket[j]);
             }
         }
-    } else {//if won, create "reward" balls depending on the move done
-        var reward = formValues["reward"];
-        var counter = 0;
-        for (var i = 0; i < ballsOfBasket.length; i++) {
-            if (ballsOfBasket[i].style.display == "none") {
-                ballsOfBasket[i].style.display = "block";
-                ballsOfBasket[i].style.backgroundColor = colors[move];
-                counter++;
+        if(ballsOfMove.length > basketState[i]){
+            var difference = ballsOfMove.length - basketState[i];
+            for(var j = 0; j < difference; j++){
+                ballsOfMove[j].style.display = "none";
             }
-            if (counter == reward) {
-                break;
+        } else if(ballsOfMove.length < basketState[i]){
+            var difference = basketState[i] - ballsOfMove.length;
+            for(var j = 0; j < hiddenBallsOfMove.length; j++){
+                hiddenBallsOfMove[j].style.display = "block";
             }
-        }
-        if (counter != reward) {
-            var tmp = reward - counter;
-            for (var i = 0; i < tmp; i++) {
-                canvas.innerHTML += createBall(basketID, ballsOfBasket.length + i, move);
-                positionBall(canvas.lastChild, basketID);
+            if(hiddenBallsOfMove.length < difference){                
+                for(var j = 0; j < difference - hiddenBallsOfMove.length; j++){
+                    var newBall = createBall(basketID, ballsOfBasket.length, i);
+                    canvas.innerHTML += newBall;
+                    ballsOfBasket.push(canvas.children[canvas.children.length - 1]);
+                    positionBall(ballsOfBasket[ballsOfBasket.length - 1], basketID - 1);
+                }
             }
         }
     }
 }
-
 
 function updateBasketPositions() {
     basketPositions = [];
@@ -323,8 +320,8 @@ function positionBalls() {
     for (var i = 0; i < balls.length; i++) {
         var move = parseInt(balls[i].id.split("_")[3]);
         var basket = parseInt(balls[i].id.split("_")[1]);
-        if(move <= basket){
-            positionBall(balls[i], basket);
+        if(move <= basket - 1){
+            positionBall(balls[i], basket - 1);
         }
     }
 }

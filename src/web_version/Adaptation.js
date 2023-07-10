@@ -46,8 +46,9 @@ function getFormValues() {
 
 /* PART ABOUT THE GAME */
 
-var interval = null;
+var interval = null; //used to control the non-stop mode
 
+// function to start a new game when the user generates the game according to the parameters
 function startGame() {
     updateCanvas();
 
@@ -60,12 +61,12 @@ function startGame() {
     let opponent = formValues["opponent"];
     let machineStarts = formValues["machineStarts"];
 
-    //we create the buttons
+    //create the game (from Game.js)
     overallGame = new Game(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts);
 
     //show hiden btns
     document.getElementById("adapt_continue").classList.remove("d-none");
-    if (speed == 2) document.getElementById("adapt_pause").classList.remove("d-none");
+    if(speed != 2) document.getElementById("adapt_pause").classList.add("d-none");
 }
 
 function updateTooltipValue(element) {
@@ -143,6 +144,7 @@ var eventAdded = false;
 var basketPositions = [];
 
 function updateCanvas() {
+    if(interval != null) pauseGame();
     getFormValues();
 
     nbDefeats = 0;
@@ -177,6 +179,7 @@ function updateCanvas() {
             updateBasketPositions();
             positionBalls();
         });
+        eventAdded = true;
     }
 
     var newG = document.getElementById("adapt_new_game");
@@ -213,14 +216,21 @@ function createBaskets(nbBaskets, nbMoves) {
         canvas.innerHTML += basket;
         canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + i + '</span>';
         canvas.children[canvas.children.length - 2].id = "basket" + i;
-        var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color badge_NBASKET COLOR_counter">NBALLS</span>';
+        var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color badge_NBASKET COLOR_counter" style="transform: translateX(TRANSXpx);">NBALLS</span>';
         var result = "";
+        var originalTransX = -90;
+        if(i < nbMoves){
+            originalTransX -= 10 * (i - 1);
+        } else {
+            originalTransX -= 10 * (nbMoves - 1);
+        }
         for (var j = 0; j < nbMoves; j++) {
             var tmp_res = "";
             if (j < i) {
-                tmp_res += badgeForEachColor.replace("NBALLS", nbBalls);
+                tmp_res += badgeForEachColor.replace("NBALLS", nbBalls);                
+                tmp_res = tmp_res.replace("TRANSX", originalTransX + (20 * j));
+                tmp_res = tmp_res.replace("NBASKET", i);
             }
-            tmp_res = tmp_res.replace("NBASKET", i);
             result += tmp_res.replace("COLOR", colors[j]);
         }
         canvas.innerHTML += result;

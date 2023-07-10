@@ -173,27 +173,22 @@ input[type=range].form-control {
 
 .yellow_counter {
     background-color: #eacd00;
-    transform: translateX(-90px);
 }
 
 .red_counter {
     background-color: red;
-    transform: translateX(-110px);
 }
 
 .blue_counter {
     background-color: blue;
-    transform: translateX(-70px);
 }
 
 .green_counter {
     background-color: green;
-    transform: translateX(-130px);
 }
 
 .purple_counter {
     background-color: purple;
-    transform: translateX(-50px);
 }
 
 @media screen and (max-width: 1000px) {

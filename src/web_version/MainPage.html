@@ -22,7 +22,7 @@
     <!-- tabs for each page -->
     <button id="lang_switch" class="btn btn-primary btn-sm" translate="lang_switch" onclick="switchLang()"></button>
     <nav class="navbar navbar-expand-xl navbar-light bg-light">
-        <span class="navbar-brand" translate="nim_game"></span>
+        <span class="navbar-brand text-light" translate="nim_game"></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTabs"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -169,44 +169,47 @@
     </div>
 
     <div id="param_tuto" class="tab text-center m-3 hidden">
-        <h1 translate="param_tuto"></h1>
+        <h1 translate="param_tuto"></h1>        
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top" src="images/Possible moves.png"
+                    alt="Explanation about the number of moves possible">
+                <div class="card-body">
+                    <h5>Coups possibles</h5>
+                    <p class="card-text" translate="param_moves"></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="images/Opponent.png"
+                    alt="Explanation about the types of opponents possible">
+                <div class="card-body">
+                    <h5>Adversaire</h5>
+                    <p class="card-text" translate="param_opponents"></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="images/Reward and penalty.png"
+                    alt="Explanation about the reward and penalty">
+                <div class="card-body">
+                    <h5>Récompense et pénalité</h5>
+                    <p class="card-text" translate="param_learning"></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="images/Speed.png" alt="Explanation about the speed that can be chosen">
+                <div class="card-body">
+                    <h5>Vitesse</h5>
+                    <p class="card-text" translate="param_speed"></p>
+                </div>
+            </div>
+        </div>
+        <br>
         <p translate="param_desc_1"></p>
-        <img src="./images/SchemaCasier.png">
+        <img src="images/Basket with balls example.png" alt="Basket" height="200px">
         <br>
         <p translate="param_desc_2"></p>
-        <br>
-        <table style=width:100%>
-            <tr>
-                <th>
-                    <img src="./images/Coups.png">
-                </th>
-                <th translate="param_moves"></th>
-            </tr>
-            <tr>
-                <th>
-                    <img src="./images/adversaire.png">
-                </th>
-                <th translate="param_opponents"></th>
-            </tr>
-            <tr>
-                <th>
-                    <img src="./images/recompense.png">
-                </th>
-                <th translate="param_reward"></th>
-            </tr>
-            <tr>
-                <th>
-                    <img src="./images/vitesse.png">
-                </th>
-                <th translate="param_speed"></th>
-            </tr>
-            <tr>
-                <th>
-                    <img src="./images/amorcer.png">
-                </th>
-                <th translate="param_refresh"></th>
-            </tr>
-        </table>
     </div>
 
     <div id="adaptation" class="tab hidden">
@@ -308,9 +311,12 @@
                 </div>
             </fieldset>
             <!--TODO: find icons to import and put them in the languages.js file-->
-            <button type="button" class="btn btn-success" onclick="startGame()" translate="adaptation_new_game" id="adapt_new_game"></button>
-            <button type="button" class="btn btn-primary d-none" onclick="continueGame()" translate="adaptation_continue" id="adapt_continue"></button>
-            <button type="button" class="btn btn-warning d-none" onclick="pauseGame()" translate="adaptation_pause" id="adapt_pause"></button>
+            <button type="button" class="btn btn-success" onclick="startGame()" translate="adaptation_new_game"
+                id="adapt_new_game"></button>
+            <button type="button" class="btn btn-primary d-none" onclick="continueGame()"
+                translate="adaptation_continue" id="adapt_continue"></button>
+            <button type="button" class="btn btn-warning d-none" onclick="pauseGame()" translate="adaptation_pause"
+                id="adapt_pause"></button>
         </form>
     </div>
 

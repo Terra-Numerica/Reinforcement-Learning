@@ -1,6 +1,10 @@
 /* Most of the styling done is through the use of classes of Bootstrap,
 please look for its documentation online if necessary */
 
+body {
+    background-color: #eeffd6;
+}
+
 h1{
     text-align: center;
 }
@@ -14,6 +18,10 @@ td {
 legend {
     font-weight: bold;
     /* displace them on the corner left like in the swing version */
+}
+
+button:focus {
+    outline: none;
 }
 
 .form-check > label {
@@ -31,7 +39,8 @@ legend {
 
 .navbar {
     width: fit-content;
-    min-width: 100%
+    min-width: 100%;
+    background: linear-gradient(90deg, rgba(22,160,0,1) 0%, rgba(255,252,0,1) 100%);
 }
 
 .nav-tab {
@@ -40,12 +49,12 @@ legend {
     width: 100%;
     min-height: 80px;
     height: fit-content;
-    border-style: hidden;
-    background-color: gainsboro;
+    border: none!important;
+    background-color: #ffffff70;
 }
 
 .curr-tab {
-    background-color: #afafaf;
+    background-color: #ffffffd9;
 }
 
 .navbar-nav {
@@ -109,6 +118,28 @@ legend {
 
 #RBALLS{
     color:red;
+}
+
+.card {
+    box-shadow: black 5px 4px 10px 0px;
+    min-width: auto;
+    height: fit-content;
+    margin: 20px;
+    align-items: center;
+    background: #eefffe;
+}
+
+.card-img-top{
+    width: fit-content;
+    height: fit-content;
+    border: 8px solid;
+    border-image: linear-gradient(45deg, turquoise, greenyellow) 1;
+    box-shadow: black 0 2px 7px 0px;
+}
+
+.card-body{
+    width: fit-content;
+    height: fit-content;
 }
 
 #adaptation{

@@ -227,25 +227,37 @@ let texts = {
         fr: "Il y a autant de casiers que d'allumettes. Le contenu de chaque casier est indépendant du contenu des autres casiers. Dans un casier, il ne peut pas y avoir un nombre de boules qui permettrait de retirer plus d'allumettes qu'il n'y a d'allumettes dans le casier. Par exemple, dans le dernier casier, il ne peut y avoir que des boules jaunes.",
         en: "There are as many baskets as matches. The content of each basket is independent of the content of the other baskets. In a basket, there cannot be a number of balls that would allow to remove more matches than there are in the basket. For example, in the last basket, there can only be yellow balls."
     },
+    "param_moves_title" : {
+        fr: "Coups possibles",
+        en: "Possible moves"
+    },
     "param_moves": {
-        fr: "La couleur des boules est attribuée dans l'ordre croissant des coups cochés. <br>L'ordre d'attribution des couleurs est le suivant : jaune, rouge, bleu, vert, violet. <br>Il est possible de cocher des cases qui ne se suivent pas. <br>Par exemple, si on coche 1 et 2 le jaune correspondra à 1 et le rouge à 2. <br>Mais si on coche 1 et 3, le jaune correspondra à 1 et le rouge à 3.",
-        en: "The color of the balls is assigned in the increasing order of the checked moves. <br>The assignment's order of the colors is as follows: yellow, red, blue, green, purple. <br>It is possible to check boxes that do not follow each other. <br>For example, if we check 1 and 2, yellow will correspond to 1 and red to 2. <br>But if we check 1 and 3, yellow will correspond to 1 and red to 3."
+        fr: "La couleur des boules est attribuée dans l'ordre croissant des coups cochés. <br>L'ordre d'attribution des couleurs est le suivant : jaune, rouge, bleu, vert, violet. <br>",
+        en: "The color of the balls is assigned in ascending order of the checked moves. <br>The order of assignment of the colors is as follows: yellow, red, blue, green, purple. <br>"
+    },
+    "param_opponents_title": {
+        fr: "Adversaires possibles",
+        en: "Possible opponents"
     },
     "param_opponents": {
         fr: "Trois adversaires possibles : <ul><li>Aléatoire : aucune stratégie de la part de l'adversaire.</li> <li>Machine : une autre IA ayant appris avec le même algorithme d'apprentissage par renforcement.</li> <li>Expert : une stratégie mise en place afin de rendre plus difficile les victoires pour l'IA.</li> </ul>",
         en: "Three possible opponents: <ul><li>Random: no strategy on the opponent's part.</li> <li>Machine: another AI that has learned with the same reinforcement learning algorithm.</li> <li>Expert: a strategy put in place to make it more difficult for the AI to win.</li> </ul>"
     },
-    "param_reward": {
+    "param_learning_title": {
+        fr: "Apprentissage",
+        en: "Learning"
+    },
+    "param_learning": {
         fr: "Au départ, on attribue des valeurs par défaut pour la récompense/punition en cas de victoire/défaite de l'IA.",
         en: "Initially, we assign default values for the reward/punishment in case of AI victory/defeat."
+    },
+    "param_speed_title": {
+        fr: "Vitesse d'affichage",
+        en: "Display speed"
     },
     "param_speed": {
         fr: "Trois vitesses d'exécution de l'algorithme : <ul><li>Un coup : un choix est fait soit par l'IA soit par l'autre joueur.</li><li>Une partie : les allumettes sont tirées jusqu'à obtenir un vainqueur. Le nombre de boules est actualisé selon le résultat.</li><li>Non stop : les parties s'enchainent sans pause les unes après les autres.</li></ul>",
         en: "Three execution's speeds of the algorithm: <ul><li>One move: a choice is made either by the AI or by the other player.</li><li>One game: the matches are drawn until a winner is obtained. The number of balls is updated according to the result.</li><li>Non stop: the games follow one after the other without pause.</li></ul>"
-    },
-    "param_refresh": {
-        fr: "Si on a effectué des modifications dans les paramètres, il faut cliquer sur ce bouton pour que les modifications soient prises en compte.",
-        en: "If we have made changes in the parameters, we must click on this button for the changes to be taken into account."
     },
 
     /* ADAPTATION PART */

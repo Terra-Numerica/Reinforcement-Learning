@@ -375,15 +375,15 @@ let texts = {
         en: "The opponent"
     },
     "adaptation_new_game": {
-        fr: '<span class="glyphicon glyphicon-plus"></span> Nouvelle partie',
-        en: '<span class="glyphicon glyphicon-plus"></span> New game'        
+        fr: 'Nouvelle partie &#43;',
+        en: 'New game &#43;'
     },
     "adaptation_continue": {
-        fr: '<span class="glyphicon glyphicon-play-circle"></span> Continuer',
-        en: '<span class="glyphicon glyphicon-play-circle"></span> Continue'
+        fr: 'Continuer &#9193;',
+        en: 'Continue &#9193;'
     },
     "adaptation_pause": {
-        fr: '<span class="glyphicon glyphicon-pause"></span> Pause',
-        en: '<span class="glyphicon glyphicon-pause"></span> Pause'
+        fr: 'Pause &#9208;',
+        en: 'Pause &#9208;'
     },
 }

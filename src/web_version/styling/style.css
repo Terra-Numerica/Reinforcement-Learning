@@ -13,6 +13,7 @@ table,
 th,
 td {
     border: 1px solid black;
+    background-color: white;
 }
 
 legend {
@@ -132,9 +133,18 @@ button:focus {
 .card-img-top{
     width: fit-content;
     height: fit-content;
+    margin-top: 7px;
     border: 8px solid;
     border-image: linear-gradient(45deg, turquoise, greenyellow) 1;
     box-shadow: black 0 2px 7px 0px;
+}
+
+#param_baskets_main_pic{
+    border: none;
+    box-shadow: none;
+    position: absolute;
+    left: 15;
+    top: 15;
 }
 
 .card-body{
@@ -149,6 +159,7 @@ button:focus {
 }
 
 #adapt_visualization, #adapt_score, #adapt_param{
+    background-color: white;
     border: 1px solid black;
     border-radius: 20px;
     padding: 20px;

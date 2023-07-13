@@ -127,15 +127,15 @@ let texts = {
     /* PROBABILITIES PART */
 
     "probs_initial": {
-        fr: "Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs : <ul class='m-auto' style='width: fit-content;'> <li>jaune pour 1 allumette retirée</li> <li>rouge pour 2 allumettes retirées</li> </ul> Au début il y a 2 boules jaunes et 2 boules rouges. <br>La probabilité de retirer une boule jaune est la même que la probabilité de retirer une boule rouge.",
+        fr: "Pour représenter le nombre d'allumettes retirées on utilise des balles de différentes couleurs : <ul class='m-auto' style='width: fit-content;'> <li>jaune pour 1 allumette retirée</li> <li>rouge pour 2 allumettes retirées</li> </ul> Au début il y a 2 balles jaunes et 2 balles rouges. <br>La probabilité de retirer une balle jaune est la même que la probabilité de retirer une balle rouge.",
         en: "To represent the number of matches removed we use balls of different colors: <ul class='m-auto' style='width: fit-content;'> <li>yellow for 1 match removed</li> <li>red for 2 matches removed</li> </ul> At the beginning there are 2 yellow balls and 2 red balls. <br>The probability of removing a yellow ball is the same as the probability of removing a red ball."
     },
     "probs_win": {
-        fr: "Si l'IA a gagné la partie, elle ajoutera 3 boules de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une boule rouge. <br>Comme c'est une action qui lui a permis de gagner, 3 boules rouges vont être ajoutés. <br>La probabilité de retirer une boule rouge augmente.",
+        fr: "Si l'IA a gagné la partie, elle ajoutera 3 balles de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a permis de gagner, 3 balles rouges vont être ajoutés. <br>La probabilité de retirer une balle rouge augmente.",
         en: "If the AI has won the game, it will add 3 balls of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>As this is an action that allowed it to win, 3 red balls will be added. <br>The probability of removing a red ball increases."
     },
     "probs_lost": {
-        fr: "Si l'IA a perdu la partie, elle retirera 1 boule de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une boule rouge. <br>Comme c'est une action qui lui a fait perdre, 1 boule rouge va lui être retirée. <br>La probabilité de retirer une boule rouge diminue.",
+        fr: "Si l'IA a perdu la partie, elle retirera 1 balle de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a fait perdre, 1 balle rouge va lui être retirée. <br>La probabilité de retirer une balle rouge diminue.",
         en: "If the AI has lost the game, it will remove 1 ball of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>Since this is an action that made it lose, 1 red ball will be removed from it. <br>The probability of removing a red ball decreases."
     },
 
@@ -146,15 +146,15 @@ let texts = {
         en: "The operation principle of reinforcement learning in a Nim game"
     },
     "goal_gist": {
-        fr: "Son but : maximiser sa récompense au cours des parties.<br>Quelle est sa récompense ? Obtenir le plus grand nombre de boules.<br>Comment obtenir sa récompense ? En gagnant face à son adversaire.",
+        fr: "Son but : maximiser sa récompense au cours des parties.<br>Quelle est sa récompense ? Obtenir le plus grand nombre de balles.<br>Comment obtenir sa récompense ? En gagnant face à son adversaire.",
         en: "Its goal: to maximize its reward over the games.<br>What is its reward? To get the most balls.<br>How to get its reward? By winning against its opponent."
     },
     "goal_about_matches": {
-        fr: "Chaque allumette est représentée par un casier. Pour représenter le nombre d'allumettes retirées on utilise des boules de différentes couleurs :<ul><li style='width: fit-content;'>jaune pour 1 allumette retirée.</li><li style='width: fit-content;'>rouge pour 2 allumettes retirées.</li></ul>",
+        fr: "Chaque allumette est représentée par un casier. Pour représenter le nombre d'allumettes retirées on utilise des balles de différentes couleurs :<ul><li style='width: fit-content;'>jaune pour 1 allumette retirée.</li><li style='width: fit-content;'>rouge pour 2 allumettes retirées.</li></ul>",
         en: "Each match is represented by a drawer. To represent the number of matches removed we use balls of different colors: <ul> <li style='width: fit-content;'>yellow for 1 match removed.</li> <li style='width: fit-content;'>red for 2 matches removed.</li> </ul>"
     },
     "goal_desc": {
-        fr: "Il y a au début le même nombre de boules de couleur jaune que de couleur rouge. Pour chaque nombre d'allumettes restantes au cours des parties, la probabilité de retirer une boule jaune ou une boule rouge (donc de retirer une ou deux allumettes) varie avec le temps.",
+        fr: "Il y a au début le même nombre de balles de couleur jaune que de couleur rouge. Pour chaque nombre d'allumettes restantes au cours des parties, la probabilité de retirer une balle jaune ou une balle rouge (donc de retirer une ou deux allumettes) varie avec le temps.",
         en: "At the beginning there is the same number of yellow balls as red balls. For each number of matches remaining during the games, the probability of removing a yellow ball or a red ball (so removing one or two matches) varies over time."
     },
     "goal_concl": {
@@ -185,19 +185,19 @@ let texts = {
         en: "We put back 8 matches"
     },
     "interacting_end_error": {
-        fr: "Il ne reste plus aucun coup possible à l'IA par faute de boules disponibles.<br>Réinitialisation forcée du jeu.",
+        fr: "Il ne reste plus aucun coup possible à l'IA par faute de balles disponibles.<br>Réinitialisation forcée du jeu.",
         en: "There is no more possible move for the AI due to lack of available balls.<br>Forced game reset." 
     },
     "interacting_end_won": {
-        fr: "L'IA a gagné !<br>L'IA va recevoir une récompense : pour chacun des coups qu'elle a fait, elle récupère trois boules de la couleur correspondant au nombre d'allumettes enlevées.",
+        fr: "L'IA a gagné !<br>L'IA va recevoir une récompense : pour chacun des coups qu'elle a fait, elle récupère trois balles de la couleur correspondant au nombre d'allumettes enlevées.",
         en: "The AI has won!<br>The AI will receive a reward: for each move it has made, it gets three balls of the color corresponding to the number of matches removed."
     },
     "interacting_end_lost": {
-        fr: "L'IA a perdu !<br>L'IA va recevoir une punition : pour chacun des coups qu'elle a fait, elle doit enlever une boule de la couleur correspondant au nombre d'allumettes enlevées.",
+        fr: "L'IA a perdu !<br>L'IA va recevoir une punition : pour chacun des coups qu'elle a fait, elle doit enlever une balle de la couleur correspondant au nombre d'allumettes enlevées.",
         en: "The AI has lost!<br>The AI will receive a punishment: for each move it has made, it must remove a ball of the color corresponding to the number of matches removed."
     },
     "interacting_basket_state": {
-        fr: "Le contenu du casier : <br><br>les boules jaunes - les boules rouges",
+        fr: "Le contenu du casier : <br><br>les balles jaunes - les balles rouges",
         en: "The basket content: <br><br>the yellow balls - the red balls"
     },
     "interacting_take_1": {
@@ -219,25 +219,53 @@ let texts = {
 
     /* PARAMETERS PART */
 
+    "param_desc_title": {
+        fr: "Des casiers et des balles",
+        en: "Baskets and balls"
+    },
     "param_desc_1": {
-        fr: "Chaque allumette est représentée par un casier. Le casier et son contenu servent à modéliser ce qui se passe lors de l'application de l'algorithme. Schéma de la représentation des actions possibles par l'IA pour une allumette :",
+        fr: "Chaque allumette est représentée par un casier. Le casier et son contenu servent à modéliser ce qu'il se passe lors de l'application de l'algorithme. Schéma de la représentation des actions possibles par l'IA pour une allumette :",
         en: "Each match is represented by a basket. The basket and its content are used to model what happens when the algorithm is applied. Representation scheme of the possible actions by the AI for a match:."
     },
     "param_desc_2": {
-        fr: "Il y a autant de casiers que d'allumettes. Le contenu de chaque casier est indépendant du contenu des autres casiers. Dans un casier, il ne peut pas y avoir un nombre de boules qui permettrait de retirer plus d'allumettes qu'il n'y a d'allumettes dans le casier. Par exemple, dans le dernier casier, il ne peut y avoir que des boules jaunes.",
-        en: "There are as many baskets as matches. The content of each basket is independent of the content of the other baskets. In a basket, there cannot be a number of balls that would allow to remove more matches than there are in the basket. For example, in the last basket, there can only be yellow balls."
+        fr: "Il y a autant de casiers que d'allumettes. Le contenu de chaque casier est indépendant du contenu des autres casiers. Dans un casier, il ne peut pas y avoir un nombre de balles qui permettrait de retirer plus d'allumettes qu'il n'y a d'allumettes restantes. Par exemple, dans le dernier casier, il ne peut y avoir que des balles jaunes.",
+        en: "There are as many baskets as there are matches. The content of each basket is independent of the content of the other baskets. In a basket, there cannot be a number of balls that would allow to remove more matches than there are matches left. For example, in the last basket, there can only be yellow balls."
+    },
+    "param_desc_elements": {
+        fr: "L'élément",
+        en: "The element"
+    },
+    "param_desc_3": {
+        fr: "Explication",
+        en: "Explanation"
+    },
+    "param_desc_4": {
+        fr: "Représentation d'un casier. Un casier correspond au nombre d'allumettes restantes. Il y a autant de casiers que d'allumettes.",
+        en: "Representation of a basket. A basket corresponds to the number of matches remaining. There are as many baskets as matches."
+    },
+    "param_desc_5": {
+        fr: "Représentation d'un ensemble de balles. Le nombre de balles par couleur est choisi par l'utilisateur via les paramètres.",
+        en: "Representation of a set of balls. The number of balls per color is chosen by the user via the parameters."
+    },
+    "param_desc_6": {
+        fr: "Numéro de casier. Il correspond aussi au nombre d'alumettes restantes.",
+        en: "Basket number. It also corresponds to the number of matches remaining."
+    },
+    "param_desc_7": {
+        fr: "Compteurs de balles par couleur. Ils correspondent au nombre de balles par couleur présentes par casier. A noter que, par exemple, le casier n°1 n'a qu'un seul compteur de balles car il n'y a qu'un coup possible lorsqu'il ne reste qu'une allumette.",
+        en: "Ball counters by color. They correspond to the number of balls by color present by basket. Note that, for example, basket n°1 has only one ball counter because there is only one possible move when there is only one match left."
     },
     "param_moves_title" : {
-        fr: "Coups possibles",
-        en: "Possible moves"
+        fr: "Paramétrer le jeu de Nim",
+        en: "Set up the Nim game"
     },
     "param_moves": {
-        fr: "La couleur des boules est attribuée dans l'ordre croissant des coups cochés. <br>L'ordre d'attribution des couleurs est le suivant : jaune, rouge, bleu, vert, violet. <br>",
+        fr: "La couleur des balles est attribuée dans l'ordre croissant des coups cochés. <br>L'ordre d'attribution des couleurs est le suivant : jaune, rouge, bleu, vert, violet. <br>",
         en: "The color of the balls is assigned in ascending order of the checked moves. <br>The order of assignment of the colors is as follows: yellow, red, blue, green, purple. <br>"
     },
     "param_opponents_title": {
-        fr: "Adversaires possibles",
-        en: "Possible opponents"
+        fr: "Adversaire possible",
+        en: "Possible opponent"
     },
     "param_opponents": {
         fr: "Trois adversaires possibles : <ul><li>Aléatoire : aucune stratégie de la part de l'adversaire.</li> <li>Machine : une autre IA ayant appris avec le même algorithme d'apprentissage par renforcement.</li> <li>Expert : une stratégie mise en place afin de rendre plus difficile les victoires pour l'IA.</li> </ul>",
@@ -256,7 +284,7 @@ let texts = {
         en: "Display speed"
     },
     "param_speed": {
-        fr: "Trois vitesses d'exécution de l'algorithme : <ul><li>Un coup : un choix est fait soit par l'IA soit par l'autre joueur.</li><li>Une partie : les allumettes sont tirées jusqu'à obtenir un vainqueur. Le nombre de boules est actualisé selon le résultat.</li><li>Non stop : les parties s'enchainent sans pause les unes après les autres.</li></ul>",
+        fr: "Trois vitesses d'exécution de l'algorithme : <ul><li>Un coup : un choix est fait soit par l'IA soit par l'autre joueur.</li><li>Une partie : les allumettes sont tirées jusqu'à obtenir un vainqueur. Le nombre de balles est actualisé selon le résultat.</li><li>Non stop : les parties s'enchainent sans pause les unes après les autres.</li></ul>",
         en: "Three execution's speeds of the algorithm: <ul><li>One move: a choice is made either by the AI or by the other player.</li><li>One game: the matches are drawn until a winner is obtained. The number of balls is updated according to the result.</li><li>Non stop: the games follow one after the other without pause.</li></ul>"
     },
 

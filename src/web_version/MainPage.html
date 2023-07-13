@@ -169,13 +169,58 @@
     </div>
 
     <div id="param_tuto" class="tab text-center m-3 hidden">
-        <h1 translate="param_tuto"></h1>        
+        <h1 translate="param_tuto"></h1>
         <div class="card-deck">
+            <div class="card" style="min-width: 80%;">
+                <img class="card-img-top" id="param_baskets_main_pic"
+                    src="images/Basket with balls example.png" alt="Explanation about the number of baskets and balls">
+                <div class="card-body" style="margin-left: 13em; align-self: flex-end; min-height: 300px;">
+                    <h5 translate="param_desc_title"></h5>
+                    <p class="card-text" translate="param_desc_1"></p>
+                    <p class="card-text" translate="param_desc_2"></p>
+                </div>
+                <div class="card-footer">
+                    <div class="table-responsive"> <!-- one cell = one row if the screen is too small -->
+                        <table class="table" style="table-layout: fixed;">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th translate="param_desc_elements" scope="col" style="width: 11.5em;"></th>
+                                    <th translate="param_desc_3" scope="col"></th>
+                                    <th translate="param_desc_elements" scope="col" style="width: 11.5em;"></th>
+                                    <th translate="param_desc_3" scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="images/new_basket.png" width="150px" class="img-fluid img-thumbnail">
+                                    </td>
+                                    <th translate="param_desc_4"></th>
+                                    <td>
+                                        <img src="images/Basket focus 1.png" width="150px" class="img-fluid img-thumbnail">
+                                    </td>
+                                    <th translate="param_desc_6"></th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="images/Basket focus 3.png" width="150px" class="img-fluid img-thumbnail">
+                                    </td>
+                                    <th translate="param_desc_5"></th>
+                                    <td>
+                                        <img src="images/Basket focus 2.png" width="150px" class="img-fluid img-thumbnail">
+                                    </td>
+                                    <th translate="param_desc_7"></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="card">
                 <img class="card-img-top" src="images/Possible moves.png"
                     alt="Explanation about the number of moves possible">
                 <div class="card-body">
-                    <h5>Coups possibles</h5>
+                    <h5 translate="param_moves_title"></h5>
                     <p class="card-text" translate="param_moves"></p>
                 </div>
             </div>
@@ -183,33 +228,26 @@
                 <img class="card-img-top" src="images/Opponent.png"
                     alt="Explanation about the types of opponents possible">
                 <div class="card-body">
-                    <h5>Adversaire</h5>
+                    <h5 translate="param_opponents_title"></h5>
                     <p class="card-text" translate="param_opponents"></p>
                 </div>
             </div>
-
             <div class="card">
                 <img class="card-img-top" src="images/Reward and penalty.png"
                     alt="Explanation about the reward and penalty">
                 <div class="card-body">
-                    <h5>Récompense et pénalité</h5>
+                    <h5 translate="param_learning_title"></h5>
                     <p class="card-text" translate="param_learning"></p>
                 </div>
             </div>
-
             <div class="card">
                 <img class="card-img-top" src="images/Speed.png" alt="Explanation about the speed that can be chosen">
                 <div class="card-body">
-                    <h5>Vitesse</h5>
+                    <h5 translate="param_speed_title"></h5>
                     <p class="card-text" translate="param_speed"></p>
                 </div>
             </div>
         </div>
-        <br>
-        <p translate="param_desc_1"></p>
-        <img src="images/Basket with balls example.png" alt="Basket" height="200px">
-        <br>
-        <p translate="param_desc_2"></p>
     </div>
 
     <div id="adaptation" class="tab hidden">

@@ -1,8 +1,12 @@
 /* Most of the styling done is through the use of classes of Bootstrap,
 please look for its documentation online if necessary */
 
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-    background-color: #eeffd6;
+    background-color: #00a19936;
 }
 
 h1{
@@ -25,6 +29,38 @@ button:focus {
     outline: none;
 }
 
+.btn-primary{
+    background-color: #24A1EB;
+}
+
+.bn632-hover {
+    color: #fff;
+    height: 4em;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    transition: all .4s ease-in-out;
+  }
+  
+  .bn632-hover:hover {
+    background-position: 100% 0;
+    transition: all .4s ease-in-out;
+  }
+  
+  .bn632-hover:focus {
+    outline: none;
+  }
+  
+  .bn632-hover.bn27 {
+    background-image: linear-gradient(
+      to right,
+      #F9BB12,
+      #00A19A,
+      #24A1EB
+    );
+    box-shadow: 0 4px 15px 0 #00A19A;
+  }
+
 .form-check > label {
     translate: -11px 20px;
     min-width: 100%;
@@ -32,26 +68,69 @@ button:focus {
 
 #lang_switch{
     margin: 10px;
+    position: absolute;
+    right: 0;
+    justify-self: flex-end;
 }
 
-.hidden {
-    display: none!important;
+#menu_btn_navbar{
+    width: 100%;
+    top: 0;
+    right: 0;
+    justify-content: flex-start;
 }
 
-.navbar {
-    width: fit-content;
-    min-width: 100%;
-    background: linear-gradient(90deg, rgba(22,160,0,1) 0%, rgba(255,252,0,1) 100%);
+#menu_btn, #lang_switch, #back_home{
+    margin: 10px;
+    min-width: fit-content;
+    width: 3em;
+    min-height: fit-content;
+    height: 3em;
+    border-radius: 50%;
+    background-color: #00A19A;
 }
+
+#home_btn_grp{
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80%;
+}
+
+#navbarTabs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: 40em;
+    height: 100%;
+    padding-top: 3em;
+    background: linear-gradient(120deg, rgba(249,187,18,1) 0%, rgba(0,161,154,1) 50%, rgba(36,161,235,1) 100%);
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+#navbarTabs > .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #1A182D;
+  }
 
 .nav-tab {
     margin: 10px;
     min-width: 150px;
-    width: 100%;
+    width: 97%;
     min-height: 80px;
     height: fit-content;
     border: none!important;
     background-color: #ffffff70;
+}
+
+.tab {
+    padding: 10px;
 }
 
 .curr-tab {
@@ -66,6 +145,10 @@ button:focus {
 #navbarTabs.collapsing > .navbar-nav > .nav-tab,
 #navbarTabs.show > .navbar-nav > .nav-tab {
     min-height: 50px;    
+}
+
+#overall_canvas {
+    margin: 50px;
 }
 
 .list-group-flush{
@@ -105,7 +188,7 @@ button:focus {
 
 #interacting{
     width: 80%;
-    margin: auto;
+    margin-inline: auto;
 }
 
 .int_btn{

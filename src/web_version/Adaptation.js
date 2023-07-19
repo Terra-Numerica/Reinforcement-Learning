@@ -114,11 +114,8 @@ function updateGame(endGame, opponent, machineStarts) {
         }
         console.log("Updating values...");
         for (let j = 1; j < overallGame.nbBaskets; j++) {
-            if (overallGame.gameMovesHistory[j][0] >= 0) {
-                updateBadges(j);
-                updateASingleBasket(j);
-            }
-            
+            updateBadges(j);
+            updateASingleBasket(j);
         }
         updateScore();
         overallGame.restartGame();

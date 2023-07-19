@@ -20,26 +20,32 @@
 
 <body>
     <!-- tabs for each page -->
-    <button id="lang_switch" class="btn btn-primary btn-sm" translate="lang_switch" onclick="switchLang()"></button>
-    <nav class="navbar navbar-expand-xl navbar-light bg-light">
-        <span class="navbar-brand text-light" translate="nim_game"></span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTabs"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav id="menu_btn_navbar" class="navbar navbar-light">
+        <button id="menu_btn" onclick="slideMenu()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarTabs">
-            <ul class="navbar-nav">
-                <button class="nav-tab curr-tab" translate="rules_game" onclick="showTab('rules_game', this)"></button>
-                <button class="nav-tab" translate="rein_learning" onclick="showTab('rein_learning', this)"></button>
-                <button class="nav-tab" translate="probabilities" onclick="showTab('probabilities', this)"></button>
-                <button class="nav-tab" translate="goal" onclick="showTab('goal', this)"></button>
-                <button class="nav-tab" translate="interacting" onclick="showTab('interacting', this)"></button>
-                <button class="nav-tab" translate="param_tuto" onclick="showTab('param_tuto', this)"></button>
-                <button class="nav-tab" translate="adaptation" onclick="showTab('adaptation', this)"></button>
-            </ul>
-        </div>
+        <button id="back_home" class="invisible" translate="back" onclick="showTab('home_page', null)"></button>
+        <button id="lang_switch" translate="lang_switch" onclick="switchLang()"></button>
     </nav>
-    <div id="rules_game" class="tab text-center m-3">
+    <div id="navbarTabs">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a>
+        <ul class="flex-column pl-0">
+            <button class="nav-tab" translate="rules_game" onclick="showTab('rules_game', this)"></button>
+            <button class="nav-tab" translate="rein_learning" onclick="showTab('rein_learning', this)"></button>
+            <button class="nav-tab" translate="probabilities" onclick="showTab('probabilities', this)"></button>
+            <button class="nav-tab" translate="goal" onclick="showTab('goal', this)"></button>
+            <button class="nav-tab" translate="param_tuto" onclick="showTab('param_tuto', this)"></button>
+        </ul>
+    </div>
+    <div id="home_page">
+        <h1 translate="welcome_msg"></h1>
+        <div id="home_btn_grp" class="d-flex">
+            <button class="bn632-hover bn27 p-3" translate="HvM" onclick="showTab('interacting', null)"></button>
+            <button class="bn632-hover bn27 p-3" translate="MvM" onclick="showTab('adaptation', null)"></button>
+        </div>
+    </div>
+
+    <div id="rules_game" class="tab text-center d-none">
         <h1 translate="rules_game"></h1>
         <p translate="rules_gist"></p>
         <h2 translate="rules_illustr_title"></h2>
@@ -85,7 +91,7 @@
         <p translate="rules_illust_over"></p>
     </div>
 
-    <div id="rein_learning" class="tab text-center m-3 hidden">
+    <div id="rein_learning" class="tab text-center d-none">
         <h1 translate="rein_learning"></h1>
         <h2 translate="rein_field"></h2>
         <p translate="rein_field_gist"></p>
@@ -99,7 +105,7 @@
         <p translate="rein_opti_gist"></p>
     </div>
 
-    <div id="probabilities" class="tab text-center m-3 hidden">
+    <div id="probabilities" class="tab text-center d-none">
         <h1 translate="probabilities"></h1>
         <table class="table w-75 m-auto text-center">
             <tr>
@@ -123,7 +129,8 @@
         </table>
     </div>
 
-    <div id="goal" class="tab text-center m-3 d-flex flex-column justify-content-center hidden">
+    <div id="goal" class="tab text-center d-none">
+        <div id="goal_layout" class="d-flex flex-column justify-content-center">
         <h1 translate="goal"></h1>
         <h3 translate="goal_premise"></h3>
         <div id="bubbles_speech" class="d-flex flex-column align-items-center">
@@ -136,8 +143,9 @@
         <img id="goal_example_multi" src="./images/plusieurs.png">
         <p translate="goal_concl"></p>
     </div>
+    </div>
 
-    <div id="interacting" class="tab text-center hidden">
+    <div id="interacting" class="tab text-center d-none">
         <h1 translate="interacting"></h1>
         <h5 translate="interacting_gist"></h5>
         <p translate="interacting_start" class="font-italic"></p>
@@ -168,12 +176,12 @@
         </div>
     </div>
 
-    <div id="param_tuto" class="tab text-center m-3 hidden">
+    <div id="param_tuto" class="tab text-center d-none">
         <h1 translate="param_tuto"></h1>
         <div class="card-deck">
             <div class="card" style="min-width: 80%;">
-                <img class="card-img-top" id="param_baskets_main_pic"
-                    src="images/Basket with balls example.png" alt="Explanation about the number of baskets and balls">
+                <img class="card-img-top" id="param_baskets_main_pic" src="images/Basket with balls example.png"
+                    alt="Explanation about the number of baskets and balls">
                 <div class="card-body" style="margin-left: 13em; align-self: flex-end; min-height: 300px;">
                     <h5 translate="param_desc_title"></h5>
                     <p class="card-text" translate="param_desc_1"></p>
@@ -197,17 +205,20 @@
                                     </td>
                                     <th translate="param_desc_4"></th>
                                     <td>
-                                        <img src="images/Basket focus 1.png" width="150px" class="img-fluid img-thumbnail">
+                                        <img src="images/Basket focus 1.png" width="150px"
+                                            class="img-fluid img-thumbnail">
                                     </td>
                                     <th translate="param_desc_6"></th>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="images/Basket focus 3.png" width="150px" class="img-fluid img-thumbnail">
+                                        <img src="images/Basket focus 3.png" width="150px"
+                                            class="img-fluid img-thumbnail">
                                     </td>
                                     <th translate="param_desc_5"></th>
                                     <td>
-                                        <img src="images/Basket focus 2.png" width="150px" class="img-fluid img-thumbnail">
+                                        <img src="images/Basket focus 2.png" width="150px"
+                                            class="img-fluid img-thumbnail">
                                     </td>
                                     <th translate="param_desc_7"></th>
                                 </tr>
@@ -250,7 +261,7 @@
         </div>
     </div>
 
-    <div id="adaptation" class="tab hidden">
+    <div id="adaptation" class="tab d-none">
         <div id="adapt_visualization">
             <legend for="adapt_visualization" translate="adaptation_vizualisation"></legend>
         </div>

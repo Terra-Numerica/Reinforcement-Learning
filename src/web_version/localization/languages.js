@@ -9,9 +9,21 @@ let texts = {
         fr: "English",
         en: "Français"
     },
-    "nim_game": {
-        fr: "Jeu de Nim",
-        en: "Nim game"
+    "back": {
+        fr: "Retour",
+        en: "Back"
+    },
+    "welcome_msg": {
+        fr: "Bienvenue sur cette activité dédiée à l'apprentissage par renforcement !",
+        en: "Welcome to this activity dedicated to reinforcement learning!"
+    },
+    "HvM": {
+        fr: "Humain contre machine",
+        en: "Human versus machine"
+    },
+    "MvM": {
+        fr: "Machine contre machine",
+        en: "Machine versus machine"
     },
     "rules_game": {
         fr: "Règles appliquées du jeu de Nim",

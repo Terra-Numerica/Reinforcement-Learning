@@ -50,6 +50,9 @@ var interval = null; //used to control the non-stop mode
 
 // function to start a new game when the user generates the game according to the parameters
 function startGame() {
+    // remove status content
+    document.getElementById("adapt_history").innerHTML = "";
+
     updateCanvas();
 
     let nbMoves = formValues["nbMoves"];
@@ -63,6 +66,7 @@ function startGame() {
 
     //create the game (from Game.js)
     overallGame = new Game(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts);
+    overallGame.textualHistory += "** Game number " + (nbDefeats + nbWins + 1) + " **<br>";
 
     //show hiden btns
     document.getElementById("adapt_continue").classList.remove("d-none");
@@ -95,10 +99,12 @@ function continueGame() {
 }
 
 function updateGame(endGame, opponent, machineStarts) {
+    updateStatus();
     if (endGame) {
         var win = overallGame.player == 1;
         if (!win) {//opponent won
             nbDefeats++;
+            overallGame.textualHistory += "Opponent won<br>";
             console.log("Opponent won");
             overallGame.reinforcement(false, 0);
             if (overallGame.opponent == opponent[0]) {
@@ -106,12 +112,14 @@ function updateGame(endGame, opponent, machineStarts) {
             }
         } else { //machine won
             nbWins++;
+            overallGame.textualHistory += "Machine won<br>";
             console.log("Machine won");
             overallGame.reinforcement(true, 0);
             if (overallGame.opponent == opponent[0]) {
                 overallGame.reinforcement(false, 1);
             }
         }
+        overallGame.textualHistory += "Visualisation updated<br>";
         console.log("Updating values...");
         for (let j = 1; j < overallGame.nbBaskets; j++) {
             updateBadges(j);
@@ -124,8 +132,17 @@ function updateGame(endGame, opponent, machineStarts) {
         } else {
             overallGame.player = 0;
         }
-    }   
+        overallGame.textualHistory += "** Game number " + (nbDefeats + nbWins + 1) + " **<br>";
+    }
 }
+
+function updateStatus() {
+    var status = document.getElementById("adapt_history");
+    var gameStatus = overallGame.textualHistory;
+    status.innerHTML = gameStatus;
+    window.dispatchEvent(new Event('resize'));
+}
+
 
 function pauseGame(){
     clearInterval(interval);
@@ -176,6 +193,7 @@ function updateCanvas() {
             updateBasketPositions();
             positionBalls();
         });
+        
         eventAdded = true;
     }
 

@@ -20,12 +20,12 @@
 
 <body>
     <!-- tabs for each page -->
-    <nav id="menu_btn_navbar" class="navbar navbar-light">
-        <button id="menu_btn" onclick="slideMenu()">
+    <nav id="menu_btn_navbar" class="navbar navbar-dark">
+        <button id="menu_btn" class="btn btn-primary" onclick="slideMenu()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <button id="back_home" class="invisible" translate="back" onclick="showTab('home_page', null)"></button>
-        <button id="lang_switch" translate="lang_switch" onclick="switchLang()"></button>
+        <button id="back_home" class="btn btn-primary invisible" translate="back" onclick="showTab('home_page', null)"></button>
+        <button id="lang_switch" class="btn btn-primary" translate="lang_switch" onclick="switchLang()"></button>
     </nav>
     <div id="navbarTabs">
         <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a>
@@ -40,8 +40,8 @@
     <div id="home_page">
         <h1 translate="welcome_msg"></h1>
         <div id="home_btn_grp" class="d-flex">
-            <button class="bn632-hover bn27 p-3" translate="HvM" onclick="showTab('interacting', null)"></button>
-            <button class="bn632-hover bn27 p-3" translate="MvM" onclick="showTab('adaptation', null)"></button>
+            <button class="btn btn-primary p-3" translate="HvM" onclick="showTab('interacting', null)"></button>
+            <button class="btn btn-primary p-3" translate="MvM" onclick="showTab('adaptation', null)"></button>
         </div>
     </div>
 
@@ -262,6 +262,11 @@
     </div>
 
     <div id="adaptation" class="tab d-none">
+        <div id="adapt_game_status">
+            <legend for="adapt_game_status" translate="adaptation_game_status"></legend>
+            <div id="adapt_history"></div>
+        </div>
+
         <div id="adapt_visualization">
             <legend for="adapt_visualization" translate="adaptation_vizualisation"></legend>
         </div>

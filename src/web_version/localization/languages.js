@@ -302,6 +302,10 @@ let texts = {
 
     /* ADAPTATION PART */
 
+    "adaptation_game_status": {
+        fr: "Statut de la simulation",
+        en: "Simulation status"
+    },
     "adaptation_vizualisation": {
         fr: "Visualisation de la machine",
         en: "Visualization of the machine"

@@ -22,6 +22,7 @@ class Game {
     currPosition; //format: currPosition = the basket currently visited
     gameMovesHistory; //format: gameMovesHistory[basket][player] = move done by player in basket
     winningMoves; //format: winningMoves[nbBalls] = 1 if winning move, 0 otherwise
+    textualHistory; //format: textualHistory = history of the game in text format
 
     constructor(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts) {
         this.nbMoves = nbMoves;
@@ -54,6 +55,7 @@ class Game {
         for (var i = 0; i < nbBaskets; i++) {
             this.initBasket(i);
         }
+        this.textualHistory = "";
     }
 
     //Reset the position (we retrieve the nbBaskets matches) and erase the current history
@@ -78,20 +80,6 @@ class Game {
                 }
                 j++;
             }
-        }
-    }
-
-    // Play a move and return true if the game is over, false otherwise
-    playMove(move) {
-        console.log("Current basket: " + (this.currPosition) + " Move: " + this.possibleMoves[move] + " Player: " + this.player);
-        this.currPosition -= this.possibleMoves[move];
-        this.player = (this.player + 1) % 2;
-        // if the current position is below the smallest move possible, then the game is over
-        if (this.currPosition < this.possibleMoves[0]) {
-            console.log("Game ended");
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -168,6 +156,21 @@ class Game {
             } else {
                 this.machineState[basket][i] = 0;
             }
+        }
+    }
+
+    // Play a move and return true if the game is over, false otherwise
+    playMove(move) {
+        this.textualHistory += "Current basket: " + (this.currPosition) + " Move: " + this.possibleMoves[move] + " Player: " + this.player + "<br>";
+        this.currPosition -= this.possibleMoves[move];
+        this.player = (this.player + 1) % 2;
+        // if the current position is below the smallest move possible, then the game is over
+        if (this.currPosition < this.possibleMoves[0]) {
+            this.textualHistory += "Game over<br>";
+            console.log("Game ended");
+            return true;
+        } else {
+            return false;
         }
     }
 

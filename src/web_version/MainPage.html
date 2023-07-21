@@ -24,7 +24,8 @@
         <button id="menu_btn" class="btn btn-primary" onclick="slideMenu()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <button id="back_home" class="btn btn-primary invisible" translate="back" onclick="showTab('home_page', null)"></button>
+        <button id="back_home" class="btn btn-primary invisible" translate="back"
+            onclick="showTab('home_page', null)"></button>
         <button id="lang_switch" class="btn btn-primary" translate="lang_switch" onclick="switchLang()"></button>
     </nav>
     <div id="navbarTabs">
@@ -111,19 +112,19 @@
             <tr>
                 <th class="probs_steps" translate="probs_initial"></th>
                 <th class="probs_steps">
-                    <img src="images/initial.png">
+                    <img src="images/Example initial .png">
                 </th>
             </tr>
             <tr>
                 <th class="probs_steps" translate="probs_win"></th>
                 <th class="probs_steps">
-                    <img src="images/victoire.png">
+                    <img src="images/Example won.png">
                 </th>
             </tr>
             <tr>
                 <th class="probs_steps" translate="probs_lost"></th>
                 <th class="probs_steps">
-                    <img src="images/defaite.png">
+                    <img src="images/Example loss.png">
                 </th>
             </tr>
         </table>
@@ -131,18 +132,25 @@
 
     <div id="goal" class="tab text-center d-none">
         <div id="goal_layout" class="d-flex flex-column justify-content-center">
-        <h1 translate="goal"></h1>
-        <h3 translate="goal_premise"></h3>
-        <div id="bubbles_speech" class="d-flex flex-column align-items-center">
-            <img src="images/Bubble Speech 1.png" width="800px" height="500px">
-            <p id="left" class="overlay-text h5" translate="goal_gist"></p>
-            <img src="images/Bubble Speech 2.png" width="700px" height="600px">
-            <p id="right" class="overlay-text h5" translate="goal_about_matches"></p>
+            <h1 translate="goal"></h1>
+            <h3 translate="goal_premise"></h3>
+            <div id="bubbles_speech" class="d-flex">
+                <div id="bubble_left">
+                    <img src="images/Bubble Speech 1.png" width="800px" height="500px"
+                        style="transform: rotate(180deg);">
+                    <p id="left" class="overlay-text h5" translate="goal_gist"></p>
+                </div>
+                <img src="images/Robot.svg" width="200px" height="200px">
+                <div id="bubble_right">
+                    <img src="images/Bubble Speech 1.png" width="700px" height="600px"
+                        style="transform: scaleX(-1) rotate(180deg);">
+                    <p id="right" class="overlay-text h5" translate="goal_about_matches"></p>
+                </div>
+            </div>
+            <p translate="goal_desc"></p>
+            <img id="goal_example_multi" src="./images/Final state.png">
+            <p translate="goal_concl"></p>
         </div>
-        <p translate="goal_desc"></p>
-        <img id="goal_example_multi" src="./images/plusieurs.png">
-        <p translate="goal_concl"></p>
-    </div>
     </div>
 
     <div id="interacting" class="tab text-center d-none">
@@ -286,91 +294,96 @@
         </div>
 
         <form id="adapt_param">
-            <legend for="adapt_param" translate="adaptation_parameters"></legend>
-            <fieldset class="form-group row align-items-center">
-                <label for="pick_nb_of_moves_possible" class="col-sm-3 col-form-label"
-                    translate="adaptation_possible_moves"></label>
-                <div class="col-sm align-self-end" id="pick_nb_of_moves_possible">
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="one_move" class="form-control" name="nb_moves" value="1">
-                        <label for="1">1</label>
+            <div id="params_header" class="d-flex">
+                <legend for="adapt_param" translate="adaptation_parameters"></legend>
+                <a style="font-size: xx-large;" data-toggle="collapse" data-toggle="collapse" href="#params_to_collapse" role="button"
+                    aria-expanded="false" aria-controls="params_to_collapse">&#8942;</a>
+            </div>
+            <div id="params_to_collapse" class="collapse show">
+                <fieldset class="form-group row align-items-center">
+                    <label for="pick_nb_of_moves_possible" class="col-sm-3 col-form-label"
+                        translate="adaptation_possible_moves"></label>
+                    <div class="col-sm align-self-end" id="pick_nb_of_moves_possible">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="one_move" class="form-control" name="nb_moves" value="1">
+                            <label for="1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="two_move" class="form-control" name="nb_moves" value="2" checked>
+                            <label for="2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="three_move" class="form-control" name="nb_moves" value="3">
+                            <label for="3">3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="four_move" class="form-control" name="nb_moves" value="4">
+                            <label for="4">4</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="five_move" class="form-control" name="nb_moves" value="5">
+                            <label for="5">5</label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="two_move" class="form-control" name="nb_moves" value="2" checked>
-                        <label for="2">2</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="three_move" class="form-control" name="nb_moves" value="3">
-                        <label for="3">3</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="four_move" class="form-control" name="nb_moves" value="4">
-                        <label for="4">4</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="five_move" class="form-control" name="nb_moves" value="5">
-                        <label for="5">5</label>
-                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <label for="pick_baskets_nb" translate="adaptation_nb_baskets"></label>
+                    <span>&nbsp;8</span>
+                    <input type="range" id="pick_baskets_nb" class="custom-range form-control" min="8" max="16" step="1"
+                        value="8" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
                 </div>
-            </fieldset>
-            <div class="form-group">
-                <label for="pick_baskets_nb" translate="adaptation_nb_baskets"></label>
-                <span>&nbsp;8</span>
-                <input type="range" id="pick_baskets_nb" class="custom-range form-control" min="8" max="16" step="1"
-                    value="8" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
-            </div>
-            <div class="form-group">
-                <label for="balls_per_color" translate="adaptation_balls_color"></label>
-                <span>&nbsp;6</span>
-                <input type="range" id="balls_per_color" class="custom-range form-control" min="2" max="10" step="1"
-                    value="6" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
-            </div>
-            <div class="form-group">
-                <label for="pick_reward" translate="adaptation_reward"></label>
-                <input type="number" id="pick_reward" class="form-control" placeholder=3 value=3 min=0>
-            </div>
-            <div class="form-group">
-                <label for="pick_penalty" translate="adaptation_penalty"></label>
-                <input type="number" id="pick_penalty" class="form-control" placeholder=-1 value=-1 max=0>
-            </div>
-            <div class="form-group">
-                <label for="pick_speed" translate="adaptation_speed"></label>
-                <select class="form-control" id="pick_speed">
-                    <option translate="adaptation_one_move" value="0"></option>
-                    <option translate="adaptation_one_game" value="1"></option>
-                    <option translate="adaptation_non_stop" value="2"></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pick_opponent" translate="adaptation_select_opp"></label>
-                <select class="form-control" id="pick_opponent">
-                    <option translate="adaptation_random" value="HAZARD"></option>
-                    <option translate="adaptation_machine" value="MACHINE"></option>
-                    <option translate="adaptation_expert" value="EXPERT"></option>
-                </select>
-            </div>
-            <fieldset class="form-group row align-items-center">
-                <label class="col-sm-3 col-form-label" translate="adaptation_who_starts"></label>
-                <div id="picks_who_starts" class="col-sm align-self-end">
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="machine_starts" class="form-control" name="picks_who_starts"
-                            value="true" checked>
-                        <label for="1" translate="adaptation_machine_starts"></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="opponent_starts" class="form-control" name="picks_who_starts"
-                            value="false">
-                        <label for="2" translate="adaptation_opponent_starts"></label>
-                    </div>
+                <div class="form-group">
+                    <label for="balls_per_color" translate="adaptation_balls_color"></label>
+                    <span>&nbsp;6</span>
+                    <input type="range" id="balls_per_color" class="custom-range form-control" min="2" max="10" step="1"
+                        value="6" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
                 </div>
-            </fieldset>
-            <!--TODO: find icons to import and put them in the languages.js file-->
-            <button type="button" class="btn btn-success" onclick="startGame()" translate="adaptation_new_game"
-                id="adapt_new_game"></button>
+                <div class="form-group">
+                    <label for="pick_reward" translate="adaptation_reward"></label>
+                    <input type="number" id="pick_reward" class="form-control" placeholder=3 value=3 min=0>
+                </div>
+                <div class="form-group">
+                    <label for="pick_penalty" translate="adaptation_penalty"></label>
+                    <input type="number" id="pick_penalty" class="form-control" placeholder=-1 value=-1 max=0>
+                </div>
+                <div class="form-group">
+                    <label for="pick_speed" translate="adaptation_speed"></label>
+                    <select class="form-control" id="pick_speed">
+                        <option translate="adaptation_one_move" value="0"></option>
+                        <option translate="adaptation_one_game" value="1"></option>
+                        <option translate="adaptation_non_stop" value="2"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pick_opponent" translate="adaptation_select_opp"></label>
+                    <select class="form-control" id="pick_opponent">
+                        <option translate="adaptation_random" value="HAZARD"></option>
+                        <option translate="adaptation_machine" value="MACHINE"></option>
+                        <option translate="adaptation_expert" value="EXPERT"></option>
+                    </select>
+                </div>
+                <fieldset class="form-group row align-items-center">
+                    <label class="col-sm-3 col-form-label" translate="adaptation_who_starts"></label>
+                    <div id="picks_who_starts" class="col-sm align-self-end">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="machine_starts" class="form-control" name="picks_who_starts"
+                                value="true" checked>
+                            <label for="1" translate="adaptation_machine_starts"></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="opponent_starts" class="form-control" name="picks_who_starts"
+                                value="false">
+                            <label for="2" translate="adaptation_opponent_starts"></label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button type="button" id="adapt_new_game" class="btn btn-success" onclick="startGame()"
+                translate="adaptation_new_game"></button>
             <button type="button" class="btn btn-primary d-none" onclick="continueGame()"
                 translate="adaptation_continue" id="adapt_continue"></button>
-            <button type="button" class="btn btn-warning d-none" onclick="pauseGame()" translate="adaptation_pause"
-                id="adapt_pause"></button>
+            <button type="button" id="adapt_pause" class="btn btn-warning d-none" onclick="pauseGame()"
+                translate="adaptation_pause"></button>
         </form>
     </div>
 

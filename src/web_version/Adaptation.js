@@ -215,7 +215,7 @@ function updateCanvas() {
 
         //if the grid is one column, scroll to the visualization part
         if (window.innerWidth < 1000) {
-            document.getElementById("adapt_visualization").scrollIntoView({ behavior: "smooth" });
+            document.getElementById("adapt_game_status").scrollIntoView({ behavior: "smooth" });
         }
 
         newG.disabled = false;

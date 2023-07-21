@@ -38,6 +38,7 @@ function showTab(page, event) {
     //special cases
     var backBtn = document.getElementById("back_home");
     var home = document.getElementById("home_page");
+    var eventAdded = false;
     if (page == "home_page") {
         backBtn.classList.add("invisible");
         backBtn.classList.remove("visible");
@@ -54,8 +55,10 @@ function showTab(page, event) {
             interact(3);
         }
     }
-    if(page == "adaptation" && overallGame != null) {
-        window.dispatchEvent(new Event('resize'));
+    if(page == "adaptation") {
+        if(overallGame != null){
+            window.dispatchEvent(new Event('resize'));
+        }
     }
 
 }

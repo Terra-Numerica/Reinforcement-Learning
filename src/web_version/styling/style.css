@@ -136,15 +136,18 @@ button:focus {
 
 .overlay-text{
     position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0%, 0%);
     width: 400px;
 }
 
 .overlay-text#left{
-    transform: translate(0%, 115%);
+    transform: translate(50%, 145%);
 }
 
 .overlay-text#right{
-    transform: translate(0%, 420%);
+    transform: translate(260%, 160%);
 }
 
 #goal_example_multi{
@@ -184,7 +187,7 @@ button:focus {
     height: fit-content;
     margin-top: 7px;
     border: 8px solid;
-    border-image: linear-gradient(45deg, turquoise, greenyellow) 1;
+    border-image: linear-gradient(180deg, #F9BB12, #00A19A, #24A1EB) 1;
     box-shadow: black 0 2px 7px 0px;
 }
 
@@ -205,12 +208,12 @@ button:focus {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 60vw 35vw;
-    grid-template-rows: auto;
+    grid-template-rows: 250px 15vw;
     grid-template-areas:
-        "status status"
+        "status parameters"
         "visualization parameters"
-        "visualization parameters"
-        "score parameters";
+        "visualization ."
+        "score score";
     
 }
 
@@ -225,11 +228,10 @@ button:focus {
 
 #adapt_game_status{
     grid-area: status;
-    min-width: 100%;
 }
 
 #adapt_history{
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 150px;
 }
 
@@ -240,7 +242,6 @@ button:focus {
 }
 
 #adapt_score{
-    width: 100%;
     grid-area: score;
     height: fit-content;
 }
@@ -252,6 +253,7 @@ button:focus {
 #adapt_param{
     grid-area: parameters;
     max-width: 35vw;
+    height: fit-content;
 }
 
 input[type=range].form-control {
@@ -301,6 +303,7 @@ input[type=range].form-control {
 @media screen and (max-width: 1000px) {
     #adaptation{
         grid-template-columns: 100vw;
+        grid-template-rows: auto;
     }
     #adapt_game_status, #adapt_visualization, #adapt_score, #adapt_param{
         max-width: 95%;

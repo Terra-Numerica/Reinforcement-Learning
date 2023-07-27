@@ -48,6 +48,7 @@ function getFormValues() {
 /* PART ABOUT THE GAME */
 
 var interval = null; //used to control the non-stop mode
+var intervalValue = 0.5;
 
 // function to start a new game when the user generates the game according to the parameters
 function startGame() {
@@ -71,7 +72,11 @@ function startGame() {
 
     //show hiden btns
     document.getElementById("adapt_continue").classList.remove("d-none");
-    if (speed != 2) document.getElementById("adapt_pause").classList.add("d-none");
+    if(speed === 2){
+        document.getElementById("adapt_speed_interval").classList.remove("d-none");
+    } else {
+        document.getElementById("adapt_pause").classList.add("d-none");
+    }
 }
 
 function updateTooltipValue(element) {
@@ -92,9 +97,10 @@ function continueGame() {
         endGame = overallGame.playOneGame();
         updateGame(endGame, opponent, machineStarts);
     } else { // non-stop
+        document.getElementById("adapt_speed_interval_range").disabled = false;
         document.getElementById("adapt_pause").classList.remove("d-none");
         document.getElementById("adapt_continue").classList.add("d-none");
-        interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, machineStarts), 500);
+        interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, machineStarts), (1 - intervalValue) * 1000);
     }
     return false;
 }
@@ -147,6 +153,7 @@ function updateStatus() {
 
 function pauseGame() {
     clearInterval(interval);
+    document.getElementById("adapt_speed_interval_range").disabled = true;
     document.getElementById("adapt_continue").classList.remove("d-none");
     document.getElementById("adapt_pause").classList.add("d-none");
 }
@@ -208,7 +215,7 @@ function updateCanvas() {
         var moves = formValues["moves"];
         var nbBalls = formValues["nbBalls"];
 
-        canvas.innerHTML = "";
+        canvas.innerHTML = '<legend for="adapt_visualization" translate="adaptation_vizualisation">' + texts["adaptation_vizualisation"][langPicked] + '</legend>';
         createBaskets(nbBaskets, moves);
         createBalls(nbBalls, moves, nbBaskets);
         updateBasketPositions();
@@ -225,7 +232,6 @@ function updateCanvas() {
 }
 
 function createBaskets(nbBaskets, moves) {
-    canvas.innerHTML = '<legend for="adapt_visualization" translate="adaptation_vizualisation">' + texts["adaptation_vizualisation"][langPicked] + '</legend>';
     var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" alt="A basket/un casier">';
     var nbBalls = formValues["nbBalls"];
     var tmpCounter = 0;
@@ -396,6 +402,14 @@ function hideBalls() {
     var balls = document.getElementsByClassName("div_balls");
     for (var i = 0; i < balls.length; i++) {
         balls[i].style.display = "none";
+    }
+}
+
+function changeIntervalValue(val){
+    intervalValue = val;
+    if(interval != null){
+        clearInterval(interval);
+        interval = setInterval(() => updateGame(overallGame.playNonStop(), formValues["opponent"], formValues["machineStarts"]), (1 - intervalValue) * 1000);
     }
 }
 

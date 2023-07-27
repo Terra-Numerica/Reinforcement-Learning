@@ -310,6 +310,10 @@ let texts = {
         fr: "Visualisation de la machine",
         en: "Visualization of the machine"
     },
+    "adaptation_speed_interval" : {
+        fr: "Vitesse d'exécution :",
+        en: "Execution speed:"
+    },
     "adaptation_score": {
         fr: "Score",
         en: "Score"

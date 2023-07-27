@@ -280,6 +280,10 @@ input[type=range].form-control {
     translate: 0 200px;
 }
 
+.badge_shadow {
+    box-shadow: black 0 2px 7px 0px;
+}
+
 .yellow_counter {
     background-color: #eacd00;
 }

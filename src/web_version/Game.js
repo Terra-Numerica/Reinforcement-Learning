@@ -24,8 +24,8 @@ class Game {
     winningMoves; //format: winningMoves[nbBalls] = 1 if winning move, 0 otherwise
     textualHistory; //format: textualHistory = history of the game in text format
 
-    constructor(nbMoves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts) {
-        this.nbMoves = nbMoves;
+    constructor(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts) {
+        this.nbMoves = moves.length;
         this.nbBaskets = nbBaskets;
         this.nbBalls = nbBalls;
         this.reward = reward;
@@ -39,10 +39,7 @@ class Game {
             this.machineState[i] = [];
         }
         this.currPosition = nbBaskets - 1;
-        this.possibleMoves = [];
-        for (var i = 0; i < nbMoves; i++) {
-            this.possibleMoves[i] = i + 1;
-        }
+        this.possibleMoves = moves;
         this.gameMovesHistory = [];
         for (var i = 1; i < nbBaskets; i++) {
             this.gameMovesHistory[i] = [];

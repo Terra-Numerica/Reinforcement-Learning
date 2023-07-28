@@ -275,6 +275,15 @@
             <div id="adapt_history"></div>
         </div>
 
+        <div id="adapt_nonstop_speed" class="d-none">
+            <legend for="adapt_nonstop_speed" translate="adaptation_speed_interval"></legend>
+            <div class="form-group d-flex flex-column h-100" id="adapt_speed_interval">
+                <label for="adapt_speed" class="col-form-label text-center w-100">x0.55</label>
+                <input type="range" id="adapt_speed_interval_range" class="form-control-range" min="0.1" max="1"
+                        value="0.55" step="0.01" oninput="changeIntervalValue(this, value)">
+            </div>
+        </div>
+
         <div id="adapt_visualization">
             <legend for="adapt_visualization" translate="adaptation_vizualisation"></legend>
         </div>
@@ -282,8 +291,18 @@
         <div id="adapt_score">
             <legend for="adapt_score" translate="adaptation_score"></legend>
             <div class="d-flex row justify-content-between">
-                <span id="adapt_victories" translate="adaptation_victories"></span>
-                <span id="adapt_defeats" translate="adaptation_defeats"></span>
+                <div>
+                    <span translate="adaptation_victories"></span>
+                    <span id="adapt_victories">0</span>
+                </div>
+                <div>
+                    <span translate="adaptation_counter_games"></span>
+                    <span id="adapt_counter_games">0</span>
+                </div>
+                <div>
+                    <span translate="adaptation_defeats"></span>
+                    <span id="adapt_defeats">0</span>
+                </div>
             </div>
             <div class="progress">
                 <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
@@ -384,13 +403,6 @@
                 translate="adaptation_continue" id="adapt_continue"></button>
             <button type="button" id="adapt_pause" class="btn btn-warning d-none" onclick="pauseGame()"
                 translate="adaptation_pause"></button>
-            <div class="form-group row d-none" id="adapt_speed_interval">
-                <label for="adapt_speed" class="col-sm-2 col-form-label" translate="adaptation_speed_interval"></label>
-                <input type="range" id="adapt_speed_interval_range" class="form-control-range" min="0.1" max="1"
-                        value="0.5" step="0.01" oninput="updateTooltipValue(this)"
-                        onchange="changeIntervalValue(value)">
-                
-            </div>
         </form>
     </div>
 

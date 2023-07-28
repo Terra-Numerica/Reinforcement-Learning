@@ -311,20 +311,24 @@ let texts = {
         en: "Visualization of the machine"
     },
     "adaptation_speed_interval" : {
-        fr: "Vitesse d'exécution :",
-        en: "Execution speed:"
+        fr: "Vitesse d'exécution",
+        en: "Execution speed"
     },
     "adaptation_score": {
         fr: "Score",
         en: "Score"
     },
     "adaptation_victories": {
-        fr: "Victoires",
-        en: "Victories"
+        fr: "Victoires :",
+        en: "Victories:"
     },
     "adaptation_defeats": {
-        fr: "Défaites",
-        en: "Defeats"
+        fr: "Défaites :",
+        en: "Defeats:"
+    },
+    "adaptation_counter_games": {
+        fr: "Nombre de parties :",
+        en: "Number of games:"
     },
     "adaptation_parameters": {
         fr: "Choix de paramètres",
@@ -367,8 +371,8 @@ let texts = {
         en: "Penalty:"
     },
     "adaptation_speed": {
-        fr: "Vitesse :",
-        en: "Speed:"
+        fr: "Cadence :",
+        en: "Cadence:"
     },
     "adaptation_one_move": {
         fr: "Un coup",

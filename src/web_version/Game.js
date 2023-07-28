@@ -158,12 +158,12 @@ class Game {
 
     // Play a move and return true if the game is over, false otherwise
     playMove(move) {
-        this.textualHistory += "Current basket: " + (this.currPosition) + " Move: " + this.possibleMoves[move] + " Player: " + this.player + "<br>";
+        this.textualHistory = "Current basket: " + (this.currPosition) + " Move: " + this.possibleMoves[move] + " Player: " + this.player + "<br>" + this.textualHistory;
         this.currPosition -= this.possibleMoves[move];
         this.player = (this.player + 1) % 2;
         // if the current position is below the smallest move possible, then the game is over
         if (this.currPosition < this.possibleMoves[0]) {
-            this.textualHistory += "Game over<br>";
+            this.textualHistory = "Game over<br>" + this.textualHistory;
             console.log("Game ended");
             return true;
         } else {

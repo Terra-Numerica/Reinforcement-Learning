@@ -208,16 +208,24 @@ button:focus {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 60vw 35vw;
-    grid-template-rows: 250px 15vw;
+    grid-template-rows: 250px 12vw;
     grid-template-areas:
         "status parameters"
         "visualization parameters"
         "visualization ."
         "score score";
-    
 }
 
-#adapt_visualization, #adapt_score, #adapt_game_status, #adapt_param{
+#adaptation.grid_modified{
+    grid-template-areas:
+        "status parameters"
+        "interval parameters"
+        "visualization parameters"
+        "visualization ."
+        "score score";
+}
+
+#adapt_visualization, #adapt_score, #adapt_game_status, #adapt_param, #adapt_nonstop_speed{
     background-color: white;
     border: 1px solid black;
     border-radius: 20px;
@@ -233,6 +241,10 @@ button:focus {
 #adapt_history{
     overflow-y: auto;
     max-height: 150px;
+}
+
+#adapt_nonstop_speed{
+    grid-area: interval;
 }
 
 #adapt_visualization{
@@ -309,7 +321,7 @@ input[type=range].form-control {
         grid-template-columns: 100vw;
         grid-template-rows: auto;
     }
-    #adapt_game_status, #adapt_visualization, #adapt_score, #adapt_param{
+    #adapt_game_status, #adapt_visualization, #adapt_score, #adapt_param, #adapt_nonstop_speed{
         max-width: 95%;
         min-height: 100%;
     }
@@ -318,9 +330,13 @@ input[type=range].form-control {
         grid-row: 1;
         min-width: auto;
     }
-    #adapt_visualization{
+    #adapt_nonstop_speed{
         grid-column: 1;
         grid-row: 2;
+    }
+    #adapt_visualization{
+        grid-column: 1;
+        grid-row: 3;
     }
     #adapt_param{
         grid-column: 1;
@@ -328,6 +344,6 @@ input[type=range].form-control {
     }
     #adapt_score{
         grid-column: 1;
-        grid-row: 3;
+        grid-row: 5;
     }
 }

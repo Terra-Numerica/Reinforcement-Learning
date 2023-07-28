@@ -48,7 +48,7 @@ function getFormValues() {
 /* PART ABOUT THE GAME */
 
 var interval = null; //used to control the non-stop mode
-var intervalValue = 0.5;
+var intervalValue = 0.55;
 
 // function to start a new game when the user generates the game according to the parameters
 function startGame() {
@@ -68,13 +68,16 @@ function startGame() {
 
     //create the game (from Game.js)
     overallGame = new Game(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts);
-    overallGame.textualHistory += "** Game number " + (nbDefeats + nbWins + 1) + " **<br>";
+    overallGame.textualHistory = "** Game number " + (nbDefeats + nbWins + 1) + " **<br>" + overallGame.textualHistory;
 
     //show hiden btns
     document.getElementById("adapt_continue").classList.remove("d-none");
     if(speed === 2){
-        document.getElementById("adapt_speed_interval").classList.remove("d-none");
+        document.getElementById("adaptation").classList.add("grid_modified");
+        document.getElementById("adapt_nonstop_speed").classList.remove("d-none");
     } else {
+        document.getElementById("adaptation").classList.remove("grid_modified");
+        document.getElementById("adapt_nonstop_speed").classList.add("d-none");
         document.getElementById("adapt_pause").classList.add("d-none");
     }
 }
@@ -111,7 +114,7 @@ function updateGame(endGame, opponent, machineStarts) {
         var win = overallGame.player == 1;
         if (!win) {//opponent won
             nbDefeats++;
-            overallGame.textualHistory += "Opponent won<br>";
+            overallGame.textualHistory = "Opponent won<br>" + overallGame.textualHistory;
             console.log("Opponent won");
             overallGame.reinforcement(false, 0);
             if (overallGame.opponent == opponent[0]) {
@@ -119,14 +122,14 @@ function updateGame(endGame, opponent, machineStarts) {
             }
         } else { //machine won
             nbWins++;
-            overallGame.textualHistory += "Machine won<br>";
+            overallGame.textualHistory = "Machine won<br>" + overallGame.textualHistory;
             console.log("Machine won");
             overallGame.reinforcement(true, 0);
             if (overallGame.opponent == opponent[0]) {
                 overallGame.reinforcement(false, 1);
             }
         }
-        overallGame.textualHistory += "Visualisation updated<br>";
+        overallGame.textualHistory = "Visualisation updated<br>" + overallGame.textualHistory;
         console.log("Updating values...");
         for (let j = 1; j < overallGame.nbBaskets; j++) {
             updateBadges(j);
@@ -139,7 +142,7 @@ function updateGame(endGame, opponent, machineStarts) {
         } else {
             overallGame.player = 0;
         }
-        overallGame.textualHistory += "** Game number " + (nbDefeats + nbWins + 1) + " **<br>";
+        overallGame.textualHistory = "** Game number " + (nbDefeats + nbWins + 1) + " **<br>" + overallGame.textualHistory;
     }
 }
 
@@ -405,12 +408,14 @@ function hideBalls() {
     }
 }
 
-function changeIntervalValue(val){
+function changeIntervalValue(elem, val){
     intervalValue = val;
     if(interval != null){
         clearInterval(interval);
         interval = setInterval(() => updateGame(overallGame.playNonStop(), formValues["opponent"], formValues["machineStarts"]), (1 - intervalValue) * 1000);
     }
+    var label = elem.previousElementSibling;
+    label.innerHTML = "x" + Math.round(val * 100) / 100;
 }
 
 /* PART ABOUT THE SCORE */
@@ -418,6 +423,12 @@ function changeIntervalValue(val){
 function updateScore() {
     var htmlScore = document.getElementById("adapt_score");
     var progressBars = htmlScore.getElementsByClassName("progress-bar");
+    var htmlCounter = document.getElementById("adapt_counter_games");
+    htmlCounter.innerHTML = nbDefeats + nbWins;
+    htmlCounter = document.getElementById("adapt_victories");
+    htmlCounter.innerHTML = nbWins;
+    htmlCounter = document.getElementById("adapt_defeats");
+    htmlCounter.innerHTML = nbDefeats;
     if (nbWins + nbDefeats == 0) {
         progressBars[0].style.width = "50%";
         progressBars[0].innerHTML = "0%";

@@ -68,7 +68,9 @@ function startGame() {
 
     //create the game (from Game.js)
     overallGame = new Game(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts);
-    overallGame.textualHistory = "** Game number " + (nbDefeats + nbWins + 1) + " **<br>" + overallGame.textualHistory;
+    var tmpTxt = texts["adaptation_status_game_number"][langPicked];
+    tmpTxt += (nbDefeats + nbWins + 1);
+    overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
 
     //show hiden btns
     document.getElementById("adapt_continue").classList.remove("d-none");
@@ -114,23 +116,17 @@ function updateGame(endGame, opponent, machineStarts) {
         var win = overallGame.player == 1;
         if (!win) {//opponent won
             nbDefeats++;
-            overallGame.textualHistory = "Opponent won<br>" + overallGame.textualHistory;
-            console.log("Opponent won");
             overallGame.reinforcement(false, 0);
             if (overallGame.opponent == opponent[0]) {
                 overallGame.reinforcement(true, 1);
             }
         } else { //machine won
             nbWins++;
-            overallGame.textualHistory = "Machine won<br>" + overallGame.textualHistory;
-            console.log("Machine won");
             overallGame.reinforcement(true, 0);
             if (overallGame.opponent == opponent[0]) {
                 overallGame.reinforcement(false, 1);
             }
         }
-        overallGame.textualHistory = "Visualisation updated<br>" + overallGame.textualHistory;
-        console.log("Updating values...");
         for (let j = 1; j < overallGame.nbBaskets; j++) {
             updateBadges(j);
             updateASingleBasket(j);
@@ -142,7 +138,9 @@ function updateGame(endGame, opponent, machineStarts) {
         } else {
             overallGame.player = 0;
         }
-        overallGame.textualHistory = "** Game number " + (nbDefeats + nbWins + 1) + " **<br>" + overallGame.textualHistory;
+        var tmpTxt = texts["adaptation_status_game_number"][langPicked];
+        tmpTxt += (nbDefeats + nbWins + 1);
+        overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
     }
 }
 

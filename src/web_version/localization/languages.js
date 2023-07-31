@@ -410,4 +410,40 @@ let texts = {
         fr: 'Pause &#9208;',
         en: 'Pause &#9208;'
     },
+    "adaptation_status_game_number": {
+        fr: "Partie n°",
+        en: "Game n°"
+    },
+    "adaptation_status_player": {
+        fr: "Le joueur",
+        en: "The player"
+    },
+    "adaptation_status_player_0": {
+        fr: '"machine"',
+        en: '"machine"'
+    },
+    "adaptation_status_player_1": {
+        fr: '"adversaire"',
+        en: '"opponent"'
+    },
+    "adaptation_status_retrieved": {
+        fr: "a retiré",
+        en: "retrieved"
+    },
+    "adaptation_status_matches": {
+        fr: "allumette(s) quand il restait",
+        en: "match(es) when there were"
+    },
+    "adaptation_status_matches_left": {
+        fr: "allumette(s) restante(s)",
+        en: "match(es) left"
+    },
+    "adaptation_status_game_over": {
+        fr: "Partie finie : le joueur",
+        en: "Game over: player"
+    },
+    "adaptation_status_won": {
+        fr: "a gagné",
+        en: "won"
+    },
 }

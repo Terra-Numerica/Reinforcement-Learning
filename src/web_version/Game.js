@@ -158,13 +158,24 @@ class Game {
 
     // Play a move and return true if the game is over, false otherwise
     playMove(move) {
-        this.textualHistory = "Current basket: " + (this.currPosition) + " Move: " + this.possibleMoves[move] + " Player: " + this.player + "<br>" + this.textualHistory;
+        // update the history of the game
+        var tmpTxt = texts["adaptation_status_player"][langPicked] + " ";
+        tmpTxt += texts["adaptation_status_player_" + this.player][langPicked] + " ";
+        tmpTxt += texts["adaptation_status_retrieved"][langPicked] + " ";
+        tmpTxt += this.possibleMoves[move] + " ";
+        tmpTxt += texts["adaptation_status_matches"][langPicked] + " ";
+        tmpTxt += this.currPosition + " ";
+        tmpTxt += texts["adaptation_status_matches_left"][langPicked] + " ";
+        this.textualHistory = tmpTxt + "<br>" + this.textualHistory;
+
         this.currPosition -= this.possibleMoves[move];
         this.player = (this.player + 1) % 2;
         // if the current position is below the smallest move possible, then the game is over
         if (this.currPosition < this.possibleMoves[0]) {
-            this.textualHistory = "Game over<br>" + this.textualHistory;
-            console.log("Game ended");
+            tmpTxt = texts["adaptation_status_game_over"][langPicked] + " ";
+            tmpTxt += texts["adaptation_status_player_" + this.player][langPicked] + " ";
+            tmpTxt += texts["adaptation_status_won"][langPicked];
+            this.textualHistory = tmpTxt + "<br>" + this.textualHistory;
             return true;
         } else {
             return false;

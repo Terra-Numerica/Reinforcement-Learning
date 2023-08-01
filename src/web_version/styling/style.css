@@ -2,7 +2,7 @@
 please look for its documentation online if necessary */
 
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif!important;
 }
 
 body {
@@ -67,6 +67,7 @@ button:focus {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100vw;
     max-width: 40em;
     height: 100%;
     padding-top: 3em;
@@ -129,25 +130,67 @@ button:focus {
 }
 
 #bubbles_speech{
-    position: relative;
-    display: inline-block;
-    height: 105%;
+    display: grid;
+    grid-template-columns: min-content min-content min-content;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "left_top . right_top"
+        ". robot ."
+        "left_bot . right_bot";
+}
+
+#bubbles_speech > #left_top{
+    grid-area: left_top;
+}
+
+#bubbles_speech > #left_top > .overlay-text{
+    transform: translate(50%, -180%);
+}
+
+#bubbles_speech > #left_top > .bubble_pic{
+    transform: scaleX(-1) translateY(80px);
+}
+
+#bubbles_speech > #right_top{
+    grid-area: right_top;
+}
+
+#bubbles_speech > #right_top > .overlay-text{
+    transform: translate(50%, -250%);
+}
+
+#bubbles_speech > #robot{
+    grid-area: robot;
+    z-index: -1;
+}
+
+#bubbles_speech > #left_bot{
+    grid-area: left_bot;
+}
+
+#bubbles_speech > #left_bot > .bubble_pic{
+    transform: scale(-1);
+}
+
+#bubbles_speech > #left_bot > .overlay-text{
+    transform: translate(50%, -123%);
+}
+
+#bubbles_speech > #right_bot{
+    grid-area: right_bot;
+}
+
+#bubbles_speech > #right_bot > #goal_example_multi{
+    transform: translate(25%, -66%);
+}
+
+#bubbles_speech > #right_bot > .bubble_pic{
+    transform: scaleY(-1);
 }
 
 .overlay-text{
     position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(0%, 0%);
     width: 400px;
-}
-
-.overlay-text#left{
-    transform: translate(50%, 145%);
-}
-
-.overlay-text#right{
-    transform: translate(260%, 160%);
 }
 
 #goal_example_multi{
@@ -317,10 +360,15 @@ input[type=range].form-control {
 }
 
 @media screen and (max-width: 1000px) {
+    table {
+        display: block;
+    }
+
     #adaptation{
         grid-template-columns: 100vw;
         grid-template-rows: auto;
     }
+
     #adapt_game_status, #adapt_visualization, #adapt_score, #adapt_param, #adapt_nonstop_speed{
         max-width: 95%;
         min-height: 100%;
@@ -345,5 +393,42 @@ input[type=range].form-control {
     #adapt_score{
         grid-column: 1;
         grid-row: 5;
+    }
+
+    #bubbles_speech {
+        grid-template-columns: 20vw 1fr;
+        grid-template-rows: auto;
+    }
+
+    #bubbles_speech > #left_top{
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    #bubbles_speech > #right_top{
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    #bubbles_speech > #left_bot{
+        grid-column: 2;
+        grid-row: 3;
+    }
+
+    #bubbles_speech > #right_bot{
+        grid-column: 2;
+        grid-row: 4;
+    }
+
+    #bubbles_speech > #left_top > img, #bubbles_speech > #right_top > img, #bubbles_speech > #left_bot > img {
+        transform: scaleX(0.5) scaleY(-0.5)!important;
+    }
+
+    #bubbles_speech > #robot{
+        position: fixed;
+        grid-column: 1;
+        grid-row: 1;
+        left: -5%;
+        scale: 0.6 0.6;
     }
 }

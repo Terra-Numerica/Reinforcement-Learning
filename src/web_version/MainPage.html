@@ -2,6 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title translate="page_title"></title>
 
     <!-- PLUGIN IMPORTS -->
@@ -134,22 +135,32 @@
         <div id="goal_layout" class="d-flex flex-column justify-content-center">
             <h1 translate="goal"></h1>
             <h3 translate="goal_premise"></h3>
-            <div id="bubbles_speech" class="d-flex">
-                <div id="bubble_left">
+            <div id="bubbles_speech">
+                <div id="left_top">
                     <img src="images/Bubble Speech 1.png" width="800px" height="500px"
-                        style="transform: rotate(180deg);">
-                    <p id="left" class="overlay-text h5" translate="goal_gist"></p>
+                        class="bubble_pic">
+                    <p class="overlay-text h5" translate="goal_gist"></p>
                 </div>
-                <img src="images/Robot.svg" width="200px" height="200px">
-                <div id="bubble_right">
+                <img src="images/Robot.svg" width="200px" height="200px" id="robot">
+                <div id="right_top">
                     <img src="images/Bubble Speech 1.png" width="700px" height="600px"
-                        style="transform: scaleX(-1) rotate(180deg);">
-                    <p id="right" class="overlay-text h5" translate="goal_about_matches"></p>
+                    class="bubble_pic">
+                    <p class="overlay-text h5" translate="goal_about_matches"></p>
+                </div>
+                <div id="left_bot">
+                    <img src="images/Bubble Speech 1.png" width="800px" height="500px"
+                        class="bubble_pic">
+                    <div class="overlay-text h5">
+                        <p translate="goal_desc"></p>
+                        <p translate="goal_concl"></p>
+                    </div>
+                </div>
+                <div id="right_bot">
+                    <img src="images/Bubble split.png" width="700px" height="600px"
+                        class="bubble_pic">
+                    <img id="goal_example_multi" src="./images/Final state.png">
                 </div>
             </div>
-            <p translate="goal_desc"></p>
-            <img id="goal_example_multi" src="./images/Final state.png">
-            <p translate="goal_concl"></p>
         </div>
     </div>
 
@@ -176,7 +187,7 @@
             <span id="RBALLS" class="int_dyn_data"></span>
         </div>
 
-        <div class="btn-group-vertical d-flex align-items-center">
+        <div class="btn-group-vertical align-items-center">
             <button class="btn btn-warning int_btn" translate="interacting_take_1" onclick="interact(1)"></button>
             <button class="btn btn-danger int_btn" translate="interacting_take_2" onclick="interact(2)"></button>
             <button class="btn btn-primary int_btn" translate="interacting_restart" onclick="interact(3)"></button>

@@ -367,6 +367,7 @@ input[type=range].form-control {
     #adaptation{
         grid-template-columns: 100vw;
         grid-template-rows: auto;
+        padding: 0;
     }
 
     #adapt_game_status, #adapt_visualization, #adapt_score, #adapt_param, #adapt_nonstop_speed{
@@ -421,7 +422,17 @@ input[type=range].form-control {
     }
 
     #bubbles_speech > #left_top > img, #bubbles_speech > #right_top > img, #bubbles_speech > #left_bot > img {
-        transform: scaleX(0.5) scaleY(-0.5)!important;
+        /*transform: scaleX(0.35) scaleY(-0.6) translateX(-193vw)!important;*/
+    }
+
+    .bubble_pic{
+        transform: scaleX(0.35) scaleY(-0.6) translateX(-193vw)!important;
+    }
+
+    .overlay-text{
+        transform: translate(5vw, -75vw)!important;
+        font-size: smaller;
+        width: 60%!important;
     }
 
     #bubbles_speech > #robot{

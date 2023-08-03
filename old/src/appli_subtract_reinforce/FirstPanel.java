@@ -17,13 +17,13 @@ public class FirstPanel  {
     public static void main(String[] args) throws IOException {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
-        Path filename1 = Path.of(s + "/src/appli_subtract_reinforce/fichiers/ExplicationsJeu.html");
-        Path filename2 = Path.of(s + "/src/appli_subtract_reinforce/fichiers/ApprentissageRenforce.html");
-        Path filename3 = Path.of(s + "/src/appli_subtract_reinforce/fichiers/PanelExplicationInterfaceIA.html");
-        Path filename4 = Path.of(s + "/src/appli_subtract_reinforce/fichiers/PanelExplicationInterfaceIANext.html");
-        Path filename5 = Path.of(s + "/src/appli_subtract_reinforce/fichiers/Interaction.html");
-        Path filename6 = Path.of(s + "/src/appli_subtract_reinforce/fichiers/Probabilite.html");
-        Path filename7 = Path.of(s + "/src/appli_subtract_reinforce/fichiers/ButIA.html");
+        Path filename1 = Path.of(s + "/old/src/appli_subtract_reinforce/fichiers/ExplicationsJeu.html");
+        Path filename2 = Path.of(s + "/old/src/appli_subtract_reinforce/fichiers/ApprentissageRenforce.html");
+        Path filename3 = Path.of(s + "/old/src/appli_subtract_reinforce/fichiers/PanelExplicationInterfaceIA.html");
+        Path filename4 = Path.of(s + "/old/src/appli_subtract_reinforce/fichiers/PanelExplicationInterfaceIANext.html");
+        Path filename5 = Path.of(s + "/old/src/appli_subtract_reinforce/fichiers/Interaction.html");
+        Path filename6 = Path.of(s + "/old/src/appli_subtract_reinforce/fichiers/Probabilite.html");
+        Path filename7 = Path.of(s + "/old/src/appli_subtract_reinforce/fichiers/ButIA.html");
 
         String contentGame = Files.readString(filename1);
         String contentReinforce = Files.readString(filename2);

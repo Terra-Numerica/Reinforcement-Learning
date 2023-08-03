@@ -398,6 +398,18 @@ let texts = {
         fr: "L'adversaire",
         en: "The opponent"
     },
+    "adaptation_if_winner_starts": {
+        fr: "Est-ce que le gagnant de la partie précédente commence ?",
+        en: "Does the winner of the previous game start?"
+    },
+    "adaptation_yes": {
+        fr: "Oui",
+        en: "Yes"
+    },
+    "adaptation_no": {
+        fr: "Non",
+        en: "No"
+    },
     "adaptation_new_game": {
         fr: 'Nouvelle partie &#43;',
         en: 'New game &#43;'

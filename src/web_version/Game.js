@@ -16,6 +16,7 @@ class Game {
     penalty;
     speed;
     opponent;
+    winnerStarts;
 
     player; //0 if machine, 1 if opponent
     machineState; //format: machineState[basket][move] = current number of balls for said move in said basket
@@ -24,7 +25,7 @@ class Game {
     winningMoves; //format: winningMoves[nbBalls] = 1 if winning move, 0 otherwise
     textualHistory; //format: textualHistory = history of the game in text format
 
-    constructor(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts) {
+    constructor(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, winnerStarts) {
         this.nbMoves = moves.length;
         this.nbBaskets = nbBaskets;
         this.nbBalls = nbBalls;
@@ -32,6 +33,7 @@ class Game {
         this.penalty = penalty;
         this.speed = speed;
         this.opponent = opponent;
+        this.winnerStarts = winnerStarts;
 
         this.player = (machineStarts) ? 0 : 1;
         this.machineState = [];

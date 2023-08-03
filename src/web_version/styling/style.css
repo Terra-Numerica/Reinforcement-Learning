@@ -131,12 +131,19 @@ button:focus {
 
 #bubbles_speech{
     display: grid;
-    grid-template-columns: min-content min-content min-content;
+    grid-template-columns: 1fr auto 1fr;
     grid-template-rows: auto;
     grid-template-areas:
         "left_top . right_top"
         ". robot ."
         "left_bot . right_bot";
+}
+
+#bubbles_speech > div {
+    background-image: url(../images/Square\ speech\ 1.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 3vw;
 }
 
 #bubbles_speech > #left_top{
@@ -145,10 +152,6 @@ button:focus {
 
 #bubbles_speech > #left_top > .overlay-text{
     transform: translate(50%, -180%);
-}
-
-#bubbles_speech > #left_top > .bubble_pic{
-    transform: scaleX(-1) translateY(80px);
 }
 
 #bubbles_speech > #right_top{
@@ -168,16 +171,13 @@ button:focus {
     grid-area: left_bot;
 }
 
-#bubbles_speech > #left_bot > .bubble_pic{
-    transform: scale(-1);
-}
-
 #bubbles_speech > #left_bot > .overlay-text{
     transform: translate(50%, -123%);
 }
 
 #bubbles_speech > #right_bot{
     grid-area: right_bot;
+    background-image: url("../images/Final\ state.png");
 }
 
 #bubbles_speech > #right_bot > #goal_example_multi{
@@ -186,16 +186,6 @@ button:focus {
 
 #bubbles_speech > #right_bot > .bubble_pic{
     transform: scaleY(-1);
-}
-
-.overlay-text{
-    position: absolute;
-    width: 400px;
-}
-
-#goal_example_multi{
-    width: 800px;
-    place-self: center;
 }
 
 #interacting{
@@ -396,50 +386,19 @@ input[type=range].form-control {
         grid-row: 5;
     }
 
-    #bubbles_speech {
+    #bubbles_speech{
+        display: grid;
         grid-template-columns: 20vw 1fr;
-        grid-template-rows: auto;
-    }
-
-    #bubbles_speech > #left_top{
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-    #bubbles_speech > #right_top{
-        grid-column: 2;
-        grid-row: 2;
-    }
-
-    #bubbles_speech > #left_bot{
-        grid-column: 2;
-        grid-row: 3;
-    }
-
-    #bubbles_speech > #right_bot{
-        grid-column: 2;
-        grid-row: 4;
-    }
-
-    #bubbles_speech > #left_top > img, #bubbles_speech > #right_top > img, #bubbles_speech > #left_bot > img {
-        /*transform: scaleX(0.35) scaleY(-0.6) translateX(-193vw)!important;*/
-    }
-
-    .bubble_pic{
-        transform: scaleX(0.35) scaleY(-0.6) translateX(-193vw)!important;
-    }
-
-    .overlay-text{
-        transform: translate(5vw, -75vw)!important;
-        font-size: smaller;
-        width: 60%!important;
+        grid-template-areas:
+        "robot left_top"
+        ". right_top"
+        ". left_bot"
+        ". right_bot";
     }
 
     #bubbles_speech > #robot{
         position: fixed;
-        grid-column: 1;
-        grid-row: 1;
-        left: -5%;
+        left: -60px;
         scale: 0.6 0.6;
     }
 }

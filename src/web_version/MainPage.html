@@ -137,28 +137,19 @@
             <h3 translate="goal_premise"></h3>
             <div id="bubbles_speech">
                 <div id="left_top">
-                    <img src="images/Bubble Speech 1.png" width="800px" height="500px"
-                        class="bubble_pic">
-                    <p class="overlay-text h5" translate="goal_gist"></p>
+                    <p class="h5" translate="goal_gist"></p>
                 </div>
                 <img src="images/Robot.svg" width="200px" height="200px" id="robot">
                 <div id="right_top">
-                    <img src="images/Bubble Speech 1.png" width="700px" height="600px"
-                    class="bubble_pic">
-                    <p class="overlay-text h5" translate="goal_about_matches"></p>
+                    <p class="h5" translate="goal_about_matches"></p>
                 </div>
                 <div id="left_bot">
-                    <img src="images/Bubble Speech 1.png" width="800px" height="500px"
-                        class="bubble_pic">
-                    <div class="overlay-text h5">
+                    <div class="h5">
                         <p translate="goal_desc"></p>
                         <p translate="goal_concl"></p>
                     </div>
                 </div>
                 <div id="right_bot">
-                    <img src="images/Bubble split.png" width="700px" height="600px"
-                        class="bubble_pic">
-                    <img id="goal_example_multi" src="./images/Final state.png">
                 </div>
             </div>
         </div>
@@ -331,7 +322,7 @@
             </div>
             <div id="params_to_collapse" class="collapse show">
                 <fieldset class="form-group row align-items-center">
-                    <label for="pick_nb_of_moves_possible" class="col-sm-3 col-form-label"
+                    <label for="pick_nb_of_moves_possible" class="col-sm-5 col-form-label"
                         translate="adaptation_possible_moves"></label>
                     <div class="col-sm align-self-end" id="pick_nb_of_moves_possible">
                         <div class="form-check form-check-inline">
@@ -393,7 +384,7 @@
                     </select>
                 </div>
                 <fieldset class="form-group row align-items-center">
-                    <label class="col-sm-3 col-form-label" translate="adaptation_who_starts"></label>
+                    <label class="col-sm-5 col-form-label" translate="adaptation_who_starts"></label>
                     <div id="picks_who_starts" class="col-sm align-self-end">
                         <div class="form-check form-check-inline">
                             <input type="radio" id="machine_starts" class="form-control" name="picks_who_starts"
@@ -404,6 +395,21 @@
                             <input type="radio" id="opponent_starts" class="form-control" name="picks_who_starts"
                                 value="false">
                             <label for="2" translate="adaptation_opponent_starts"></label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group row align-items-center">
+                    <label class="col col-form-label" translate="adaptation_if_winner_starts"></label>
+                    <div id="picks_if_winner_starts" class="col-sm align-self-end">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="winner_starts" class="form-control" name="picks_if_winner_starts"
+                                value="true" checked>
+                            <label for="1" translate="adaptation_yes"></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="loser_starts" class="form-control" name="picks_if_winner_starts"
+                                value="false">
+                            <label for="1" translate="adaptation_no"></label>
                         </div>
                     </div>
                 </fieldset>

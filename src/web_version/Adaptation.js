@@ -5,8 +5,7 @@ var nbWins = 0;
 
 /* PART ABOUT THE PARAMETERS */
 
-var formValues = {}; //moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts (bool)
-
+var formValues = {}; //moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, winnerStarts
 
 function getFormValues() {
     //retrieve the nb of moves possible
@@ -39,8 +38,11 @@ function getFormValues() {
     var formOpponent = document.getElementById("pick_opponent");
     formValues["opponent"] = formOpponent.options[formOpponent.selectedIndex].value;
 
-    //add the value of the checkbox
+    //retrieve the machineStarts from the checkbox
     formValues["machineStarts"] = document.getElementById("machine_starts").checked;
+
+    //retrieve the winnerStarts from the checkbox
+    formValues["winnerStarts"] = document.getElementById("winner_starts").checked;    
 
     console.log(formValues);
 }
@@ -92,25 +94,25 @@ function updateTooltipValue(element) {
 function continueGame() {
     let speed = formValues["speed"];
     let opponent = formValues["opponent"];
-    let machineStarts = formValues["machineStarts"];
+    let winnerStarts = formValues["winnerStarts"];
 
     let endGame = false;
     if (speed == 0) { // one move at the time
         endGame = overallGame.playOneMove();
-        updateGame(endGame, opponent, machineStarts);
+        updateGame(endGame, opponent, winnerStarts);
     } else if (speed == 1) { // one game at the time
         endGame = overallGame.playOneGame();
-        updateGame(endGame, opponent, machineStarts);
+        updateGame(endGame, opponent, winnerStarts);
     } else { // non-stop
         document.getElementById("adapt_speed_interval_range").disabled = false;
         document.getElementById("adapt_pause").classList.remove("d-none");
         document.getElementById("adapt_continue").classList.add("d-none");
-        interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, machineStarts), (1 - intervalValue) * 1000);
+        interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, winnerStarts), (1 - intervalValue) * 1000);
     }
     return false;
 }
 
-function updateGame(endGame, opponent, machineStarts) {
+function updateGame(endGame, opponent, winnerStarts) {
     updateStatus();
     if (endGame) {
         var win = overallGame.player == 1;
@@ -132,15 +134,14 @@ function updateGame(endGame, opponent, machineStarts) {
             updateASingleBasket(j);
         }
         updateScore();
-        overallGame.restartGame();
-        if (!machineStarts) {
-            overallGame.player = 1;
-        } else {
-            overallGame.player = 0;
-        }
         var tmpTxt = texts["adaptation_status_game_number"][langPicked];
         tmpTxt += (nbDefeats + nbWins + 1);
         overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
+
+        overallGame.restartGame();
+        if (!winnerStarts) { //change the player who starts
+            overallGame.player = (overallGame.player + 1) % 2;
+        }
     }
 }
 

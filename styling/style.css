@@ -147,19 +147,13 @@ button:focus {
 }
 
 #bubbles_speech > #left_top{
+    background-image: url("../images/Square\ speech\ 4.png");
     grid-area: left_top;
-}
-
-#bubbles_speech > #left_top > .overlay-text{
-    transform: translate(50%, -180%);
 }
 
 #bubbles_speech > #right_top{
     grid-area: right_top;
-}
-
-#bubbles_speech > #right_top > .overlay-text{
-    transform: translate(50%, -250%);
+    background-image: url("../images/Square\ speech\ 5.png");
 }
 
 #bubbles_speech > #robot{
@@ -169,23 +163,12 @@ button:focus {
 
 #bubbles_speech > #left_bot{
     grid-area: left_bot;
-}
-
-#bubbles_speech > #left_bot > .overlay-text{
-    transform: translate(50%, -123%);
+    background-image: url("../images/Square\ speech\ 3.png");
 }
 
 #bubbles_speech > #right_bot{
     grid-area: right_bot;
     background-image: url("../images/Final\ state.png");
-}
-
-#bubbles_speech > #right_bot > #goal_example_multi{
-    transform: translate(25%, -66%);
-}
-
-#bubbles_speech > #right_bot > .bubble_pic{
-    transform: scaleY(-1);
 }
 
 #interacting{
@@ -394,11 +377,17 @@ input[type=range].form-control {
         ". right_top"
         ". left_bot"
         ". right_bot";
+        row-gap: 1vh;
     }
 
     #bubbles_speech > #robot{
         position: fixed;
         left: -60px;
         scale: 0.6 0.6;
+    }
+
+    #bubbles_speech > div:not(#right_bot) {
+        background-image: url("../images/Square\ speech\ 2.png")!important;
+        padding-left: 10vw;
     }
 }

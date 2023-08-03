@@ -171,7 +171,6 @@ class Game {
         this.textualHistory = tmpTxt + "<br>" + this.textualHistory;
 
         this.currPosition -= this.possibleMoves[move];
-        this.player = (this.player + 1) % 2;
         // if the current position is below the smallest move possible, then the game is over
         if (this.currPosition < this.possibleMoves[0]) {
             tmpTxt = texts["adaptation_status_game_over"][langPicked] + " ";
@@ -180,6 +179,7 @@ class Game {
             this.textualHistory = tmpTxt + "<br>" + this.textualHistory;
             return true;
         } else {
+            this.player = (this.player + 1) % 2;
             return false;
         }
     }

@@ -115,7 +115,7 @@ function continueGame() {
 function updateGame(endGame, opponent, winnerStarts) {
     updateStatus();
     if (endGame) {
-        var win = overallGame.player == 1;
+        var win = overallGame.player == 0;
         if (!win) {//opponent won
             nbDefeats++;
             overallGame.reinforcement(false, 0);
@@ -139,7 +139,7 @@ function updateGame(endGame, opponent, winnerStarts) {
         overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
 
         overallGame.restartGame();
-        if (!winnerStarts) { //change the player who starts
+        if (!winnerStarts) { //the player who won starts the next game
             overallGame.player = (overallGame.player + 1) % 2;
         }
     }

@@ -131,7 +131,7 @@ button:focus {
 
 #bubbles_speech{
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr min-content 1fr;
     grid-template-rows: auto;
     grid-template-areas:
         "left_top . right_top"
@@ -143,17 +143,20 @@ button:focus {
     background-image: url(../images/Square\ speech\ 1.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    padding: 3vw;
+    padding: 2vw;
 }
 
 #bubbles_speech > #left_top{
     background-image: url("../images/Square\ speech\ 4.png");
     grid-area: left_top;
+    padding-bottom: 10vh;
+
 }
 
 #bubbles_speech > #right_top{
     grid-area: right_top;
     background-image: url("../images/Square\ speech\ 5.png");
+    padding-bottom: 10vh;
 }
 
 #bubbles_speech > #robot{
@@ -164,11 +167,13 @@ button:focus {
 #bubbles_speech > #left_bot{
     grid-area: left_bot;
     background-image: url("../images/Square\ speech\ 3.png");
+    padding-top: 10vh;
 }
 
 #bubbles_speech > #right_bot{
     grid-area: right_bot;
-    background-image: url("../images/Final\ state.png");
+    background-image: url("../images/Square\ speech\ 6.png");
+    padding-top: 10vh;
 }
 
 #interacting{
@@ -199,9 +204,8 @@ button:focus {
 }
 
 .card-img-top{
-    width: fit-content;
+    max-width: fit-content;
     height: fit-content;
-    margin-top: 7px;
     border: 8px solid;
     border-image: linear-gradient(180deg, #F9BB12, #00A19A, #24A1EB) 1;
     box-shadow: black 0 2px 7px 0px;
@@ -386,8 +390,21 @@ input[type=range].form-control {
         scale: 0.6 0.6;
     }
 
-    #bubbles_speech > div:not(#right_bot) {
+    #bubbles_speech > div {
         background-image: url("../images/Square\ speech\ 2.png")!important;
-        padding-left: 10vw;
+        padding-block: 5vh;
+        padding-inline: 8vw;
+    }
+
+    #bubbles_speech > #right_bot > div{
+        min-height: 50vh;
+    }
+
+    #param_baskets_main_pic {
+        position: initial;
+    }
+
+    #param_baskets_main_pic + .card-body{
+        margin-left: 0!important;
     }
 }

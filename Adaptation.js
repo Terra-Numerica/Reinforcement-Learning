@@ -5,7 +5,7 @@ var nbWins = 0;
 
 /* PART ABOUT THE PARAMETERS */
 
-var formValues = {}; //moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, winnerStarts
+var formValues = {}; //moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, winnerStarts, lossesTrained
 
 function getFormValues() {
     //retrieve the nb of moves possible
@@ -42,7 +42,13 @@ function getFormValues() {
     formValues["machineStarts"] = document.getElementById("machine_starts").checked;
 
     //retrieve the winnerStarts from the checkbox
-    formValues["winnerStarts"] = document.getElementById("winner_starts").checked;    
+    formValues["winnerStarts"] = document.getElementById("winner_starts").checked;
+
+    //retrieve the lossesTrained from the checkbox
+    formValues["lossesTrained"] = document.getElementById("wins_losses_trained").checked;
+
+    //retrieve the lastWins from the checkbox
+    formValues["lastWins"] = document.getElementById("winning_condition").checked;
 
     console.log(formValues);
 }
@@ -67,23 +73,13 @@ function startGame() {
     let speed = formValues["speed"];
     let opponent = formValues["opponent"];
     let machineStarts = formValues["machineStarts"];
+    let lastIsWin = formValues["lastWins"];
 
     //create the game (from Game.js)
-    overallGame = new Game(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts);
+    overallGame = new Game(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, lastIsWin);
     var tmpTxt = texts["adaptation_status_game_number"][langPicked];
     tmpTxt += (nbDefeats + nbWins + 1);
     overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
-
-    //show hiden btns
-    document.getElementById("adapt_continue").classList.remove("d-none");
-    if(speed === 2){
-        document.getElementById("adaptation").classList.add("grid_modified");
-        document.getElementById("adapt_nonstop_speed").classList.remove("d-none");
-    } else {
-        document.getElementById("adaptation").classList.remove("grid_modified");
-        document.getElementById("adapt_nonstop_speed").classList.add("d-none");
-        document.getElementById("adapt_pause").classList.add("d-none");
-    }
 }
 
 function updateTooltipValue(element) {
@@ -95,38 +91,41 @@ function continueGame() {
     let speed = formValues["speed"];
     let opponent = formValues["opponent"];
     let winnerStarts = formValues["winnerStarts"];
+    let lossesTrained = formValues["lossesTrained"];
+    let lastWins = formValues["lastWins"];
 
     let endGame = false;
     if (speed == 0) { // one move at the time
         endGame = overallGame.playOneMove();
-        updateGame(endGame, opponent, winnerStarts);
+        updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins);
     } else if (speed == 1) { // one game at the time
         endGame = overallGame.playOneGame();
-        updateGame(endGame, opponent, winnerStarts);
+        updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins);
     } else { // non-stop
         document.getElementById("adapt_speed_interval_range").disabled = false;
         document.getElementById("adapt_pause").classList.remove("d-none");
         document.getElementById("adapt_continue").classList.add("d-none");
-        interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, winnerStarts), (1 - intervalValue) * 1000);
+        interval = setInterval(() => updateGame(overallGame.playNonStop(), opponent, winnerStarts, lossesTrained, lastWins), (1 - intervalValue) * 1000);
     }
     return false;
 }
 
-function updateGame(endGame, opponent, winnerStarts) {
+function updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins) {
     updateStatus();
     if (endGame) {
         var win = overallGame.player == 0;
+        if(!lastWins) win = !win;
         if (!win) {//opponent won
             nbDefeats++;
-            overallGame.reinforcement(false, 0);
+            overallGame.reinforcement(false, 0, lossesTrained);
             if (overallGame.opponent == opponent[0]) {
-                overallGame.reinforcement(true, 1);
+                overallGame.reinforcement(true, 1, lossesTrained);
             }
         } else { //machine won
             nbWins++;
-            overallGame.reinforcement(true, 0);
+            overallGame.reinforcement(true, 0, lossesTrained);
             if (overallGame.opponent == opponent[0]) {
-                overallGame.reinforcement(false, 1);
+                overallGame.reinforcement(false, 1, lossesTrained);
             }
         }
         for (let j = 1; j < overallGame.nbBaskets; j++) {
@@ -139,8 +138,8 @@ function updateGame(endGame, opponent, winnerStarts) {
         overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
 
         overallGame.restartGame();
-        if (!winnerStarts) { //the player who won starts the next game
-            overallGame.player = (overallGame.player + 1) % 2;
+        if (!winnerStarts && lastWins) { //the player who won starts the next game
+            overallGame.player = 1 - overallGame.player
         }
     }
 }
@@ -210,6 +209,18 @@ function updateCanvas() {
     var newG = document.getElementById("adapt_new_game");
     newG.disabled = true;
 
+    //show or hide elements needed for nonstop mode
+    //TODO: visual issue with the grid coz it's fitting depending of the content...
+    document.getElementById("adapt_continue").classList.remove("d-none");
+    if(formValues["speed"] === 2){
+        document.getElementById("adaptation").classList.add("grid_modified");
+        document.getElementById("adapt_nonstop_speed").classList.remove("d-none");
+    } else {
+        document.getElementById("adaptation").classList.remove("grid_modified");
+        document.getElementById("adapt_nonstop_speed").classList.add("d-none");
+        document.getElementById("adapt_pause").classList.add("d-none");
+    }
+
     setTimeout(() => {
         //console.profile("updateCanvas");
         canvas = document.getElementById("adapt_visualization");
@@ -229,6 +240,7 @@ function updateCanvas() {
         }
 
         newG.disabled = false;
+        
         //console.profileEnd("updateCanvas");
     }, 100);
 }
@@ -239,7 +251,7 @@ function createBaskets(nbBaskets, moves) {
     var tmpCounter = 0;
     for (var i = 1; i < nbBaskets; i++) {
         canvas.innerHTML += basket;
-        canvas.innerHTML += '<span class="badge badge-primary position-absolute badge_nb_basket">' + i + '</span>';
+        canvas.innerHTML += '<span class="badge badge-secondary rounded-circle position-absolute badge_nb_basket">' + i + '</span>';
         canvas.children[canvas.children.length - 2].id = "basket" + i;
         var badgeForEachColor = '<span class="badge badge-primary position-absolute badge_nb_color badge_NBASKET COLOR_counter" style="transform: translateX(TRANSXpx);">NBALLS</span>';
         var result = "";
@@ -290,7 +302,7 @@ function updateBadges(basketID) {
             badges[i].classList.remove("badge_shadow");
             for (var j = 0; j < moves.length; j++) {
                 if (badges[i].classList.contains(colors[moves[j] - 1] + "_counter")) {
-                    if (overallGame.machineState[basketID][j] != badges[i].innerHTML) {
+                    if (overallGame.machineState[basketID][j] != badges[i].innerHTML && formValues["speed"] != 2) {
                         badges[i].classList.add("badge_shadow");
                     }
                     badges[i].innerHTML = overallGame.machineState[basketID][j];
@@ -302,6 +314,7 @@ function updateBadges(basketID) {
 }
 
 function updateASingleBasket(basketID) {
+    //why are there more balls than expected sometimes?
     var basketState = overallGame.machineState[basketID];
     var moves = formValues["moves"];
     var balls = document.getElementsByClassName("div_balls");

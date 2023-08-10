@@ -65,8 +65,8 @@ let texts = {
         en: "Let's illustrate the game"
     },
     "rules_illust_statement": {
-        fr: "Au début 5 allumettes sont disponibles. A chaque tour, chaque joueur peut retirer soit 1 soit 2 allumettes.",
-        en: "At the beginning 5 matches are available. At each turn, each player can remove either 1 or 2 matches."
+        fr: "Au début 5 allumettes sont disponibles. A chaque tour, chaque joueur peut retirer soit 1 soit 2 allumettes. Voici une partie en 5 étapes.",
+        en: "At the beginning 5 matches are available. At each turn, each player can remove either 1 or 2 matches. Here is a game in 5 steps."
     },
     "rules_illustr_0": {
         fr: "5 allumettes disponibles.<br>n = 5",
@@ -409,6 +409,14 @@ let texts = {
     "adaptation_no": {
         fr: "Non",
         en: "No"
+    },
+    "adaptation_train_losses_too": {
+        fr: "Est-ce que l'IA doit apprendre des coups de son adversaire ?",
+        en: "Should the AI learn from its opponent's moves?"
+    },
+    "adaptation_winning_condition": {
+        fr: "Est-ce que le joueur qui retire la dernière allumette gagne ?",
+        en: "Does the player who removes the last match win?"
     },
     "adaptation_new_game": {
         fr: 'Nouvelle partie &#43;',

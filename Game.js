@@ -17,6 +17,7 @@ class Game {
     speed;
     opponent;
     winnerStarts;
+    lastIsWin;
 
     player; //0 if machine, 1 if opponent
     machineState; //format: machineState[basket][move] = current number of balls for said move in said basket
@@ -25,7 +26,7 @@ class Game {
     winningMoves; //format: winningMoves[nbBalls] = 1 if winning move, 0 otherwise
     textualHistory; //format: textualHistory = history of the game in text format
 
-    constructor(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, winnerStarts) {
+    constructor(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, winnerStarts, lastIsWin) {
         this.nbMoves = moves.length;
         this.nbBaskets = nbBaskets;
         this.nbBalls = nbBalls;
@@ -34,6 +35,7 @@ class Game {
         this.speed = speed;
         this.opponent = opponent;
         this.winnerStarts = winnerStarts;
+        this.lastIsWin = lastIsWin;
 
         this.player = (machineStarts) ? 0 : 1;
         this.machineState = [];
@@ -65,18 +67,19 @@ class Game {
         this.currPosition = this.nbBaskets - 1;
     }
 
-    //Compute the winning moves for each basket for the expert opponent. 
+    //Compute the winning moves for each basket for the expert opponent.
     computeWinningMoves() {
         this.winningMoves[0] = 0;
+        var diff = this.lastIsWin ? 0 : 1;
         for (var i = 1; i < NB_CASIERS_MAX; i++) {
             this.winningMoves[i] = 0;
             var j = 0;
-            while(j < this.nbMoves){
+            while (j < this.nbMoves) {
                 // if this move is possible and the next move is not winning, then this move is winning
-                if (i - this.possibleMoves[j] >= 0 && this.winningMoves[i - this.possibleMoves[j]] == 0) {
+                if (i - this.possibleMoves[j] >= diff && this.winningMoves[i - this.possibleMoves[j]] == 0) {
                     this.winningMoves[i] = 1;
                     break;
-                }
+                }           
                 j++;
             }
         }
@@ -106,8 +109,9 @@ class Game {
     // Play a move for the expert opponent. It will choose a move that will lead to a winning position.
     // It will check if there is a winning move for the opponent. If there is, it will play this move, otherwise, it will play a move randomly.
     expertMove() {
-        for(var i = 0; i < this.nbMoves; i++){
-            if(this.currPosition - this.possibleMoves[i] >= 0 && this.winningMoves[this.currPosition - this.possibleMoves[i]] == 0){
+        for (var i = 0; i < this.nbMoves; i++) {
+            if (this.currPosition - this.possibleMoves[i] >= 0 && this.winningMoves[this.currPosition - this.possibleMoves[i]] == 0) {
+                this.gameMovesHistory[this.currPosition][1] = i;
                 return i;
             }
         }
@@ -117,22 +121,34 @@ class Game {
     // Play a move for the hazard opponent. It will choose a move randomly.
     hazardMove() {
         var max = this.nbMoves;
-        if(max > this.currPosition){
+        if (max > this.currPosition) {
             max = this.currPosition;
         }
-        return parseInt(Math.random() * max);
+        var rnd = parseInt(Math.random() * max)
+        this.gameMovesHistory[this.currPosition][1] = rnd;
+        return rnd;
     }
 
     // Update the machine's state according to the result of the game
     // If the machine won, it will reinforce the moves that led to this victory
     // If the machine lost, it will penalize the moves that led to this defeat
     // It will also check if a basket is empty. If it is, it will fill it with the maximum number of balls possible. (It's a reset)
-    reinforcement(hasWon, idMachine) {
+    reinforcement(hasWon, idMachine, trainWithOpponent) {
         for (var i = 1; i < this.nbBaskets; i++) {
             if (this.gameMovesHistory[i][idMachine] >= 0) {
-                this.machineState[i][this.gameMovesHistory[i][idMachine]] += ((hasWon) ? this.reward : this.penalty);
+                var currMove = this.gameMovesHistory[i][idMachine]
+                this.machineState[i][currMove] += ((hasWon) ? this.reward : this.penalty);
                 if (this.machineState[i][this.gameMovesHistory[i][idMachine]] < 0) {
                     this.machineState[i][this.gameMovesHistory[i][idMachine]] = 0;
+                }
+            }
+            if (trainWithOpponent) {
+                if (this.gameMovesHistory[i][1 - idMachine] >= 0) {
+                    var currMove = this.gameMovesHistory[i][1 - idMachine]
+                    this.machineState[i][currMove] += ((hasWon) ? this.penalty : this.reward);
+                    if (this.machineState[i][this.gameMovesHistory[i][1 - idMachine]] < 0) {
+                        this.machineState[i][this.gameMovesHistory[i][1 - idMachine]] = 0;
+                    }
                 }
             }
         }
@@ -148,9 +164,9 @@ class Game {
     }
 
     // Initialize a basket with the number of balls selected for each move
-    initBasket(basket){
-        for(var i = 0; i < this.nbMoves; i++){
-            if(this.possibleMoves[i] <= basket){
+    initBasket(basket) {
+        for (var i = 0; i < this.nbMoves; i++) {
+            if (this.possibleMoves[i] <= basket) {
                 this.machineState[basket][i] = this.nbBalls;
             } else {
                 this.machineState[basket][i] = 0;
@@ -174,7 +190,11 @@ class Game {
         // if the current position is below the smallest move possible, then the game is over
         if (this.currPosition < this.possibleMoves[0]) {
             tmpTxt = texts["adaptation_status_game_over"][langPicked] + " ";
-            tmpTxt += texts["adaptation_status_player_" + this.player][langPicked] + " ";
+            if (this.lastIsWin) {
+                tmpTxt += texts["adaptation_status_player_" + this.player][langPicked] + " ";
+            } else {
+                tmpTxt += texts["adaptation_status_player_" + (1 - this.player)][langPicked] + " ";
+            }
             tmpTxt += texts["adaptation_status_won"][langPicked];
             this.textualHistory = tmpTxt + "<br>" + this.textualHistory;
             return true;

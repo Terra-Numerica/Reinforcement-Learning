@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title translate="page_title"></title>
+    <link rel="icon" type="image/x-icon" href="images/Icon.png">
 
     <!-- PLUGIN IMPORTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -27,6 +28,7 @@
         </button>
         <button id="back_home" class="btn btn-primary invisible" translate="back"
             onclick="showTab('home_page', null)"></button>
+        <img id="logo" src="images/Terra Numerica.png" alt="Logo">
         <button id="lang_switch" class="btn btn-primary" translate="lang_switch" onclick="switchLang()"></button>
     </nav>
     <div id="navbarTabs">
@@ -109,26 +111,28 @@
 
     <div id="probabilities" class="tab text-center d-none">
         <h1 translate="probabilities"></h1>
-        <table class="table w-75 m-auto text-center">
-            <tr>
-                <th class="probs_steps" translate="probs_initial"></th>
-                <th class="probs_steps">
-                    <img src="images/Example initial .png">
-                </th>
-            </tr>
-            <tr>
-                <th class="probs_steps" translate="probs_win"></th>
-                <th class="probs_steps">
-                    <img src="images/Example won.png">
-                </th>
-            </tr>
-            <tr>
-                <th class="probs_steps" translate="probs_lost"></th>
-                <th class="probs_steps">
-                    <img src="images/Example loss.png">
-                </th>
-            </tr>
-        </table>
+        <div class="table-responsive m-auto">
+            <table class="table text-center">
+                <tr>
+                    <th class="probs_steps" translate="probs_initial"></th>
+                    <th class="probs_steps">
+                        <img src="images/Example initial .png">
+                    </th>
+                </tr>
+                <tr>
+                    <th class="probs_steps" translate="probs_win"></th>
+                    <th class="probs_steps">
+                        <img src="images/Example won.png">
+                    </th>
+                </tr>
+                <tr>
+                    <th class="probs_steps" translate="probs_lost"></th>
+                    <th class="probs_steps">
+                        <img src="images/Example loss.png">
+                    </th>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <div id="goal" class="tab text-center d-none">
@@ -406,7 +410,37 @@
                         <div class="form-check form-check-inline">
                             <input type="radio" id="loser_starts" class="form-control" name="picks_if_winner_starts"
                                 value="false">
-                            <label for="1" translate="adaptation_no"></label>
+                            <label for="2" translate="adaptation_no"></label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group row align-items-center">
+                    <label class="col col-form-label" translate="adaptation_train_losses_too"></label>
+                    <div id="train_losses_too" class="col-sm align-self-end">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="wins_losses_trained" class="form-control" name="train_losses_too"
+                                value="true">
+                            <label for="1" translate="adaptation_yes"></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="wins_trained" class="form-control" name="train_losses_too"
+                                value="false" checked>
+                            <label for="2" translate="adaptation_no"></label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group row align-items-center">
+                    <label class="col col-form-label" translate="adaptation_winning_condition"></label>
+                    <div id="winning_condition" class="col-sm align-self-end">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="winning_is_finishing" class="form-control" name="winning_condition"
+                                value="true" checked>
+                            <label for="1" translate="adaptation_yes"></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="winning_is_keeping" class="form-control" name="winning_condition"
+                                value="false">
+                            <label for="2" translate="adaptation_no"></label>
                         </div>
                     </div>
                 </fieldset>

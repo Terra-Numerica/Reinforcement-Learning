@@ -63,6 +63,10 @@ button:focus {
     height: 80%;
 }
 
+#logo {
+    height: 4vh;
+}
+
 #navbarTabs {
     position: fixed;
     top: 0;
@@ -121,6 +125,14 @@ button:focus {
 .list-group-flush{
     width: fit-content;
     margin: auto;
+}
+
+.list-group-flush > * {
+    background-color: transparent;
+}
+
+#probabilities > div{
+    width: 75%;
 }
 
 .probs_steps{
@@ -245,6 +257,10 @@ button:focus {
         "score score";
 }
 
+#adaptation.grid_modified > #adapt_visualization{
+    grid-row: auto;
+}
+
 #adapt_visualization, #adapt_score, #adapt_game_status, #adapt_param, #adapt_nonstop_speed{
     background-color: white;
     border: 1px solid black;
@@ -265,10 +281,10 @@ button:focus {
 
 #adapt_nonstop_speed{
     grid-area: interval;
+    height: fit-content;
 }
 
 #adapt_visualization{
-    min-height: 60%;
     min-width: 60%;
     grid-area: visualization;
 }
@@ -305,11 +321,11 @@ input[type=range].form-control {
 }
 
 .badge_nb_basket {
-    translate: -90px 180px;
+    translate: -171px 162px;
 }
 
 .badge_nb_color {
-    translate: 0 200px;
+    translate: 0 185px;
 }
 
 .badge_shadow {
@@ -341,9 +357,13 @@ input[type=range].form-control {
         display: block;
     }
 
+    #probabilities > div {
+        width: auto;
+    }
+
     #adaptation{
         grid-template-columns: 100vw;
-        grid-template-rows: auto;
+        grid-template-rows: auto!important;
         padding: 0;
     }
 

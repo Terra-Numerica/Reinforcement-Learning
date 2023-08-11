@@ -48,7 +48,7 @@ function getFormValues() {
     formValues["lossesTrained"] = document.getElementById("wins_losses_trained").checked;
 
     //retrieve the lastWins from the checkbox
-    formValues["lastWins"] = document.getElementById("winning_condition").checked;
+    formValues["lastWins"] = document.getElementById("winning_is_finishing").checked;
 
     console.log(formValues);
 }
@@ -314,7 +314,6 @@ function updateBadges(basketID) {
 }
 
 function updateASingleBasket(basketID) {
-    //why are there more balls than expected sometimes?
     var basketState = overallGame.machineState[basketID];
     var moves = formValues["moves"];
     var balls = document.getElementsByClassName("div_balls");
@@ -329,7 +328,7 @@ function updateASingleBasket(basketID) {
         var hiddenBallsOfMove = [];
         for (var j = 0; j < ballsOfBasket.length; j++) {
             if (ballsOfBasket[j].id.split("_")[3] == moves[i] - 1) {
-                if (ballsOfBasket[j].style.display == "none") {
+                if (ballsOfBasket[j].classList.contains("d-none")) {
                     hiddenBallsOfMove.push(ballsOfBasket[j]);
                 } else {
                     ballsOfMove.push(ballsOfBasket[j]);
@@ -339,12 +338,12 @@ function updateASingleBasket(basketID) {
         if (ballsOfMove.length > basketState[i]) {
             var difference = ballsOfMove.length - basketState[i];
             for (var j = 0; j < difference; j++) {
-                ballsOfMove[j].style.display = "none";
+                ballsOfMove[j].classList.add("d-none");
             }
         } else if (ballsOfMove.length < basketState[i]) {
             var difference = basketState[i] - ballsOfMove.length;
             for (var j = 0; j < hiddenBallsOfMove.length && j < difference; j++) {
-                hiddenBallsOfMove[j].style.display = "block";
+                hiddenBallsOfMove[j].classList.remove("d-none");
             }
             if (j < difference) {
                 for (var j = 0; j < difference - hiddenBallsOfMove.length; j++) {
@@ -352,9 +351,28 @@ function updateASingleBasket(basketID) {
                     canvas.innerHTML += newBall;
                     ballsOfBasket.push(canvas.children[canvas.children.length - 1]);
                     positionBall(ballsOfBasket[ballsOfBasket.length - 1], basketID - 1);
-                    ballsOfBasket[ballsOfBasket.length - 1].style.display = "block";
+                    ballsOfBasket[ballsOfBasket.length - 1].classList.remove("d-none");
                 }
             }
+        }
+    }
+    ballsOfBasket = [];
+    for (var i = 0; i < balls.length; i++) {
+        if (balls[i].id.split("_")[1] == basketID) {
+            ballsOfBasket.push(balls[i]);
+        }
+    }
+    
+    for (var i = 0; i < moves.length; i++) {
+        var ballsOfMove = [];
+        for (var j = 0; j < ballsOfBasket.length; j++) {
+            if (ballsOfBasket[j].id.split("_")[3] == moves[i] - 1 && !ballsOfBasket[j].classList.contains("d-none")) {
+                ballsOfMove.push(ballsOfBasket[j]);
+            }
+        }
+        if (ballsOfMove.length != basketState[i]) {
+            console.log("Problem in basket " + basketID + " for move " + i + " - " + ballsOfMove.length + " balls instead of " + basketState[i]);
+            pauseGame();
         }
     }
 }
@@ -424,7 +442,7 @@ function changeIntervalValue(elem, val){
     intervalValue = val;
     if(interval != null){
         clearInterval(interval);
-        interval = setInterval(() => updateGame(overallGame.playNonStop(), formValues["opponent"], formValues["machineStarts"]), (1 - intervalValue) * 1000);
+        interval = setInterval(() => updateGame(overallGame.playNonStop(), formValues["opponent"], formValues["machineStarts"], formValues["lastIsWin"]), (1 - intervalValue) * 1000);
     }
     var label = elem.previousElementSibling;
     label.innerHTML = "x" + Math.round(val * 100) / 100;

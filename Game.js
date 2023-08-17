@@ -79,7 +79,7 @@ class Game {
                 if (i - this.possibleMoves[j] >= diff && this.winningMoves[i - this.possibleMoves[j]] == 0) {
                     this.winningMoves[i] = 1;
                     break;
-                }           
+                }
                 j++;
             }
         }

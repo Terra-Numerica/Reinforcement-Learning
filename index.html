@@ -32,7 +32,7 @@
         <button id="lang_switch" class="btn btn-primary" translate="lang_switch" onclick="switchLang()"></button>
     </nav>
     <div id="navbarTabs">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a>
+        <a href="javascript:void(0)" class="close_btn" onclick="closeMenu()">&times;</a>
         <ul class="flex-column pl-0">
             <button class="nav-tab" translate="rules_game" onclick="showTab('rules_game', this)"></button>
             <button class="nav-tab" translate="rein_learning" onclick="showTab('rein_learning', this)"></button>
@@ -43,6 +43,11 @@
     </div>
     <div id="home_page">
         <h1 translate="welcome_msg"></h1>
+        <h3 translate="welcome_desc" class="text-center w-75 m-auto"></h3>
+        <div style="text-align: center;">
+            <img src="images/Robot logo.png" width="150px" height="150px" style="border: solid 7px;
+            border-radius: 50%;">
+        </div>
         <div id="home_btn_grp" class="d-flex">
             <button class="btn btn-primary p-3" translate="HvM" onclick="showTab('interacting', null)"></button>
             <button class="btn btn-primary p-3" translate="MvM" onclick="showTab('adaptation', null)"></button>
@@ -51,7 +56,13 @@
 
     <div id="rules_game" class="tab text-center d-none">
         <h1 translate="rules_game"></h1>
+        <h5 translate="rules_video"></h5>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/10CUpulWxww?mute=1" 
+        title="YouTube video player" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen class="my-2"></iframe>
         <p translate="rules_gist"></p>
+        <p translate="rules_custom"></p>
         <h2 translate="rules_illustr_title"></h2>
         <p translate="rules_illust_statement"></p>
         <div class="table-responsive">

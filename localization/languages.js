@@ -14,8 +14,12 @@ let texts = {
         en: "Back"
     },
     "welcome_msg": {
-        fr: "Bienvenue sur cette activité dédiée à l'apprentissage par renforcement !",
-        en: "Welcome to this activity dedicated to reinforcement learning!"
+        fr: "Bienvenue sur le jeu Machine IA !",
+        en: "Welcome to the AI Machine game!"
+    },
+    "welcome_desc": {
+        fr: "Cette activité a pour but de vous faire découvrir l'apprentissage par renforcement à travers un jeu de Nim inspiré de Fort Boyard.",
+        en: "The purpose of this activity is to introduce you to reinforcement learning through a Nim game inspired by Fort Boyard."
     },
     "HvM": {
         fr: "Humain contre machine",
@@ -26,12 +30,12 @@ let texts = {
         en: "Machine versus machine"
     },
     "rules_game": {
-        fr: "Règles appliquées du jeu de Nim",
-        en: "Rules applied to the game of Nim"
+        fr: "Règles du jeu de Nim de Fort Boyard",
+        en: "Rules of the Fort Boyard Nim game"
     },
     "rein_learning": {
-        fr: "C'est quoi un apprentissage par renforcement ?",
-        en: "What is reinforcement learning?"
+        fr: "L'apprentissage par renforcement",
+        en: "Reinforcement learning"
     },
     "probabilities": {
         fr: "Les probabilités",
@@ -56,21 +60,29 @@ let texts = {
 
     /* RULES PART */
 
+    "rules_video" : {
+        fr: "Exemple vidéo de <i>l'épreuve des Batônnets</i> de Fort Boyard",
+        en: "Video example of <i>the Sticks test</i> of Fort Boyard"
+    },
     "rules_gist": { 
-        fr:"Au début, un certain nombre d'allumettes, noté n, est disponible. Les joueurs retirent tour à tour des allumettes. Le nombre d'allumettes qu'un joueur peut retirer à la fois doit être compris entre 1 et la valeur maximale d fixée pour le jeu en cours où d est inférieur à n. Le gagnant est le joueur ayant retiré la dernière allumette.",
-        en:"At the beginning, a certain number of matches, noted n, is available. The players take turns removing matches. The number of matches a player can remove at a time must be between 1 and the maximum value d set for the current game where d is less than n. The winner is the player who removed the last match."
+        fr: "Dans Fort Boyard, 21 bâtonnets sont présentés à 2 joueurs. À tour de rôle, chacun devra retirer un, deux, ou trois bâtonnets à la fois. Le joueur se retrouvant avec le dernier bâtonnet perd la partie. Le but du jeu sera donc de trouver une stratégie pour s'assurer que son adversaire se retrouve avec un seul bâtonnet.",
+        en: "In Fort Boyard, 21 sticks are presented to 2 players. In turn, each player will have to remove one, two, or three sticks at a time. The player who ends up with the last stick loses the game. The goal of the game will therefore be to find a strategy to ensure that your opponent ends up with only one stick."
+    },
+    "rules_custom": {
+        fr: "Dans cette activité, vous verrez que les règles peuvent être plus flexibles. 😉",
+        en: "In this activity, you will see that the rules can be more flexible. 😉"
     },
     "rules_illustr_title": {
         fr: "Illustrons le jeu",
         en: "Let's illustrate the game"
     },
     "rules_illust_statement": {
-        fr: "Au début 5 allumettes sont disponibles. A chaque tour, chaque joueur peut retirer soit 1 soit 2 allumettes. Voici une partie en 5 étapes.",
+        fr: "Au début 5 allumettes sont disponibles. À chaque tour, chaque joueur peut retirer soit 1 soit 2 allumettes. Voici une partie en 5 étapes.",
         en: "At the beginning 5 matches are available. At each turn, each player can remove either 1 or 2 matches. Here is a game in 5 steps."
     },
     "rules_illustr_0": {
-        fr: "5 allumettes disponibles.<br>n = 5",
-        en: "5 matches available.<br>n = 5"
+        fr: "Début du jeu : 5 allumettes disponibles.",
+        en: "Start of the game: 5 matches available."
     },
     "rules_illustr_1": {
         fr: "Le joueur 1 retire 1 allumette.<br>Il reste 4 allumettes.",
@@ -89,8 +101,8 @@ let texts = {
         en: "Player 2 removes 1 match.<br>There is 0 match left."
     },
     "rules_illust_over": {
-        fr: "<b>Le joueur 2 a gagné.</b>",
-        en: "<b>Player 2 won.</b>"
+        fr: "<b>Le joueur 1 a gagné.</b>",
+        en: "<b>Player 1 won.</b>"
     },
 
     /* REINFORCEMENT LEARNING PART */
@@ -100,16 +112,16 @@ let texts = {
         en: "What is the field in question?"
     },
     "rein_field_gist": {
-        fr: "En Intelligence Artificielle (IA), plus précisément en apprentissage automatique.",
-        en: "In Artificial Intelligence (AI), more precisely in machine learning."
+        fr: "Le domaine de l'Intelligence Artificielle (IA), plus précisément en apprentissage automatique qui consiste à donner à une machine la capacité d'apprendre à partir de données fournies.",
+        en: "The field of Artificial Intelligence (AI), more precisely in machine learning which consists in giving a machine the ability to learn from provided data."
     },
     "rein_tools": {
-        fr: "Pour quel outil ?",
-        en: "For which tool?"
+        fr: "Avec quel outil ?",
+        en: "With what tool?"
     },
     "rein_tools_gist": {
-        fr: "Un agent autonome : c'est un programme qui accomplit des tâches à la manière d'un automate et en fonction de ce que lui a demandé son auteur.",
-        en: "An autonomous agent: it is a program that performs tasks in the manner of an automaton and depending on what its author has asked it."
+        fr: "Un agent autonome : c'est un programme qui accomplit des tâches à la manière d'un automate, donc qui agira en fonction de ce que lui a demandé son auteur sans que ce dernier agisse durant l'opération.",
+        en: "An autonomous agent: it is a program that performs tasks in the manner of an automaton, therefore it will act according to what its author has asked of it without the latter acting during the operation."
     },
     "rein_examples": {
         fr: "Quelques exemples d'agents autonomes :",

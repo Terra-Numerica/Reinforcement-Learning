@@ -209,7 +209,6 @@ button:focus {
 .card {
     box-shadow: black 5px 4px 10px 0px;
     min-width: auto;
-    height: fit-content;
     margin: 20px;
     align-items: center;
     background: #eefffe;
@@ -221,6 +220,10 @@ button:focus {
     border: 8px solid;
     border-image: linear-gradient(180deg, #F9BB12, #00A19A, #24A1EB) 1;
     box-shadow: black 0 2px 7px 0px;
+}
+
+.card-img-top:not(#param_baskets_main_pic) {
+    min-width: 25vw;
 }
 
 #param_baskets_main_pic{

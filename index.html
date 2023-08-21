@@ -1,5 +1,4 @@
 <html lang="fr" onchange="setLang()">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,8 +57,7 @@
         <h1 translate="rules_game"></h1>
         <h5 translate="rules_video"></h5>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/10CUpulWxww?mute=1" 
-        title="YouTube video player" frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        title="YouTube video player" frameborder="0"
         allowfullscreen class="my-2"></iframe>
         <p translate="rules_gist"></p>
         <p translate="rules_custom"></p>
@@ -205,7 +203,7 @@
 
     <div id="param_tuto" class="tab text-center d-none">
         <h1 translate="param_tuto"></h1>
-        <div class="card-deck" style="margin-inline: 0;">
+        <div class="card-group" style="margin-inline: 0;">
             <div class="card" style="min-width: 90vw; margin-inline: 0;">
                 <img class="card-img-top" id="param_baskets_main_pic" src="images/Basket with balls example.png"
                     alt="Explanation about the number of baskets and balls">
@@ -278,6 +276,20 @@
                 <div class="card-body">
                     <h5 translate="param_speed_title"></h5>
                     <p class="card-text" translate="param_speed"></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="images/Rules bending.png">
+                <div class="card-body">
+                    <h5 translate="param_rules_bending_title"></h5>
+                    <p class="card-text" translate="param_rules_bending"></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="images/RL specs.png" alt="Explanation about who starts">
+                <div class="card-body">
+                    <h5 translate="param_RL_spec_title"></h5>
+                    <p class="card-text" translate="param_RL_spec"></p>
                 </div>
             </div>
         </div>
@@ -411,6 +423,21 @@
                     </div>
                 </fieldset>
                 <fieldset class="form-group row align-items-center">
+                    <label class="col col-form-label" translate="adaptation_winning_condition"></label>
+                    <div id="winning_condition" class="col-sm align-self-end">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="winning_is_finishing" class="form-control" name="winning_condition"
+                                value="true">
+                            <label for="1" translate="adaptation_yes"></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="winning_is_keeping" class="form-control" name="winning_condition"
+                                value="false" checked>
+                            <label for="2" translate="adaptation_no"></label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group row align-items-center">
                     <label class="col col-form-label" translate="adaptation_if_winner_starts"></label>
                     <div id="picks_if_winner_starts" class="col-sm align-self-end">
                         <div class="form-check form-check-inline">
@@ -440,21 +467,7 @@
                         </div>
                     </div>
                 </fieldset>
-                <fieldset class="form-group row align-items-center">
-                    <label class="col col-form-label" translate="adaptation_winning_condition"></label>
-                    <div id="winning_condition" class="col-sm align-self-end">
-                        <div class="form-check form-check-inline">
-                            <input type="radio" id="winning_is_finishing" class="form-control" name="winning_condition"
-                                value="true" checked>
-                            <label for="1" translate="adaptation_yes"></label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" id="winning_is_keeping" class="form-control" name="winning_condition"
-                                value="false">
-                            <label for="2" translate="adaptation_no"></label>
-                        </div>
-                    </div>
-                </fieldset>
+                
             </div>
             <button type="button" id="adapt_new_game" class="btn btn-success" onclick="startGame()"
                 translate="adaptation_new_game"></button>

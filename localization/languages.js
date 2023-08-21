@@ -38,12 +38,12 @@ let texts = {
         en: "Reinforcement learning"
     },
     "probabilities": {
-        fr: "Les probabilités",
-        en: "Probabilities"
+        fr: "Le système de récompense",
+        en: "The reward system"
     },
     "goal": { 
-        fr:"Le but de l'IA",
-        en:"The goal of the AI"
+        fr:"L'objectif de l'IA",
+        en: "The AI's goal"
     },
     "interacting": {
         fr: "Mode interactif",
@@ -155,12 +155,12 @@ let texts = {
         en: "To represent the number of matches removed we use balls of different colors: <ul class='m-auto' style='width: fit-content;'> <li>yellow for 1 match removed</li> <li>red for 2 matches removed</li> </ul> At the beginning there are 2 yellow balls and 2 red balls. <br>The probability of removing a yellow ball is the same as the probability of removing a red ball."
     },
     "probs_win": {
-        fr: "Si l'IA a gagné la partie, elle ajoutera 3 balles de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a permis de gagner, 3 balles rouges vont être ajoutés. <br>La probabilité de retirer une balle rouge augmente.",
-        en: "If the AI has won the game, it will add 3 balls of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>As this is an action that allowed it to win, 3 red balls will be added. <br>The probability of removing a red ball increases."
+        fr: "Si l'IA a gagné la partie, elle ajoutera 3 balles de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a permis de gagner, 3 balles rouges vont être ajoutées à chaque casier correspondant. <br>La probabilité de retirer deux alumettes en un coup augmente.",
+        en: "If the AI has won the game, it will add 3 balls of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>As this is an action that allowed it to win, 3 red balls will be added to each corresponding basket. <br>The probability of removing two matches in one move increases."
     },
     "probs_lost": {
-        fr: "Si l'IA a perdu la partie, elle retirera 1 balle de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a fait perdre, 1 balle rouge va lui être retirée. <br>La probabilité de retirer une balle rouge diminue.",
-        en: "If the AI has lost the game, it will remove 1 ball of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>Since this is an action that made it lose, 1 red ball will be removed from it. <br>The probability of removing a red ball decreases."
+        fr: "Si l'IA a perdu la partie, elle retirera 1 balle de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a fait perdre, 1 balle rouge va être retirée à chaque casier correspondant. <br>La probabilité de retirer deux alumettes en un coup diminue.",
+        en: "If the AI has lost the game, it will remove 1 ball of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>Since this is an action that made it lose, 1 red ball will be removed from each corresponding basket. <br>The probability of removing two matches in one move decreases."
     },
 
     /* GOAL PART */
@@ -170,8 +170,8 @@ let texts = {
         en: "The operation principle of reinforcement learning in a Nim game"
     },
     "goal_gist": {
-        fr: "Son but : maximiser sa récompense au cours des parties.<br>Quelle est sa récompense ? Obtenir le plus grand nombre de balles.<br>Comment obtenir sa récompense ? En gagnant face à son adversaire.",
-        en: "Its goal: to maximize its reward over the games.<br>What is its reward? To get the most balls.<br>How to get its reward? By winning against its opponent."
+        fr: "Mon but : maximiser ma récompense au cours des parties.<br>Quelle est ma récompense ? Obtenir un grand nombre de balles.<br>Comment obtenir ma récompense ? En gagnant face à mon adversaire le plus possible.",
+        en: "My goal: to maximize my reward over the games.<br>What is my reward? Get a lot of balls.<br>How to get my reward? By winning against my opponent as much as possible."
     },
     "goal_about_matches": {
         fr: "Chaque allumette est représentée par un casier. Pour représenter le nombre d'allumettes retirées on utilise des balles de différentes couleurs :<ul><li style='width: fit-content;'>jaune pour 1 allumette retirée.</li><li style='width: fit-content;'>rouge pour 2 allumettes retirées.</li></ul>",
@@ -182,8 +182,8 @@ let texts = {
         en: "At the beginning there is the same number of yellow balls as red balls. For each number of matches remaining during the games, the probability of removing a yellow ball or a red ball (so removing one or two matches) varies over time."
     },
     "goal_concl": {
-        fr: "Au fil du temps les actions ayant permis la victoire étant bien plus présentes, statistiquement l'IA aura plus de chances de gagner.",
-        en: "Over time, the actions that allowed victory being much more recurring, statistically the AI will have more chances to win."
+        fr: "Au fil du temps les actions ayant permis la victoire étant bien plus présentes, statistiquement j'aurai plus de chances de gagner !",
+        en: "Over time the actions that allowed the victory being much more present, statistically I will have more chances to win!"
     },
 
     /* INTERACTING PART */
@@ -248,12 +248,12 @@ let texts = {
         en: "Baskets and balls"
     },
     "param_desc_1": {
-        fr: "Chaque allumette est représentée par un casier. Le casier et son contenu servent à modéliser ce qu'il se passe lors de l'application de l'algorithme. Schéma de la représentation des actions possibles par l'IA pour une allumette :",
-        en: "Each match is represented by a basket. The basket and its content are used to model what happens when the algorithm is applied. Representation scheme of the possible actions by the AI for a match:."
+        fr: "Pour illustrer l'apprentissage de l'IA, nous utiliserons des casiers et des balles. Le but sera de montrer quel sera le coup privilégié par l'IA au bout d'un grand nombre de parties lorsqu'il ne reste qu'un certain nombre d'allumettes.",
+        en: "To illustrate the AI's learning, we will use baskets and balls. The goal will be to show what will be the AI's preferred move after a large number of games when there are only a certain number of matches left."
     },
     "param_desc_2": {
-        fr: "Il y a autant de casiers que d'allumettes. Le contenu de chaque casier est indépendant du contenu des autres casiers. Dans un casier, il ne peut pas y avoir un nombre de balles qui permettrait de retirer plus d'allumettes qu'il n'y a d'allumettes restantes. Par exemple, dans le dernier casier, il ne peut y avoir que des balles jaunes.",
-        en: "There are as many baskets as there are matches. The content of each basket is independent of the content of the other baskets. In a basket, there cannot be a number of balls that would allow to remove more matches than there are matches left. For example, in the last basket, there can only be yellow balls."
+        fr: "Cette simulation permet de modifier les règles de base du jeu de Nim de Fort Boyard et de manipuler l'apprentissage de l'IA en jouant avec plusieurs paramètres.",
+        en: "This simulation allows you to modify the basic rules of the Fort Boyard Nim game and to manipulate the AI's learning by playing with several parameters."
     },
     "param_desc_elements": {
         fr: "L'élément",
@@ -264,16 +264,16 @@ let texts = {
         en: "Explanation"
     },
     "param_desc_4": {
-        fr: "Représentation d'un casier. Un casier correspond au nombre d'allumettes restantes. Il y a autant de casiers que d'allumettes.",
-        en: "Representation of a basket. A basket corresponds to the number of matches remaining. There are as many baskets as matches."
+        fr: "Représentation d'un casier. Un casier correspond au nombre d'allumettes restantes. Il y a autant de casiers que d'allumettes en début de jeu.",
+        en: "Representation of a basket. A basket corresponds to the number of matches remaining. There are as many baskets as matches at the beginning of the game."
     },
     "param_desc_5": {
-        fr: "Représentation d'un ensemble de balles. Le nombre de balles par couleur est choisi par l'utilisateur via les paramètres.",
-        en: "Representation of a set of balls. The number of balls per color is chosen by the user via the parameters."
+        fr: "Représentation d'un ensemble de balles. Le nombre de balles par couleur est choisi par l'utilisateur via les paramètres, et les couleurs permettent de différencier les coups possibles. Toutefois, dans un casier ne seront pas représentées les couleurs qui permettraient de retirer plus d'allumettes qu'il n'en reste. Par exemple, il n'y aura pas de boules rouges (retrait de 2 allumettes) dans la casier 1.",
+        en: "Representation of a set of balls. The number of balls per color is chosen by the user via the parameters, and the colors make it possible to differentiate the possible moves. However, in a basket will not be represented the colors that would allow to remove more matches than there are left. For example, there will be no red balls (removal of 2 matches) in basket 1."
     },
     "param_desc_6": {
-        fr: "Numéro de casier. Il correspond aussi au nombre d'alumettes restantes.",
-        en: "Basket number. It also corresponds to the number of matches remaining."
+        fr: "Numéro de casier. Il correspond au nombre d'allumettes restantes.",
+        en: "Basket number. It corresponds to the number of matches remaining."
     },
     "param_desc_7": {
         fr: "Compteurs de balles par couleur. Ils correspondent au nombre de balles par couleur présentes par casier. A noter que, par exemple, le casier n°1 n'a qu'un seul compteur de balles car il n'y a qu'un coup possible lorsqu'il ne reste qu'une allumette.",
@@ -284,32 +284,48 @@ let texts = {
         en: "Set up the Nim game"
     },
     "param_moves": {
-        fr: "La couleur des balles est attribuée dans l'ordre croissant des coups cochés. <br>L'ordre d'attribution des couleurs est le suivant : jaune, rouge, bleu, vert, violet. <br>",
-        en: "The color of the balls is assigned in ascending order of the checked moves. <br>The order of assignment of the colors is as follows: yellow, red, blue, green, purple. <br>"
+        fr: "Vous pouvez choisir les coups autorisés ainsi que le nombre d'allumettes à souhait. <br>L'ordre d'attribution des couleurs des balles est le suivant : jaune, rouge, bleu, vert, violet. <br>",
+        en: "You can choose the allowed moves as well as the number of matches you want. <br>The order of assignment of the colors of the balls is as follows: yellow, red, blue, green, purple. <br>"
     },
     "param_opponents_title": {
         fr: "Adversaire possible",
         en: "Possible opponent"
     },
     "param_opponents": {
-        fr: "Trois adversaires possibles : <ul><li>Aléatoire : aucune stratégie de la part de l'adversaire.</li> <li>Machine : une autre IA ayant appris avec le même algorithme d'apprentissage par renforcement.</li> <li>Expert : une stratégie mise en place afin de rendre plus difficile les victoires pour l'IA.</li> </ul>",
-        en: "Three possible opponents: <ul><li>Random: no strategy on the opponent's part.</li> <li>Machine: another AI that has learned with the same reinforcement learning algorithm.</li> <li>Expert: a strategy put in place to make it more difficult for the AI to win.</li> </ul>"
+        fr: "Trois niveaux de difficulté possibles :<br>- Aléatoire : aucune stratégie de la part de l'adversaire, des choix purement hasardeux.<br>- Machine : une autre IA apprenant le même algorithme d'apprentissage par renforcement.<br>- Expert : adversaire possédant une stratégie mise en place afin de rendre plus difficile les victoires pour l'IA.",
+        en: "Three possible difficulty levels: <br>- Random: no strategy on the part of the opponent, purely random choices. <br>- Machine: another AI learning the same reinforcement learning algorithm. <br>- Expert: opponent with a strategy in place to make it more difficult for the AI to win."
     },
     "param_learning_title": {
         fr: "Apprentissage",
         en: "Learning"
     },
     "param_learning": {
-        fr: "Au départ, on attribue des valeurs par défaut pour la récompense/punition en cas de victoire/défaite de l'IA.",
-        en: "Initially, we assign default values for the reward/punishment in case of AI victory/defeat."
+        fr: "Ici vous aurez la possibilité de paramétrer l'apprentissage de l'IA en choisissant la récompense et la pénalité qu'elle recevra à chaque partie. <br>Décider du nombre de balles par couleur au début de la simulation permettra aussi de maîtriser sa vitesse d'apprentissage.",
+        en: "Here you will have the possibility to set the AI's learning by choosing the reward and the penalty it will receive for each game. <br>Deciding on the number of balls per color at the beginning of the simulation will also allow you to control its learning speed."
     },
     "param_speed_title": {
         fr: "Vitesse d'affichage",
         en: "Display speed"
     },
     "param_speed": {
-        fr: "Trois vitesses d'exécution de l'algorithme : <ul><li>Un coup : un choix est fait soit par l'IA soit par l'autre joueur.</li><li>Une partie : les allumettes sont tirées jusqu'à obtenir un vainqueur. Le nombre de balles est actualisé selon le résultat.</li><li>Non stop : les parties s'enchainent sans pause les unes après les autres.</li></ul>",
-        en: "Three execution's speeds of the algorithm: <ul><li>One move: a choice is made either by the AI or by the other player.</li><li>One game: the matches are drawn until a winner is obtained. The number of balls is updated according to the result.</li><li>Non stop: the games follow one after the other without pause.</li></ul>"
+        fr: "Il vous est proposé de choisir la vitesse d'actualisation de l'affichage de la simulation. <br>Vous pouvez choisir entre 3 cadences : <br> - Un coup : l'affichage est actualisé à chaque coup joué par l'IA ou l'adversaire. <br> - Une partie : l'affichage est actualisé après une partie jouée. <br> - Non stop : l'affichage est actualisé à chaque partie jouée, sans pause.",
+        en: "You are offered to choose the speed of updating the display of the simulation. <br>You can choose between 3 speeds: <br> - One move: the display is updated with every move played by the AI or the opponent. <br> - One game: the display is updated after one game played. <br> - Non stop: the display is updated after each game played, without pause."
+    },
+    "param_rules_bending_title": {
+        fr: "Règles flexibles",
+        en: "Flexible rules"
+    },
+    "param_rules_bending": {
+        fr: "Vous pouvez choisir de modifier les règles du jeu de Nim de Fort Boyard pour générer des situations plus complexes.",
+        en: "You can choose to modify the rules of the Fort Boyard Nim game to generate more complex situations."
+    },
+    "param_RL_spec_title": {
+        fr: "Spécificité de l'apprentissage par renforcement",
+        en: "Specificitie of reinforcement learning"
+    },
+    "param_RL_spec": {
+        fr: "Ce paramètre vous permet de choisir si l'IA doit apprendre des coups de son adversaire. Par exemple, si l'IA a gagné la partie, elle considèrera les coups de son adversaire comme des coups perdants et les ajoutera à son apprentissage.",
+        en: "This parameter allows you to choose if the AI should learn from its opponent's moves. For example, if the AI has won the game, it will consider its opponent's moves as losing moves and add them to its learning."
     },
 
     /* ADAPTATION PART */
@@ -427,8 +443,8 @@ let texts = {
         en: "Should the AI learn from its opponent's moves?"
     },
     "adaptation_winning_condition": {
-        fr: "Est-ce que le joueur qui retire la dernière allumette gagne ?",
-        en: "Does the player who removes the last match win?"
+        fr: "Est-ce que le joueur qui retire la dernière allumette gagne la partie ?",
+        en: "Does the player who removes the last match win the game?"
     },
     "adaptation_new_game": {
         fr: 'Nouvelle partie &#43;',
@@ -477,5 +493,9 @@ let texts = {
     "adaptation_status_won": {
         fr: "a gagné",
         en: "won"
+    },
+    "adaptation_too_many_games": {
+        fr: "Mise en pause automatique de la simulation",
+        en: "Automatic pause of the simulation"
     },
 }

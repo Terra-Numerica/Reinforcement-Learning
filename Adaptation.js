@@ -3,6 +3,9 @@ var overallGame = null;
 var nbDefeats = 0;
 var nbWins = 0;
 
+var MAX_GAMES = 200;
+var MAX_BALLS_PER_BASKET = 200;
+
 /* PART ABOUT THE PARAMETERS */
 
 var formValues = {}; //moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, winnerStarts, lossesTrained
@@ -112,9 +115,13 @@ function continueGame() {
 
 function updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins) {
     updateStatus();
+    if (formValues["speed"] == 2 && (nbDefeats + nbWins) % MAX_GAMES == 0 && nbDefeats + nbWins != 0) {
+        pauseGame();
+        alert(texts["adaptation_too_many_games"][langPicked])
+    }
     if (endGame) {
         var win = overallGame.player == 0;
-        if(!lastWins) win = !win;
+        if (!lastWins) win = !win;
         if (!win) {//opponent won
             nbDefeats++;
             overallGame.reinforcement(false, 0, lossesTrained);
@@ -142,6 +149,7 @@ function updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins) {
             overallGame.player = 1 - overallGame.player
         }
     }
+
 }
 
 function updateStatus() {
@@ -212,7 +220,7 @@ function updateCanvas() {
     //show or hide elements needed for nonstop mode
     //TODO: visual issue with the grid coz it's fitting depending of the content...
     document.getElementById("adapt_continue").classList.remove("d-none");
-    if(formValues["speed"] === 2){
+    if (formValues["speed"] === 2) {
         document.getElementById("adaptation").classList.add("grid_modified");
         document.getElementById("adapt_nonstop_speed").classList.remove("d-none");
     } else {
@@ -240,7 +248,7 @@ function updateCanvas() {
         }
 
         newG.disabled = false;
-        
+
         //console.profileEnd("updateCanvas");
     }, 100);
 }
@@ -323,6 +331,7 @@ function updateASingleBasket(basketID) {
             ballsOfBasket.push(balls[i]);
         }
     }
+
     for (var i = 0; i < moves.length; i++) {
         var ballsOfMove = [];
         var hiddenBallsOfMove = [];
@@ -335,25 +344,29 @@ function updateASingleBasket(basketID) {
                 }
             }
         }
-        if (ballsOfMove.length > basketState[i]) {
-            var difference = ballsOfMove.length - basketState[i];
-            for (var j = 0; j < difference; j++) {
-                ballsOfMove[j].classList.add("d-none");
-            }
-        } else if (ballsOfMove.length < basketState[i]) {
-            var difference = basketState[i] - ballsOfMove.length;
-            for (var j = 0; j < hiddenBallsOfMove.length && j < difference; j++) {
-                hiddenBallsOfMove[j].classList.remove("d-none");
-            }
-            if (j < difference) {
-                for (var j = 0; j < difference - hiddenBallsOfMove.length; j++) {
-                    var newBall = createBall(basketID, ballsOfBasket.length, moves[i] - 1);
-                    canvas.innerHTML += newBall;
-                    ballsOfBasket.push(canvas.children[canvas.children.length - 1]);
-                    positionBall(ballsOfBasket[ballsOfBasket.length - 1], basketID - 1);
-                    ballsOfBasket[ballsOfBasket.length - 1].classList.remove("d-none");
+        if (ballsOfMove.length <= MAX_BALLS_PER_BASKET) {
+            if (ballsOfMove.length > basketState[i]) {
+                var difference = ballsOfMove.length - basketState[i];
+                for (var j = 0; j < difference; j++) {
+                    ballsOfMove[j].classList.add("d-none");
+                }
+            } else if (ballsOfMove.length < basketState[i]) {
+                var difference = basketState[i] - ballsOfMove.length;
+                for (var j = 0; j < hiddenBallsOfMove.length && j < difference; j++) {
+                    hiddenBallsOfMove[j].classList.remove("d-none");
+                }
+                if (j < difference) {
+                    for (var j = 0; j < difference - hiddenBallsOfMove.length; j++) {
+                        var newBall = createBall(basketID, ballsOfBasket.length, moves[i] - 1);
+                        canvas.innerHTML += newBall;
+                        ballsOfBasket.push(canvas.children[canvas.children.length - 1]);
+                        positionBall(ballsOfBasket[ballsOfBasket.length - 1], basketID - 1);
+                        ballsOfBasket[ballsOfBasket.length - 1].classList.remove("d-none");
+                    }
                 }
             }
+        } else {
+            continue;
         }
     }
     ballsOfBasket = [];
@@ -362,7 +375,7 @@ function updateASingleBasket(basketID) {
             ballsOfBasket.push(balls[i]);
         }
     }
-    
+
     for (var i = 0; i < moves.length; i++) {
         var ballsOfMove = [];
         for (var j = 0; j < ballsOfBasket.length; j++) {
@@ -370,11 +383,12 @@ function updateASingleBasket(basketID) {
                 ballsOfMove.push(ballsOfBasket[j]);
             }
         }
-        if (ballsOfMove.length != basketState[i]) {
+        if (ballsOfMove.length != basketState[i] && ballsOfMove.length <= MAX_BALLS_PER_BASKET) {
             console.log("Problem in basket " + basketID + " for move " + i + " - " + ballsOfMove.length + " balls instead of " + basketState[i]);
             pauseGame();
         }
     }
+
 }
 
 function updateBasketPositions() {
@@ -438,9 +452,9 @@ function hideBalls() {
     }
 }
 
-function changeIntervalValue(elem, val){
+function changeIntervalValue(elem, val) {
     intervalValue = val;
-    if(interval != null){
+    if (interval != null) {
         clearInterval(interval);
         interval = setInterval(() => updateGame(overallGame.playNonStop(), formValues["opponent"], formValues["machineStarts"], formValues["lastIsWin"]), (1 - intervalValue) * 1000);
     }

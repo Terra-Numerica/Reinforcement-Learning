@@ -4,7 +4,7 @@ nbMoves = 0; //number of moves made by the AI
 newStart = true; //true if the game has just started, false otherwise
 restart = false; //true if the game has just been restarted, false otherwise
 
-red =  //number of red balls for each match
+red = new Array(8);  //number of red balls for each match
 yellow = new Array(8); //number of yellow balls for each match
 AImoves = new Array(5); //record of the moves made by the AI
 nbMatchesPerMove = new Array(5); //number of removed matches
@@ -22,6 +22,7 @@ htmlRedBalls = null;
 htmlNbMatches = null;
 htmlNbOfMatchesTakenByLastMove = null;
 
+/** Initialize the game */
 function initInteracting(){
     //retrieve the html elements used for displaying the game state
     basketState = document.getElementById("int_basket_state");
@@ -62,6 +63,7 @@ function enableBtns(){
     }
 }
 
+/** Fill the red and yellow arrays updated with the reward value */
 function fillRedYellow(reward){
     for(let i=0; i< 5; i++){
         if(nbMatchesPerMove[i] == 1){
@@ -77,11 +79,12 @@ function fillRedYellow(reward){
     }
     nbMoves = 0;
     fillTextBasketState();
-    console.log("Contenu des casiers");
-    console.log("Les rouges" + red);
-    console.log("Les jaunes" + yellow);
+    console.log("The baskets state:");
+    console.log("Red" + red);
+    console.log("Yellow" + yellow);
 }
 
+/** Fill the text of the basket state */
 function fillTextBasketState(){
     basketState.parentNode.classList.remove("d-none");
     if(basketState.getAttribute("translate") == undefined){
@@ -92,13 +95,14 @@ function fillTextBasketState(){
     htmlRedBalls.innerHTML = JSON.stringify(red);
 }
 
+/** Fill the text of the game result */
 function fillResult(result){
-    if (result == 0){ //The AI won
+    if (result == 0){ //The AI lost
         gameResult.classList.remove("text-danger");
         gameResult.classList.add("text-success");
         gameResult.setAttribute("translate", "interacting_end_won");
         gameResult.innerHTML = texts["interacting_end_won"][langPicked];
-    } else { // The AI lost
+    } else { // The AI won
         gameResult.classList.remove("text-success");
         gameResult.classList.add("text-danger");
         gameResult.setAttribute("translate", "interacting_end_lost");
@@ -106,7 +110,8 @@ function fillResult(result){
     }
 }
 
-//TODO: should display the player's latest move as well in another function, or a way to have a full history of the match
+/** Fill the text of the last move
+TODO: should display the player's latest move as well in another function, or a way to have a summary of the full history of the match*/
 function fillLastMove(nbOfMatchesTaken){
     lastmove.parentNode.classList.remove("d-none");
     if(lastmove.getAttribute("translate") == undefined){
@@ -116,18 +121,21 @@ function fillLastMove(nbOfMatchesTaken){
     htmlNbOfMatchesTakenByLastMove.innerHTML = nbOfMatchesTaken;
 }
 
+/** Fill the text of the number of matches left */
 function fillMatchesLeft(){
     htmlNbMatches.parentNode.classList.remove("d-none");
     htmlNbMatches.innerHTML = nbMatches;
 }
 
+/** Fill the text of the error message */
 function errorMessage(){
     matchesLeft.innerHTML = texts["interacting_error"][langPicked];
     gameResult.innerHTML = texts["interacting_end_error"][langPicked];
 }
 
+/** The AI's turn */
 function actionAI(){
-    if (nbMatches == 1){
+    if (nbMatches == 1){ //if there is only one match left, the AI has to take it
         AImoves[nbMoves] = nbMatches - 1;
         nbMatchesPerMove[nbMoves] = 1;
         nbMatches = 0;
@@ -141,7 +149,7 @@ function actionAI(){
         let nbRed = red[nbMatches - 1];
         let nbYellow = yellow[nbMatches - 1];
         let randomNb = 0;
-        if (nbRed == 0 && nbYellow == 0){
+        if (nbRed == 0 && nbYellow == 0){ //if there is no ball left, the game is restarted because the AI made a mistake
             nbMatches = 8;
             initInteracting();
             basketState.parentNode.classList.add("d-none");
@@ -150,9 +158,9 @@ function actionAI(){
             matchesLeft.parentNode.classList.add("d-none");
             errorMessage();
             randomNb = 3;
-        } else if (nbRed == 0) {
+        } else if (nbRed == 0) { //if there is no red ball left, the AI has to take one match
             randomNb = 1;
-        } else if (nbYellow == 0) {
+        } else if (nbYellow == 0) { //if there is no yellow ball left, the AI has to take two matches
             randomNb = 2;
         } else {
             let valuation = 1 + parseInt(Math.random() * (nbRed + nbYellow));
@@ -163,17 +171,17 @@ function actionAI(){
                 randomNb = 2;
             }
         }
-        if (randomNb == 1) {
+        if (randomNb == 1) { // if the AI takes one match
             AImoves[nbMoves] = nbMatches - 1;
             nbMatchesPerMove[nbMoves] = 1;
             nbMoves++;
         }
-        if (randomNb == 2){
+        if (randomNb == 2){ // if the AI takes two matches
             AImoves[nbMoves] = nbMatches - 1;
             nbMatchesPerMove[nbMoves] = 2;
             nbMoves++;
         }
-        if (randomNb != 3){
+        if (randomNb != 3){ // if the game is not restarted
             nbMatches -= randomNb;
             fillLastMove(randomNb);
             fillMatchesLeft();
@@ -187,12 +195,13 @@ function actionAI(){
     }
 }
 
-//the function used by all the buttons
+/** The player's turn. This function is used by every buttons */
 function interact(btn){
     newStart = false;
     restart = false;
-    if (btn == 1 && nbMatches - 1 >= 0) {
+    if (btn == 1 && nbMatches - 1 >= 0) { // if the player takes one match and there is at least one match left
         nbMatches--;
+        //disabling the moves not possible after this button is pressed
         if(nbMatches < 2){
             buttons[1].disabled = true;
         }
@@ -202,28 +211,28 @@ function interact(btn){
         fillMatchesLeft();
         gameResult.innerHTML = "";
         basketState.parentNode.classList.add("d-none");
-        if (nbMatches == 0){
+        if (nbMatches == 0){ // if the player wins
             lastmove.parentNode.classList.add("d-none");
             fillResult(1);
             fillRedYellow(-1);
-        } else if (nbMatches > 0) {
+        } else if (nbMatches > 0) { // if the game is not finished
             fillLastMove(2);
             actionAI();
         }
-    } else if (btn == 2 && nbMatches - 2 >= 0) {
+    } else if (btn == 2 && nbMatches - 2 >= 0) {// if the player takes two matches and there are at least two matches left
         nbMatches -= 2;
         fillMatchesLeft();
         gameResult.innerHTML = "";
         basketState.parentNode.classList.add("d-none");
-        if (nbMatches == 0) {
+        if (nbMatches == 0) { // if the player wins
             lastmove.parentNode.classList.add("d-none");
             fillResult(1);
             fillRedYellow(-1);
-        } else if (nbMatches > 0) {
+        } else if (nbMatches > 0) { // if the game is not finished
             fillLastMove(2);
             actionAI();
         }
-    } else if (btn == 3){
+    } else if (btn == 3){ // if the player wants to play another round
         restart = true;
         nbMatches = 8;
         enableBtns();
@@ -232,7 +241,7 @@ function interact(btn){
         basketState.parentNode.classList.add("d-none");
         gameResult.innerHTML = "";
         lastmove.parentNode.classList.add("d-none");
-    } else if (btn == 4){
+    } else if (btn == 4){ // if the player wants to restart the game and reinitialize the baskets
         initInteracting();
         nbMatches = 8;
         fillMatchesLeft();

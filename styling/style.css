@@ -22,7 +22,6 @@ td {
 
 legend {
     font-weight: bold;
-    /* displace them on the corner left like in the swing version */
 }
 
 button:focus {
@@ -36,6 +35,10 @@ button:focus {
 .form-check > label {
     translate: -11px 20px;
     min-width: 100%;
+}
+
+input[type="checkbox"].form-control, input[type="radio"].form-control {
+    width: auto!important;
 }
 
 #lang_switch{

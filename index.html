@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title translate="page_title"></title>
+    <title translation="page_title"></title>
     <link rel="icon" type="image/x-icon" href="images/Icon.png">
 
     <!-- PLUGIN IMPORTS -->
@@ -25,53 +25,53 @@
         <button id="menu_btn" class="btn btn-primary" onclick="slideMenu()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <button id="back_home" class="btn btn-primary invisible" translate="back"
+        <button id="back_home" class="btn btn-primary invisible" translation="back"
             onclick="showTab('home_page', null)"></button>
         <img id="logo" src="images/Terra Numerica.png" alt="Logo">
-        <button id="lang_switch" class="btn btn-primary" translate="lang_switch" onclick="switchLang()"></button>
+        <button id="lang_switch" class="btn btn-primary" translation="lang_switch" onclick="switchLang()"></button>
     </nav>
     <div id="navbarTabs">
         <a href="javascript:void(0)" class="close_btn" onclick="closeMenu()">&times;</a>
         <ul class="flex-column pl-0">
-            <button class="nav-tab" translate="rules_game" onclick="showTab('rules_game', this)"></button>
-            <button class="nav-tab" translate="rein_learning" onclick="showTab('rein_learning', this)"></button>
-            <button class="nav-tab" translate="probabilities" onclick="showTab('probabilities', this)"></button>
-            <button class="nav-tab" translate="goal" onclick="showTab('goal', this)"></button>
-            <button class="nav-tab" translate="param_tuto" onclick="showTab('param_tuto', this)"></button>
+            <button class="nav-tab" translation="rules_game" onclick="showTab('rules_game', this)"></button>
+            <button class="nav-tab" translation="rein_learning" onclick="showTab('rein_learning', this)"></button>
+            <button class="nav-tab" translation="probabilities" onclick="showTab('probabilities', this)"></button>
+            <button class="nav-tab" translation="goal" onclick="showTab('goal', this)"></button>
+            <button class="nav-tab" translation="param_tuto" onclick="showTab('param_tuto', this)"></button>
         </ul>
     </div>
     <div id="home_page">
-        <h1 translate="welcome_msg"></h1>
-        <h3 translate="welcome_desc" class="text-center w-75 m-auto"></h3>
+        <h1 translation="welcome_msg"></h1>
+        <h3 translation="welcome_desc" class="text-center w-75 m-auto"></h3>
         <div style="text-align: center;">
             <img src="images/Robot logo.png" width="150px" height="150px" style="border: solid 7px;
             border-radius: 50%;">
         </div>
         <div id="home_btn_grp" class="d-flex">
-            <button class="btn btn-primary p-3" translate="HvM" onclick="showTab('interacting', null)"></button>
-            <button class="btn btn-primary p-3" translate="MvM" onclick="showTab('adaptation', null)"></button>
+            <button class="btn btn-primary p-3" translation="MvM" onclick="showTab('adaptation', null)"></button>
+            <button class="btn btn-primary p-3" translation="HvM" onclick="showTab('interacting', null)"></button>
         </div>
     </div>
 
     <div id="rules_game" class="tab text-center d-none">
-        <h1 translate="rules_game"></h1>
-        <h5 translate="rules_video"></h5>
+        <h1 translation="rules_game"></h1>
+        <h5 translation="rules_video"></h5>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/10CUpulWxww?mute=1" 
         title="YouTube video player" frameborder="0"
         allowfullscreen class="my-2"></iframe>
-        <p translate="rules_gist"></p>
-        <p translate="rules_custom"></p>
-        <h2 translate="rules_illustr_title"></h2>
-        <p translate="rules_illust_statement"></p>
+        <p translation="rules_gist"></p>
+        <p translation="rules_custom"></p>
+        <h2 translation="rules_illustr_title"></h2>
+        <p translation="rules_illust_statement"></p>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th translate="rules_illustr_0"></th>
-                        <th translate="rules_illustr_1"></th>
-                        <th translate="rules_illustr_2"></th>
-                        <th translate="rules_illustr_3"></th>
-                        <th translate="rules_illustr_4"></th>
+                        <th translation="rules_illustr_0"></th>
+                        <th translation="rules_illustr_1"></th>
+                        <th translation="rules_illustr_2"></th>
+                        <th translation="rules_illustr_3"></th>
+                        <th translation="rules_illustr_4"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,41 +101,41 @@
                 </tbody>
             </table>
         </div>
-        <p translate="rules_illust_over"></p>
+        <p translation="rules_illust_over"></p>
     </div>
 
     <div id="rein_learning" class="tab text-center d-none">
-        <h1 translate="rein_learning"></h1>
-        <h2 translate="rein_field"></h2>
-        <p translate="rein_field_gist"></p>
-        <h2 translate="rein_tools"></h2>
-        <p translate="rein_tools_gist"></p>
-        <h2 translate="rein_examples"></h2>
-        <ul class="list-group-flush" translate="rein_examples_gist"></ul>
-        <h2 translate="rein_agent"></h2>
-        <p translate="rein_agent_gist"></p>
-        <h2 translate="rein_opti"></h2>
-        <p translate="rein_opti_gist"></p>
+        <h1 translation="rein_learning"></h1>
+        <h2 translation="rein_field"></h2>
+        <p translation="rein_field_gist"></p>
+        <h2 translation="rein_tools"></h2>
+        <p translation="rein_tools_gist"></p>
+        <h2 translation="rein_examples"></h2>
+        <ul class="list-group-flush" translation="rein_examples_gist"></ul>
+        <h2 translation="rein_agent"></h2>
+        <p translation="rein_agent_gist"></p>
+        <h2 translation="rein_opti"></h2>
+        <p translation="rein_opti_gist"></p>
     </div>
 
     <div id="probabilities" class="tab text-center d-none">
-        <h1 translate="probabilities"></h1>
+        <h1 translation="probabilities"></h1>
         <div class="table-responsive m-auto">
             <table class="table text-center">
                 <tr>
-                    <th class="probs_steps" translate="probs_initial"></th>
+                    <th class="probs_steps" translation="probs_initial"></th>
                     <th class="probs_steps">
                         <img src="images/Example initial .png">
                     </th>
                 </tr>
                 <tr>
-                    <th class="probs_steps" translate="probs_win"></th>
+                    <th class="probs_steps" translation="probs_win"></th>
                     <th class="probs_steps">
                         <img src="images/Example won.png">
                     </th>
                 </tr>
                 <tr>
-                    <th class="probs_steps" translate="probs_lost"></th>
+                    <th class="probs_steps" translation="probs_lost"></th>
                     <th class="probs_steps">
                         <img src="images/Example loss.png">
                     </th>
@@ -146,20 +146,20 @@
 
     <div id="goal" class="tab text-center d-none">
         <div id="goal_layout" class="d-flex flex-column justify-content-center">
-            <h1 translate="goal"></h1>
-            <h3 translate="goal_premise"></h3>
+            <h1 translation="goal"></h1>
+            <h3 translation="goal_premise"></h3>
             <div id="bubbles_speech">
                 <div id="left_top">
-                    <p class="h5" translate="goal_gist"></p>
+                    <p class="h5" translation="goal_gist"></p>
                 </div>
                 <img src="images/Robot.svg" width="200px" height="200px" id="robot">
                 <div id="right_top">
-                    <p class="h5" translate="goal_about_matches"></p>
+                    <p class="h5" translation="goal_about_matches"></p>
                 </div>
                 <div id="left_bot">
                     <div class="h5">
-                        <p translate="goal_desc"></p>
-                        <p translate="goal_concl"></p>
+                        <p translation="goal_desc"></p>
+                        <p translation="goal_concl"></p>
                     </div>
                 </div>
                 <div id="right_bot">
@@ -171,12 +171,12 @@
     </div>
 
     <div id="interacting" class="tab text-center d-none">
-        <h1 translate="interacting"></h1>
-        <h5 translate="interacting_gist"></h5>
-        <p translate="interacting_start" class="font-italic"></p>
+        <h1 translation="interacting"></h1>
+        <h5 translation="interacting_gist"></h5>
+        <p translation="interacting_start" class="font-italic"></p>
 
         <div>
-            <p id="int_matches_left" translate="interacting_matches_left"></p>
+            <p id="int_matches_left" translation="interacting_matches_left"></p>
             <span id="NMATCHES_left" class="int_dyn_data"></span>
         </div>
 
@@ -188,38 +188,38 @@
         <p id="int_end_report" class="font-weight-bold"></p>
 
         <div>
-            <p id="int_basket_state" translate="interacting_basket_state"></p>
+            <p id="int_basket_state" translation="interacting_basket_state"></p>
             <span id="YBALLS" class="int_dyn_data"></span>
             <span id="RBALLS" class="int_dyn_data"></span>
         </div>
 
         <div class="btn-group-vertical align-items-center">
-            <button class="btn btn-warning int_btn" translate="interacting_take_1" onclick="interact(1)"></button>
-            <button class="btn btn-danger int_btn" translate="interacting_take_2" onclick="interact(2)"></button>
-            <button class="btn btn-primary int_btn" translate="interacting_restart" onclick="interact(3)"></button>
-            <button class="btn btn-primary int_btn" translate="interacting_reinitialize" onclick="interact(4)"></button>
+            <button class="btn btn-warning int_btn" translation="interacting_take_1" onclick="interact(1)"></button>
+            <button class="btn btn-danger int_btn" translation="interacting_take_2" onclick="interact(2)"></button>
+            <button class="btn btn-primary int_btn" translation="interacting_restart" onclick="interact(3)"></button>
+            <button class="btn btn-primary int_btn" translation="interacting_reinitialize" onclick="interact(4)"></button>
         </div>
     </div>
 
     <div id="param_tuto" class="tab text-center d-none">
-        <h1 translate="param_tuto"></h1>
+        <h1 translation="param_tuto"></h1>
         <div class="card-group" style="margin-inline: 0;">
             <div class="card" style="min-width: 90vw; margin-inline: 0;">
                 <img class="card-img-top" id="param_baskets_main_pic" src="images/Basket with balls example.png"
                     alt="Explanation about the number of baskets and balls">
                 <div class="card-body" style="margin-left: 13em; align-self: flex-end; min-height: 300px;">
-                    <h5 translate="param_desc_title"></h5>
-                    <p class="card-text" translate="param_desc_1"></p>
-                    <p class="card-text" translate="param_desc_2"></p>
+                    <h5 translation="param_desc_title"></h5>
+                    <p class="card-text" translation="param_desc_1"></p>
+                    <p class="card-text" translation="param_desc_2"></p>
                 </div>
                 <div class="card-footer table-responsive">
                     <table class="table" style="table-layout: fixed;">
                         <thead class="thead-dark">
                             <tr>
-                                <th translate="param_desc_elements" scope="col" style="width: 11.5em;"></th>
-                                <th translate="param_desc_3" scope="col"></th>
-                                <th translate="param_desc_elements" scope="col" style="width: 11.5em;"></th>
-                                <th translate="param_desc_3" scope="col"></th>
+                                <th translation="param_desc_elements" scope="col" style="width: 11.5em;"></th>
+                                <th translation="param_desc_3" scope="col"></th>
+                                <th translation="param_desc_elements" scope="col" style="width: 11.5em;"></th>
+                                <th translation="param_desc_3" scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -227,21 +227,21 @@
                                 <td>
                                     <img src="images/new_basket.png" width="150px" class="img-fluid img-thumbnail">
                                 </td>
-                                <th translate="param_desc_4"></th>
+                                <th translation="param_desc_4"></th>
                                 <td>
                                     <img src="images/Basket focus 1.png" width="150px" class="img-fluid img-thumbnail">
                                 </td>
-                                <th translate="param_desc_6"></th>
+                                <th translation="param_desc_6"></th>
                             </tr>
                             <tr>
                                 <td>
                                     <img src="images/Basket focus 3.png" width="150px" class="img-fluid img-thumbnail">
                                 </td>
-                                <th translate="param_desc_5"></th>
+                                <th translation="param_desc_5"></th>
                                 <td>
                                     <img src="images/Basket focus 2.png" width="150px" class="img-fluid img-thumbnail">
                                 </td>
-                                <th translate="param_desc_7"></th>
+                                <th translation="param_desc_7"></th>
                             </tr>
                         </tbody>
                     </table>
@@ -251,45 +251,45 @@
                 <img class="card-img-top" src="images/Possible moves.png"
                     alt="Explanation about the number of moves possible">
                 <div class="card-body">
-                    <h5 translate="param_moves_title"></h5>
-                    <p class="card-text" translate="param_moves"></p>
+                    <h5 translation="param_moves_title"></h5>
+                    <p class="card-text" translation="param_moves"></p>
                 </div>
             </div>
             <div class="card">
                 <img class="card-img-top" src="images/Opponent.png"
                     alt="Explanation about the types of opponents possible">
                 <div class="card-body">
-                    <h5 translate="param_opponents_title"></h5>
-                    <p class="card-text" translate="param_opponents"></p>
+                    <h5 translation="param_opponents_title"></h5>
+                    <p class="card-text" translation="param_opponents"></p>
                 </div>
             </div>
             <div class="card">
                 <img class="card-img-top" src="images/Reward and penalty.png"
                     alt="Explanation about the reward and penalty">
                 <div class="card-body">
-                    <h5 translate="param_learning_title"></h5>
-                    <p class="card-text" translate="param_learning"></p>
+                    <h5 translation="param_learning_title"></h5>
+                    <p class="card-text" translation="param_learning"></p>
                 </div>
             </div>
             <div class="card">
                 <img class="card-img-top" src="images/Speed.png" alt="Explanation about the speed that can be chosen">
                 <div class="card-body">
-                    <h5 translate="param_speed_title"></h5>
-                    <p class="card-text" translate="param_speed"></p>
+                    <h5 translation="param_speed_title"></h5>
+                    <p class="card-text" translation="param_speed"></p>
                 </div>
             </div>
             <div class="card">
                 <img class="card-img-top" src="images/Rules bending.png">
                 <div class="card-body">
-                    <h5 translate="param_rules_bending_title"></h5>
-                    <p class="card-text" translate="param_rules_bending"></p>
+                    <h5 translation="param_rules_bending_title"></h5>
+                    <p class="card-text" translation="param_rules_bending"></p>
                 </div>
             </div>
             <div class="card">
                 <img class="card-img-top" src="images/RL specs.png" alt="Explanation about who starts">
                 <div class="card-body">
-                    <h5 translate="param_RL_spec_title"></h5>
-                    <p class="card-text" translate="param_RL_spec"></p>
+                    <h5 translation="param_RL_spec_title"></h5>
+                    <p class="card-text" translation="param_RL_spec"></p>
                 </div>
             </div>
         </div>
@@ -297,12 +297,12 @@
 
     <div id="adaptation" class="tab d-none">
         <div id="adapt_game_status">
-            <legend for="adapt_game_status" translate="adaptation_game_status"></legend>
+            <legend for="adapt_game_status" translation="adaptation_game_status"></legend>
             <div id="adapt_history"></div>
         </div>
 
         <div id="adapt_nonstop_speed" class="d-none">
-            <legend for="adapt_nonstop_speed" translate="adaptation_speed_interval"></legend>
+            <legend for="adapt_nonstop_speed" translation="adaptation_speed_interval"></legend>
             <div class="form-group d-flex flex-column h-100" id="adapt_speed_interval">
                 <label for="adapt_speed" class="col-form-label text-center w-100">x0.55</label>
                 <input type="range" id="adapt_speed_interval_range" class="form-control-range" min="0.1" max="1"
@@ -311,22 +311,22 @@
         </div>
 
         <div id="adapt_visualization">
-            <legend for="adapt_visualization" translate="adaptation_vizualisation"></legend>
+            <legend for="adapt_visualization" translation="adaptation_vizualisation"></legend>
         </div>
 
         <div id="adapt_score">
-            <legend for="adapt_score" translate="adaptation_score"></legend>
+            <legend for="adapt_score" translation="adaptation_score"></legend>
             <div class="d-flex row justify-content-between">
                 <div>
-                    <span translate="adaptation_victories"></span>
+                    <span translation="adaptation_victories"></span>
                     <span id="adapt_victories">0</span>
                 </div>
                 <div>
-                    <span translate="adaptation_counter_games"></span>
+                    <span translation="adaptation_counter_games"></span>
                     <span id="adapt_counter_games">0</span>
                 </div>
                 <div>
-                    <span translate="adaptation_defeats"></span>
+                    <span translation="adaptation_defeats"></span>
                     <span id="adapt_defeats">0</span>
                 </div>
             </div>
@@ -340,14 +340,14 @@
 
         <form id="adapt_param">
             <div id="params_header" class="d-flex">
-                <legend for="adapt_param" translate="adaptation_parameters"></legend>
+                <legend for="adapt_param" translation="adaptation_parameters"></legend>
                 <a style="font-size: xx-large;" data-toggle="collapse" data-toggle="collapse" href="#params_to_collapse"
                     role="button" aria-expanded="false" aria-controls="params_to_collapse">&#8942;</a>
             </div>
             <div id="params_to_collapse" class="collapse show">
                 <fieldset class="form-group row align-items-center">
                     <label for="pick_nb_of_moves_possible" class="col-sm-5 col-form-label"
-                        translate="adaptation_possible_moves"></label>
+                        translation="adaptation_possible_moves"></label>
                     <div class="col-sm align-self-end" id="pick_nb_of_moves_possible">
                         <div class="form-check form-check-inline">
                             <input type="checkbox" id="one_move" class="form-control" name="nb_moves" value="1" checked>
@@ -372,109 +372,109 @@
                     </div>
                 </fieldset>
                 <div class="form-group">
-                    <label for="pick_baskets_nb" translate="adaptation_nb_baskets"></label>
+                    <label for="pick_baskets_nb" translation="adaptation_nb_baskets"></label>
                     <span>&nbsp;8</span>
                     <input type="range" id="pick_baskets_nb" class="custom-range form-control" min="8" max="16" step="1"
                         value="8" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
                 </div>
                 <div class="form-group">
-                    <label for="balls_per_color" translate="adaptation_balls_color"></label>
+                    <label for="balls_per_color" translation="adaptation_balls_color"></label>
                     <span>&nbsp;6</span>
                     <input type="range" id="balls_per_color" class="custom-range form-control" min="2" max="10" step="1"
                         value="6" data-toggle="tooltip" data-placement="left" oninput="updateTooltipValue(this)">
                 </div>
                 <div class="form-group">
-                    <label for="pick_reward" translate="adaptation_reward"></label>
+                    <label for="pick_reward" translation="adaptation_reward"></label>
                     <input type="number" id="pick_reward" class="form-control" placeholder=3 value=3 min=0>
                 </div>
                 <div class="form-group">
-                    <label for="pick_penalty" translate="adaptation_penalty"></label>
+                    <label for="pick_penalty" translation="adaptation_penalty"></label>
                     <input type="number" id="pick_penalty" class="form-control" placeholder=-1 value=-1 max=0>
                 </div>
                 <div class="form-group">
-                    <label for="pick_speed" translate="adaptation_speed"></label>
+                    <label for="pick_speed" translation="adaptation_speed"></label>
                     <select class="form-control" id="pick_speed">
-                        <option translate="adaptation_one_move" value="0"></option>
-                        <option translate="adaptation_one_game" value="1"></option>
-                        <option translate="adaptation_non_stop" value="2"></option>
+                        <option translation="adaptation_one_move" value="0"></option>
+                        <option translation="adaptation_one_game" value="1"></option>
+                        <option translation="adaptation_non_stop" value="2"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="pick_opponent" translate="adaptation_select_opp"></label>
+                    <label for="pick_opponent" translation="adaptation_select_opp"></label>
                     <select class="form-control" id="pick_opponent">
-                        <option translate="adaptation_random" value="HAZARD"></option>
-                        <option translate="adaptation_machine" value="MACHINE"></option>
-                        <option translate="adaptation_expert" value="EXPERT"></option>
+                        <option translation="adaptation_random" value="HAZARD"></option>
+                        <option translation="adaptation_machine" value="MACHINE"></option>
+                        <option translation="adaptation_expert" value="EXPERT"></option>
                     </select>
                 </div>
                 <fieldset class="form-group row align-items-center">
-                    <label class="col-sm-5 col-form-label" translate="adaptation_who_starts"></label>
+                    <label class="col-sm-5 col-form-label" translation="adaptation_who_starts"></label>
                     <div id="picks_who_starts" class="col-sm align-self-end">
                         <div class="form-check form-check-inline">
                             <input type="radio" id="machine_starts" class="form-control" name="picks_who_starts"
                                 value="true" checked>
-                            <label for="1" translate="adaptation_machine_starts"></label>
+                            <label for="1" translation="adaptation_machine_starts"></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input type="radio" id="opponent_starts" class="form-control" name="picks_who_starts"
                                 value="false">
-                            <label for="2" translate="adaptation_opponent_starts"></label>
+                            <label for="2" translation="adaptation_opponent_starts"></label>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset class="form-group row align-items-center">
-                    <label class="col col-form-label" translate="adaptation_winning_condition"></label>
+                    <label class="col col-form-label" translation="adaptation_winning_condition"></label>
                     <div id="winning_condition" class="col-sm align-self-end">
                         <div class="form-check form-check-inline">
                             <input type="radio" id="winning_is_finishing" class="form-control" name="winning_condition"
                                 value="true">
-                            <label for="1" translate="adaptation_yes"></label>
+                            <label for="1" translation="adaptation_yes"></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input type="radio" id="winning_is_keeping" class="form-control" name="winning_condition"
                                 value="false" checked>
-                            <label for="2" translate="adaptation_no"></label>
+                            <label for="2" translation="adaptation_no"></label>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset class="form-group row align-items-center">
-                    <label class="col col-form-label" translate="adaptation_if_winner_starts"></label>
+                    <label class="col col-form-label" translation="adaptation_if_winner_starts"></label>
                     <div id="picks_if_winner_starts" class="col-sm align-self-end">
                         <div class="form-check form-check-inline">
                             <input type="radio" id="winner_starts" class="form-control" name="picks_if_winner_starts"
                                 value="true" checked>
-                            <label for="1" translate="adaptation_yes"></label>
+                            <label for="1" translation="adaptation_yes"></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input type="radio" id="loser_starts" class="form-control" name="picks_if_winner_starts"
                                 value="false">
-                            <label for="2" translate="adaptation_no"></label>
+                            <label for="2" translation="adaptation_no"></label>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset class="form-group row align-items-center">
-                    <label class="col col-form-label" translate="adaptation_train_losses_too"></label>
+                    <label class="col col-form-label" translation="adaptation_train_losses_too"></label>
                     <div id="train_losses_too" class="col-sm align-self-end">
                         <div class="form-check form-check-inline">
                             <input type="radio" id="wins_losses_trained" class="form-control" name="train_losses_too"
                                 value="true">
-                            <label for="1" translate="adaptation_yes"></label>
+                            <label for="1" translation="adaptation_yes"></label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input type="radio" id="wins_trained" class="form-control" name="train_losses_too"
                                 value="false" checked>
-                            <label for="2" translate="adaptation_no"></label>
+                            <label for="2" translation="adaptation_no"></label>
                         </div>
                     </div>
                 </fieldset>
                 
             </div>
             <button type="button" id="adapt_new_game" class="btn btn-success" onclick="startGame()"
-                translate="adaptation_new_game"></button>
+                translation="adaptation_new_game"></button>
             <button type="button" class="btn btn-primary d-none" onclick="continueGame()"
-                translate="adaptation_continue" id="adapt_continue"></button>
+                translation="adaptation_continue" id="adapt_continue"></button>
             <button type="button" id="adapt_pause" class="btn btn-warning d-none" onclick="pauseGame()"
-                translate="adaptation_pause"></button>
+                translation="adaptation_pause"></button>
         </form>
     </div>
 

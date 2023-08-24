@@ -3,6 +3,11 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 
+function updateTooltipValue(element) {
+    $(element).attr('data-original-title', element.value).tooltip('show');
+    $(element).siblings('span').text('\xa0' + element.value);
+}
+
 let langPicked = $('html')[0].lang;
 
 /* Handling the sidebar menu */
@@ -14,7 +19,7 @@ function closeMenu() {
     document.getElementById("navbarTabs").style.transform = "translateX(-100%)";
 }
 
-/* Used to switch the tabs through the navbar */
+/**Used to switch the tabs through the navbar */
 function showTab(page, event) {
     //hide all other tabs
     var tabs = document.getElementsByClassName("tab");
@@ -63,9 +68,10 @@ function showTab(page, event) {
 
 }
 
+/**Apply the translation to the page */
 function setLang() {
-    $("[translate]").each(function () {
-        var key = $(this).attr("translate");
+    $("[translation]").each(function () {
+        var key = $(this).attr("translation");
         if (langPicked == "en") {
             var value = texts[key][langPicked];
         } else if (langPicked == "fr") {
@@ -75,6 +81,7 @@ function setLang() {
     });
 }
 
+/**Switch the language */
 function switchLang() {
     if (langPicked == "en") {
         langPicked = "fr";

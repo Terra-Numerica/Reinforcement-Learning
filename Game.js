@@ -4,12 +4,12 @@ const opponents = {
     HAZARD: "HAZARD"
 }
 
-const NB_CASIERS_MAX = 17;
+const NB_BASKETS_MAX = 17;
 
 class Game {
     possibleMoves; //format: possibleMoves[id] = move
 
-    nbMoves;
+    nbMoves; //number of moves allowed
     nbBaskets;
     nbBalls;
     reward;
@@ -59,7 +59,7 @@ class Game {
         this.textualHistory = "";
     }
 
-    //Reset the position (we retrieve the nbBaskets matches) and erase the current history
+    /**Reset the position (we retrieve the nbBaskets matches) and erase the current history*/
     restartGame() {
         for (var i = 1; i < this.nbBaskets; i++) {
             this.gameMovesHistory[i][0] = this.gameMovesHistory[i][1] = -1; //not played
@@ -67,11 +67,11 @@ class Game {
         this.currPosition = this.nbBaskets - 1;
     }
 
-    //Compute the winning moves for each basket for the expert opponent.
+    /**Compute the winning moves for each basket for the expert opponent.*/
     computeWinningMoves() {
         this.winningMoves[0] = 0;
-        var diff = this.lastIsWin ? 0 : 1;
-        for (var i = 1; i < NB_CASIERS_MAX; i++) {
+        var diff = this.lastIsWin ? 0 : 1; //depends on if retrieving the last match is the winning move or not
+        for (var i = 1; i < NB_BASKETS_MAX; i++) {
             this.winningMoves[i] = 0;
             var j = 0;
             while (j < this.nbMoves) {
@@ -85,9 +85,9 @@ class Game {
         }
     }
 
-    // Play a move for the machine. It can be the player or its opponent
-    // The machine will choose a move randomly, but the probability of choosing a move is proportional to the number of balls in the basket for this move.
-    // This is this game's goal: selecting a move that will lead to a winning position thanks to the number of balls in the corresponding basket.
+    /** Play a move for the machine. It can be the player or its opponent
+    The machine will choose a move randomly, but the probability of choosing a move is proportional to the number of balls in the basket for this move.
+    This is this game's goal: selecting a move that will lead to a winning position thanks to the number of balls in the corresponding basket.*/
     machineMove(id) {
         var currNbBalls = 0;
         for (var i = 0; i < this.nbMoves; i++) {
@@ -106,8 +106,8 @@ class Game {
         return this.hazardMove();
     }
 
-    // Play a move for the expert opponent. It will choose a move that will lead to a winning position.
-    // It will check if there is a winning move for the opponent. If there is, it will play this move, otherwise, it will play a move randomly.
+    /**Play a move for the expert opponent. It will choose a move that will lead to a winning position.
+    It will check if there is a winning move for the opponent. If there is, it will play this move, otherwise, it will play a move randomly.*/
     expertMove() {
         for (var i = 0; i < this.nbMoves; i++) {
             if (this.currPosition - this.possibleMoves[i] >= 0 && this.winningMoves[this.currPosition - this.possibleMoves[i]] == 0) {
@@ -118,7 +118,7 @@ class Game {
         return this.hazardMove();
     }
 
-    // Play a move for the hazard opponent. It will choose a move randomly.
+    /**Play a random move.*/
     hazardMove() {
         var max = this.nbMoves;
         if (max > this.currPosition) {
@@ -129,10 +129,10 @@ class Game {
         return rnd;
     }
 
-    // Update the machine's state according to the result of the game
-    // If the machine won, it will reinforce the moves that led to this victory
-    // If the machine lost, it will penalize the moves that led to this defeat
-    // It will also check if a basket is empty. If it is, it will fill it with the maximum number of balls possible. (It's a reset)
+    /** Update the machine's state according to the result of the game
+    If the machine won, it will reinforce the moves that led to this victory
+    If the machine lost, it will penalize the moves that led to this defeat
+    It will also check if a basket is empty. If it is, it will reinitialize it.*/
     reinforcement(hasWon, idMachine, trainWithOpponent) {
         for (var i = 1; i < this.nbBaskets; i++) {
             if (this.gameMovesHistory[i][idMachine] >= 0) {
@@ -142,7 +142,7 @@ class Game {
                     this.machineState[i][this.gameMovesHistory[i][idMachine]] = 0;
                 }
             }
-            if (trainWithOpponent) {
+            if (trainWithOpponent) { //if the user wants to train with the oppenent's moves
                 if (this.gameMovesHistory[i][1 - idMachine] >= 0) {
                     var currMove = this.gameMovesHistory[i][1 - idMachine]
                     this.machineState[i][currMove] += ((hasWon) ? this.penalty : this.reward);
@@ -163,7 +163,7 @@ class Game {
         }
     }
 
-    // Initialize a basket with the number of balls selected for each move
+    /**Initialize a basket with the number of balls chosen through the parameters.*/
     initBasket(basket) {
         for (var i = 0; i < this.nbMoves; i++) {
             if (this.possibleMoves[i] <= basket) {
@@ -174,7 +174,7 @@ class Game {
         }
     }
 
-    // Play a move and return true if the game is over, false otherwise
+    /**Play a move and return true if the game is over, false otherwise*/
     playMove(move) {
         // update the history of the game
         var tmpTxt = texts["adaptation_status_player"][langPicked] + " ";
@@ -189,6 +189,7 @@ class Game {
         this.currPosition -= this.possibleMoves[move];
         // if the current position is below the smallest move possible, then the game is over
         if (this.currPosition < this.possibleMoves[0]) {
+            // update the history of the game
             tmpTxt = texts["adaptation_status_game_over"][langPicked] + " ";
             if (this.lastIsWin) {
                 tmpTxt += texts["adaptation_status_player_" + this.player][langPicked] + " ";
@@ -204,6 +205,7 @@ class Game {
         }
     }
 
+    /**Play a move for the machine or the opponent depending on the current player*/
     playOneMove() {
         var move = 0;
         if (this.player == 0) { // machine's turn

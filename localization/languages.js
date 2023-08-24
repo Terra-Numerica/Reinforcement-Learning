@@ -1,4 +1,5 @@
-let texts = {
+/**All the texts used in the application are stored in this const.*/
+const texts = {
     /* GENERAL PART */
 
     "page_title":{

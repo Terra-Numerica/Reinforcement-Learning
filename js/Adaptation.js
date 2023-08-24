@@ -3,8 +3,8 @@ var overallGame = null;
 var nbDefeats = 0;
 var nbWins = 0;
 
-var MAX_GAMES = 200; //a solution to performance issues
-var MAX_BALLS_PER_BASKET = 200;//a solution to performance issues
+const MAX_GAMES = 200; //a solution to performance issues
+const MAX_BALLS_PER_BASKET = 200;//a solution to performance issues
 
 //#region PART ABOUT THE PARAMETERS
 
@@ -12,10 +12,10 @@ var formValues = {}; //moves, nbBaskets, nbBalls, reward, penalty, speed, oppone
 
 function getFormValues() {
     //retrieve the nb of moves possible
-    var formNbMoves = document.getElementById("pick_nb_of_moves_possible");
+    let formNbMoves = document.getElementById("pick_nb_of_moves_possible");
     var formNbMovesChoices = formNbMoves.getElementsByClassName("form-control");
     formValues["moves"] = [];
-    for (var i = 0; i < formNbMovesChoices.length; i++) {
+    for (let i = 0; i < formNbMovesChoices.length; i++) {
         if (formNbMovesChoices[i].checked) {
             formValues["moves"].push(parseInt(formNbMovesChoices[i].value));
         }
@@ -64,7 +64,7 @@ function startGame() {
     overallGame = new Game(moves, nbBaskets, nbBalls, reward, penalty, speed, opponent, machineStarts, lastIsWin);
 
     //update the status
-    var tmpTxt = texts["adaptation_status_game_number"][langPicked];
+    let tmpTxt = texts["adaptation_status_game_number"][langPicked];
     tmpTxt += (nbDefeats + nbWins + 1);
     overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
 }
@@ -101,8 +101,8 @@ function updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins) {
         alert(texts["adaptation_too_many_games"][langPicked])
     }
     if (endGame) {
-        var win = overallGame.player == 0;
-        if (!lastWins) win = !win;
+        let win = overallGame.player == 0;
+        if (!lastWins) win = !win; //if retrieving the last move is a loss, then the result is inverted
         if (!win) {//opponent won
             nbDefeats++;
             overallGame.reinforcement(false, 0, lossesTrained);
@@ -123,7 +123,7 @@ function updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins) {
         }
         //for the score and status updates
         updateScore();
-        var tmpTxt = texts["adaptation_status_game_number"][langPicked];
+        let tmpTxt = texts["adaptation_status_game_number"][langPicked];
         tmpTxt += (nbDefeats + nbWins + 1);
         overallGame.textualHistory = tmpTxt + "<br>" + overallGame.textualHistory;
 
@@ -137,8 +137,8 @@ function updateGame(endGame, opponent, winnerStarts, lossesTrained, lastWins) {
 }
 
 function updateStatus() {
-    var status = document.getElementById("adapt_history");
-    var gameStatus = overallGame.textualHistory;
+    let status = document.getElementById("adapt_history");
+    let gameStatus = overallGame.textualHistory;
     status.innerHTML = gameStatus;
     window.dispatchEvent(new Event('resize')); //to force the balls to update their positions
 }
@@ -155,7 +155,7 @@ function pauseGame() {
 //#region PART ABOUT THE VISUALIZATION
 
 var canvas = null;
-var colors = ["yellow", "red", "blue", "green", "purple"]; //TODO: should be more flexible for accessibility reasons
+const colors = ["yellow", "red", "blue", "green", "purple"]; //TODO: should be more flexible for accessibility reasons
 var eventAdded = false;
 var basketPositions = [];
 
@@ -219,9 +219,9 @@ function updateCanvas() {
     //TODO: carefully check if this timeout is still needed
     setTimeout(() => {
         canvas = document.getElementById("adapt_visualization");
-        var nbBaskets = formValues["nbBaskets"];
-        var moves = formValues["moves"];
-        var nbBalls = formValues["nbBalls"];
+        let nbBaskets = formValues["nbBaskets"];
+        let moves = formValues["moves"];
+        let nbBalls = formValues["nbBalls"];
 
         canvas.innerHTML = '<legend for="adapt_visualization" translate="adaptation_vizualisation">' + texts["adaptation_vizualisation"][langPicked] + '</legend>';
         createBaskets(nbBaskets, moves);
@@ -243,7 +243,7 @@ function createBaskets(nbBaskets, moves) {
     var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" alt="A basket/un casier">';
     var nbBalls = formValues["nbBalls"];
     var tmpCounter = 0;
-    for (var i = 1; i < nbBaskets; i++) {
+    for (let i = 1; i < nbBaskets; i++) {
         canvas.innerHTML += basket;
         canvas.innerHTML += '<span class="badge badge-secondary rounded-circle position-absolute badge_nb_basket">' + i + '</span>';
         canvas.children[canvas.children.length - 2].id = "basket" + i;
@@ -257,7 +257,7 @@ function createBaskets(nbBaskets, moves) {
         originalTransX -= 15 * (tmpCounter);
 
         //TODO: could the translateX adapt to the length of what's written in these badges?
-        for (var j = 0; j < moves.length; j++) {
+        for (let j = 0; j < moves.length; j++) {
             var tmp_res = "";
             if (moves[j] - 1 < i) {
                 tmp_res += badgeForEachColor.replace("NBALLS", nbBalls);
@@ -272,8 +272,7 @@ function createBaskets(nbBaskets, moves) {
 
 /**Create a single ball*/
 function createBall(basketID, ballID, move) {
-    var ball = '<div id="ball_' + basketID + '_' + ballID + '_' + move + '" class="div_balls" style="background-color: ' + colors[move] + ';"></div>';
-    return ball;
+    return '<div id="ball_' + basketID + '_' + ballID + '_' + move + '" class="div_balls" style="background-color: ' + colors[move] + ';"></div>'
 }
 
 /**Create nbBalls balls for every nbBaskets-1 baskets for each move*/
@@ -295,10 +294,10 @@ function createBalls(nbBalls, moves, nbBaskets) {
 function updateBadges(basketID) {
     var badges = document.getElementsByClassName("badge_nb_color");
     var moves = formValues["moves"];
-    for (var i = 0; i < badges.length; i++) {
+    for (let i = 0; i < badges.length; i++) {
         if (badges[i].classList.contains("badge_" + (basketID))) {
             badges[i].classList.remove("badge_shadow");
-            for (var j = 0; j < moves.length; j++) {
+            for (let j = 0; j < moves.length; j++) {
                 if (badges[i].classList.contains(colors[moves[j] - 1] + "_counter")) {
                     if (overallGame.machineState[basketID][j] != badges[i].innerHTML && formValues["speed"] != 2) {
                         badges[i].classList.add("badge_shadow"); //to show that the number has changed
@@ -317,16 +316,16 @@ function updateASingleBasket(basketID) {
     var moves = formValues["moves"];
     var balls = document.getElementsByClassName("div_balls");
     var ballsOfBasket = [];
-    for (var i = 0; i < balls.length; i++) {
+    for (let i = 0; i < balls.length; i++) {
         if (balls[i].id.split("_")[1] == basketID) {
             ballsOfBasket.push(balls[i]); //ballsOfBasket contains all the balls of the basket
         }
     }
 
-    for (var i = 0; i < moves.length; i++) {
+    for (let i = 0; i < moves.length; i++) {
         var ballsOfMove = []; //ballsOfMove contains all the visible balls of the basket for a given move
         var hiddenBallsOfMove = []; //hiddenBallsOfMove contains all the hidden balls of the basket for a given move
-        for (var j = 0; j < ballsOfBasket.length; j++) {
+        for (let j = 0; j < ballsOfBasket.length; j++) {
             if (ballsOfBasket[j].id.split("_")[3] == moves[i] - 1) {
                 if (ballsOfBasket[j].classList.contains("d-none")) {
                     hiddenBallsOfMove.push(ballsOfBasket[j]);
@@ -337,17 +336,17 @@ function updateASingleBasket(basketID) {
         }
         if (ballsOfMove.length <= MAX_BALLS_PER_BASKET) { //if there are too many balls, we don't need to update more
             if (ballsOfMove.length > basketState[i]) { // if there are too many balls, we hide the extra ones
-                var difference = ballsOfMove.length - basketState[i];
-                for (var j = 0; j < difference; j++) {
+                const difference = ballsOfMove.length - basketState[i];
+                for (let j = 0; j < difference; j++) {
                     ballsOfMove[j].classList.add("d-none");
                 }
             } else if (ballsOfMove.length < basketState[i]) { // if there are not enough balls, we show the extra ones
-                var difference = basketState[i] - ballsOfMove.length;
+                const difference = basketState[i] - ballsOfMove.length;
                 for (var j = 0; j < hiddenBallsOfMove.length && j < difference; j++) {
                     hiddenBallsOfMove[j].classList.remove("d-none");
                 }
                 if (j < difference) { //if there are still not enough balls, we create new ones
-                    for (var j = 0; j < difference - hiddenBallsOfMove.length; j++) {
+                    for (let k = 0; k < difference - hiddenBallsOfMove.length; k++) {
                         var newBall = createBall(basketID, ballsOfBasket.length, moves[i] - 1);
                         canvas.innerHTML += newBall;
                         ballsOfBasket.push(canvas.children[canvas.children.length - 1]);
@@ -363,14 +362,14 @@ function updateASingleBasket(basketID) {
 
     //final check to make sure that the number of balls is correct
     ballsOfBasket = [];
-    for (var i = 0; i < balls.length; i++) {
+    for (let i = 0; i < balls.length; i++) {
         if (balls[i].id.split("_")[1] == basketID) {
             ballsOfBasket.push(balls[i]);
         }
     }
-    for (var i = 0; i < moves.length; i++) {
+    for (let i = 0; i < moves.length; i++) {
         var ballsOfMove = [];
-        for (var j = 0; j < ballsOfBasket.length; j++) {
+        for (let j = 0; j < ballsOfBasket.length; j++) {
             if (ballsOfBasket[j].id.split("_")[3] == moves[i] - 1 && !ballsOfBasket[j].classList.contains("d-none")) {
                 ballsOfMove.push(ballsOfBasket[j]);
             }
@@ -380,24 +379,23 @@ function updateASingleBasket(basketID) {
             pauseGame();
         }
     }
-
 }
 
 /**Retrieve the position of the baskets*/
 function updateBasketPositions() {
     basketPositions = [];
-    var baskets = canvas.getElementsByClassName("basket_drawing");
-    for (var i = 0; i < baskets.length; i++) {
+    const baskets = canvas.getElementsByClassName("basket_drawing");
+    for (let i = 0; i < baskets.length; i++) {
         basketPositions.push([baskets[i].offsetLeft, baskets[i].offsetTop, baskets[i].width]);
     }
 }
 
 /**Update the position of every balls*/
 function positionBalls() {
-    var balls = document.getElementsByClassName("div_balls");
-    for (var i = 0; i < balls.length; i++) {
-        var move = parseInt(balls[i].id.split("_")[3]);
-        var basket = parseInt(balls[i].id.split("_")[1]);
+    const balls = document.getElementsByClassName("div_balls");
+    for (let i = 0; i < balls.length; i++) {
+        let move = parseInt(balls[i].id.split("_")[3]);
+        let basket = parseInt(balls[i].id.split("_")[1]);
         if (move <= basket - 1) { //if the ball is in a basket
             positionBall(balls[i], basket - 1);
         }
@@ -407,21 +405,21 @@ function positionBalls() {
 /** Update the position of a single ball so that it is inside the basketID basket */
 function positionBall(ball, basketID) {
     //retrieve the position of the basket
-    var basketX = basketPositions[basketID][0];
-    var basketY = basketPositions[basketID][1];
+    let basketX = basketPositions[basketID][0];
+    let basketY = basketPositions[basketID][1];
 
     //calculate the max position of the ball
-    var sizeBasket = basketPositions[basketID][2] - 30;
-    var maxBallX = basketX + sizeBasket;
-    var maxBallY = basketY + sizeBasket;
+    let sizeBasket = basketPositions[basketID][2] - 30;
+    let maxBallX = basketX + sizeBasket;
+    let maxBallY = basketY + sizeBasket;
 
     //retrieve the min position of the ball
-    var minBallX = basketX + 10;
-    var minBallY = basketY + 45;
+    let minBallX = basketX + 10;
+    let minBallY = basketY + 45;
 
     //calculate the position of the ball randomly
-    var ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
-    var ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
+    let ballX = Math.floor(Math.random() * (maxBallX - minBallX + 15)) + minBallX;
+    let ballY = Math.floor(Math.random() * (maxBallY - minBallY + 15)) + minBallY;
 
     //modify ball position
     ball.style.position = "absolute";
@@ -432,8 +430,8 @@ function positionBall(ball, basketID) {
 /**Show the balls that were hidden by hideBalls()*/
 function showBalls() {
     if (!document.getElementById("adaptation").classList.contains("hidden")) {
-        var balls = document.getElementsByClassName("div_balls");
-        for (var i = 0; i < balls.length; i++) {
+        const balls = document.getElementsByClassName("div_balls");
+        for (let i = 0; i < balls.length; i++) {
             balls[i].style.display = "block";
         }
     }
@@ -441,8 +439,8 @@ function showBalls() {
 
 /** Hide the balls to avoid performance issues for the responsiveness of the page */
 function hideBalls() {
-    var balls = document.getElementsByClassName("div_balls");
-    for (var i = 0; i < balls.length; i++) {
+    const balls = document.getElementsByClassName("div_balls");
+    for (let i = 0; i < balls.length; i++) {
         balls[i].style.display = "none";
     }
 }
@@ -454,7 +452,7 @@ function changeIntervalValue(elem, val) {
         clearInterval(interval);
         interval = setInterval(() => updateGame(overallGame.playNonStop(), formValues["opponent"], formValues["machineStarts"], formValues["lastIsWin"]), (1 - intervalValue) * 1000);
     }
-    var label = elem.previousElementSibling;
+    let label = elem.previousElementSibling;
     label.innerHTML = "x" + Math.round(val * 100) / 100;
 }
 
@@ -463,9 +461,9 @@ function changeIntervalValue(elem, val) {
 //#region PART ABOUT THE SCORE
 /** Update the score of the player */
 function updateScore() {
-    var htmlScore = document.getElementById("adapt_score");
-    var progressBars = htmlScore.getElementsByClassName("progress-bar");
-    var htmlCounter = document.getElementById("adapt_counter_games");
+    let htmlScore = document.getElementById("adapt_score");
+    let progressBars = htmlScore.getElementsByClassName("progress-bar");
+    let htmlCounter = document.getElementById("adapt_counter_games");
     htmlCounter.innerHTML = nbDefeats + nbWins;
     htmlCounter = document.getElementById("adapt_victories");
     htmlCounter.innerHTML = nbWins;
@@ -479,8 +477,8 @@ function updateScore() {
         progressBars[1].innerHTML = "0%";
         progressBars[1].setAttribute("aria-valuenow", 0);
     } else {
-        var wins = nbWins / (nbWins + nbDefeats) * 100;
-        var defeats = nbDefeats / (nbWins + nbDefeats) * 100;
+        let wins = nbWins / (nbWins + nbDefeats) * 100;
+        let defeats = nbDefeats / (nbWins + nbDefeats) * 100;
 
         progressBars[0].setAttribute("aria-valuenow", wins);
         progressBars[0].style.width = wins + "%";

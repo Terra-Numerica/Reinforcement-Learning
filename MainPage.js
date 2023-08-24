@@ -22,18 +22,18 @@ function closeMenu() {
 /**Used to switch the tabs through the navbar */
 function showTab(page, event) {
     //hide all other tabs
-    var tabs = document.getElementsByClassName("tab");
-    for (var i = 0; i < tabs.length; i++) {
+    let tabs = document.getElementsByClassName("tab");
+    for (let i = 0; i < tabs.length; i++) {
         tabs[i].classList.add("d-none");
     }
 
     //show the targeted tab
-    var content = document.getElementById(page);
+    let content = document.getElementById(page);
     content.classList.remove("d-none");
 
     //change the class of the pressed button
     var buttons = document.getElementsByClassName("nav-tab");
-    for (var i = 0; i < buttons.length; i++) {
+    for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("curr-tab");
     }
     if (event != null) {
@@ -43,7 +43,6 @@ function showTab(page, event) {
     //special cases
     var backBtn = document.getElementById("back_home");
     var home = document.getElementById("home_page");
-    var eventAdded = false;
     if (page == "home_page") {
         backBtn.classList.add("invisible");
         backBtn.classList.remove("visible");

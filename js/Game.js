@@ -39,21 +39,21 @@ class Game {
 
         this.player = (machineStarts) ? 0 : 1;
         this.machineState = [];
-        for (var i = 0; i < nbBaskets; i++) {
+        for (let i = 0; i < nbBaskets; i++) {
             this.machineState[i] = [];
         }
         this.currPosition = nbBaskets - 1;
         this.possibleMoves = moves;
         this.gameMovesHistory = [];
-        for (var i = 1; i < nbBaskets; i++) {
+        for (let i = 1; i < nbBaskets; i++) {
             this.gameMovesHistory[i] = [];
-            for (var j = 0; j < 2; j++) { //because 2 players facing off
+            for (let j = 0; j < 2; j++) { //because 2 players facing off
                 this.gameMovesHistory[i][j] = -1;
             }
         }
         this.winningMoves = [];
         this.computeWinningMoves();
-        for (var i = 0; i < nbBaskets; i++) {
+        for (let i = 0; i < nbBaskets; i++) {
             this.initBasket(i);
         }
         this.textualHistory = "";
@@ -61,7 +61,7 @@ class Game {
 
     /**Reset the position (we retrieve the nbBaskets matches) and erase the current history*/
     restartGame() {
-        for (var i = 1; i < this.nbBaskets; i++) {
+        for (let i = 1; i < this.nbBaskets; i++) {
             this.gameMovesHistory[i][0] = this.gameMovesHistory[i][1] = -1; //not played
         }
         this.currPosition = this.nbBaskets - 1;
@@ -70,10 +70,10 @@ class Game {
     /**Compute the winning moves for each basket for the expert opponent.*/
     computeWinningMoves() {
         this.winningMoves[0] = 0;
-        var diff = this.lastIsWin ? 0 : 1; //depends on if retrieving the last match is the winning move or not
-        for (var i = 1; i < NB_BASKETS_MAX; i++) {
+        let diff = this.lastIsWin ? 0 : 1; //depends on if retrieving the last match is the winning move or not
+        for (let i = 1; i < NB_BASKETS_MAX; i++) {
             this.winningMoves[i] = 0;
-            var j = 0;
+            let j = 0;
             while (j < this.nbMoves) {
                 // if this move is possible and the next move is not winning, then this move is winning
                 if (i - this.possibleMoves[j] >= diff && this.winningMoves[i - this.possibleMoves[j]] == 0) {
@@ -90,11 +90,11 @@ class Game {
     This is this game's goal: selecting a move that will lead to a winning position thanks to the number of balls in the corresponding basket.*/
     machineMove(id) {
         var currNbBalls = 0;
-        for (var i = 0; i < this.nbMoves; i++) {
+        for (let i = 0; i < this.nbMoves; i++) {
             currNbBalls += this.machineState[this.currPosition][i];
         }
         var rnd = parseInt(Math.random() * currNbBalls);
-        for (var j = 0; j < this.nbMoves; j++) {
+        for (let j = 0; j < this.nbMoves; j++) {
             for (var k = 0; k < this.machineState[this.currPosition][j]; k++) {
                 rnd--;
                 if (rnd < 0) {
@@ -109,7 +109,7 @@ class Game {
     /**Play a move for the expert opponent. It will choose a move that will lead to a winning position.
     It will check if there is a winning move for the opponent. If there is, it will play this move, otherwise, it will play a move randomly.*/
     expertMove() {
-        for (var i = 0; i < this.nbMoves; i++) {
+        for (let i = 0; i < this.nbMoves; i++) {
             if (this.currPosition - this.possibleMoves[i] >= 0 && this.winningMoves[this.currPosition - this.possibleMoves[i]] == 0) {
                 this.gameMovesHistory[this.currPosition][1] = i;
                 return i;
@@ -124,7 +124,7 @@ class Game {
         if (max > this.currPosition) {
             max = this.currPosition;
         }
-        var rnd = parseInt(Math.random() * max)
+        let rnd = parseInt(Math.random() * max)
         this.gameMovesHistory[this.currPosition][1] = rnd;
         return rnd;
     }
@@ -134,9 +134,9 @@ class Game {
     If the machine lost, it will penalize the moves that led to this defeat
     It will also check if a basket is empty. If it is, it will reinitialize it.*/
     reinforcement(hasWon, idMachine, trainWithOpponent) {
-        for (var i = 1; i < this.nbBaskets; i++) {
+        for (let i = 1; i < this.nbBaskets; i++) {
             if (this.gameMovesHistory[i][idMachine] >= 0) {
-                var currMove = this.gameMovesHistory[i][idMachine]
+                let currMove = this.gameMovesHistory[i][idMachine]
                 this.machineState[i][currMove] += ((hasWon) ? this.reward : this.penalty);
                 if (this.machineState[i][this.gameMovesHistory[i][idMachine]] < 0) {
                     this.machineState[i][this.gameMovesHistory[i][idMachine]] = 0;
@@ -144,7 +144,7 @@ class Game {
             }
             if (trainWithOpponent) { //if the user wants to train with the oppenent's moves
                 if (this.gameMovesHistory[i][1 - idMachine] >= 0) {
-                    var currMove = this.gameMovesHistory[i][1 - idMachine]
+                    let currMove = this.gameMovesHistory[i][1 - idMachine]
                     this.machineState[i][currMove] += ((hasWon) ? this.penalty : this.reward);
                     if (this.machineState[i][this.gameMovesHistory[i][1 - idMachine]] < 0) {
                         this.machineState[i][this.gameMovesHistory[i][1 - idMachine]] = 0;
@@ -152,9 +152,9 @@ class Game {
                 }
             }
         }
-        for (var i = 1; i < this.nbBaskets; i++) {
+        for (let i = 1; i < this.nbBaskets; i++) {
             var sum = 0;
-            for (var j = 0; j < this.nbMoves; j++) {
+            for (let j = 0; j < this.nbMoves; j++) {
                 sum += this.machineState[i][j];
             }
             if (sum <= 0) {
@@ -165,7 +165,7 @@ class Game {
 
     /**Initialize a basket with the number of balls chosen through the parameters.*/
     initBasket(basket) {
-        for (var i = 0; i < this.nbMoves; i++) {
+        for (let i = 0; i < this.nbMoves; i++) {
             if (this.possibleMoves[i] <= basket) {
                 this.machineState[basket][i] = this.nbBalls;
             } else {
@@ -235,7 +235,7 @@ class Game {
     }
 
     playNonStop() {
-        var endGame = this.playOneGame();
+        let endGame = this.playOneGame();
         return endGame;
     }
 }

@@ -1,26 +1,26 @@
-nbMatches = 8; //number of matches in the game
-nbMoves = 0; //number of moves made by the AI
+var nbMatches = 8; //number of matches in the game
+var nbMoves = 0; //number of moves made by the AI
 
-newStart = true; //true if the game has just started, false otherwise
-restart = false; //true if the game has just been restarted, false otherwise
+var newStart = true; //true if the game has just started, false otherwise
+var restart = false; //true if the game has just been restarted, false otherwise
 
-red = new Array(8);  //number of red balls for each match
-yellow = new Array(8); //number of yellow balls for each match
-AImoves = new Array(5); //record of the moves made by the AI
-nbMatchesPerMove = new Array(5); //number of removed matches
+var red = new Array(8);  //number of red balls for each match
+var yellow = new Array(8); //number of yellow balls for each match
+var AImoves = new Array(5); //record of the moves made by the AI
+var nbMatchesPerMove = new Array(5); //number of removed matches
 
 //html elements
-basketState = null;
-gameResult = null;
-lastmove = null;
-matchesLeft = null;
-buttons = null;
+var basketState = null;
+var gameResult = null;
+var lastmove = null;
+var matchesLeft = null;
+var buttons = null;
 
 //dynamic html elements
-htmlYellowBalls = null;
-htmlRedBalls = null;
-htmlNbMatches = null;
-htmlNbOfMatchesTakenByLastMove = null;
+var htmlYellowBalls = null;
+var htmlRedBalls = null;
+var htmlNbMatches = null;
+var htmlNbOfMatchesTakenByLastMove = null;
 
 /** Initialize the game */
 function initInteracting(){
@@ -58,7 +58,7 @@ function initInteracting(){
 }
 
 function enableBtns(){
-    for (var i = 0; i < buttons.length; i++) {
+    for (let i = 0; i < buttons.length; i++) {
         buttons[i].disabled = false;
     }
 }
@@ -80,8 +80,8 @@ function fillRedYellow(reward){
     nbMoves = 0;
     fillTextBasketState();
     console.log("The baskets state:");
-    console.log("Red" + red);
-    console.log("Yellow" + yellow);
+    console.log("Red: " + red);
+    console.log("Yellow: " + yellow);
 }
 
 /** Fill the text of the basket state */

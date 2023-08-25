@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title translation="page_title"></title>
-    <link rel="icon" type="image/x-icon" href="images/Icon.png">
+    <link rel="icon" type="image/x-icon" href="images/Robot logo.png">
 
     <!-- PLUGIN IMPORTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -20,7 +20,6 @@
 </head>
 
 <body>
-    <!-- tabs for each page -->
     <nav id="menu_btn_navbar" class="navbar navbar-dark">
         <button id="menu_btn" class="btn btn-primary" onclick="slideMenu()">
             <span class="navbar-toggler-icon"></span>
@@ -30,6 +29,7 @@
         <img id="logo" src="images/Terra Numerica.png" alt="Logo">
         <button id="lang_switch" class="btn btn-primary" translation="lang_switch" onclick="switchLang()"></button>
     </nav>
+
     <div id="navbarTabs">
         <a href="javascript:void(0)" class="close_btn" onclick="closeMenu()">&times;</a>
         <ul class="flex-column pl-0">
@@ -40,6 +40,7 @@
             <button class="nav-tab" translation="param_tuto" onclick="showTab('param_tuto', this)"></button>
         </ul>
     </div>
+    
     <div id="home_page">
         <h1 translation="welcome_msg"></h1>
         <h3 translation="welcome_desc" class="text-center w-75 m-auto"></h3>

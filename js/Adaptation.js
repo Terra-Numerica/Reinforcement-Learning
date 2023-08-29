@@ -240,7 +240,7 @@ function updateCanvas() {
 
 /**Create the baskets on the canvas */
 function createBaskets(nbBaskets, moves) {
-    var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" alt="A basket/un casier">';
+    var basket = '<img src="./images/new_basket.png" width="150px" height="150px" class="basket_drawing" translation="param_alt_2">';
     var nbBalls = formValues["nbBalls"];
     var tmpCounter = 0;
     for (let i = 1; i < nbBaskets; i++) {

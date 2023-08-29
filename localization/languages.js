@@ -105,6 +105,10 @@ const texts = {
         fr: "<b>Le joueur 1 a gagné.</b>",
         en: "<b>Player 1 won.</b>"
     },
+    "rules_match_alt":{
+        fr: "Allumette",
+        en: "Match"
+    },
 
     /* REINFORCEMENT LEARNING PART */
 
@@ -155,13 +159,25 @@ const texts = {
         fr: "Pour représenter le nombre d'allumettes retirées on utilise des balles de différentes couleurs : <ul class='m-auto' style='width: fit-content;'> <li>jaune pour 1 allumette retirée</li> <li>rouge pour 2 allumettes retirées</li> </ul> Au début il y a 2 balles jaunes et 2 balles rouges. <br>La probabilité de retirer une balle jaune est la même que la probabilité de retirer une balle rouge.",
         en: "To represent the number of matches removed we use balls of different colors: <ul class='m-auto' style='width: fit-content;'> <li>yellow for 1 match removed</li> <li>red for 2 matches removed</li> </ul> At the beginning there are 2 yellow balls and 2 red balls. <br>The probability of removing a yellow ball is the same as the probability of removing a red ball."
     },
+    "probs_initial_alt": {
+        fr: "Image de 2 balles jaunes et 2 balles rouges",
+        en: "Image of 2 yellow balls and 2 red balls"
+    },
     "probs_win": {
         fr: "Si l'IA a gagné la partie, elle ajoutera 3 balles de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a permis de gagner, 3 balles rouges vont être ajoutées à chaque casier correspondant. <br>La probabilité de retirer deux alumettes en un coup augmente.",
         en: "If the AI has won the game, it will add 3 balls of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>As this is an action that allowed it to win, 3 red balls will be added to each corresponding basket. <br>The probability of removing two matches in one move increases."
     },
+    "probs_win_alt": {
+        fr: "Image de 5 balles rouges et 2 balles jaunes",
+        en: "Image of 5 red balls and 2 yellow balls"
+    },
     "probs_lost": {
         fr: "Si l'IA a perdu la partie, elle retirera 1 balle de la couleur correspondante à chaque coup qu'elle aura effectué. <br>Ici l'IA a retiré 2 allumettes ce qui correspond à une balle rouge. <br>Comme c'est une action qui lui a fait perdre, 1 balle rouge va être retirée à chaque casier correspondant. <br>La probabilité de retirer deux alumettes en un coup diminue.",
         en: "If the AI has lost the game, it will remove 1 ball of the corresponding color for each move it has made. <br>Here the AI removed 2 matches which corresponds to a red ball. <br>Since this is an action that made it lose, 1 red ball will be removed from each corresponding basket. <br>The probability of removing two matches in one move decreases."
+    },
+    "probs_lost_alt": {
+        fr: "Image d'une balle rouge et 2 balles jaunes",
+        en: "Image of 1 red balls and 2 yellow balls"
     },
 
     /* GOAL PART */
@@ -328,6 +344,50 @@ const texts = {
         fr: "Ce paramètre vous permet de choisir si l'IA doit apprendre des coups de son adversaire. Par exemple, si l'IA a gagné la partie, elle considèrera les coups de son adversaire comme des coups perdants et les ajoutera à son apprentissage.",
         en: "This parameter allows you to choose if the AI should learn from its opponent's moves. For example, if the AI has won the game, it will consider its opponent's moves as losing moves and add them to its learning."
     },
+    "param_alt_1": {
+        fr: "Explication sur le nombre de casiers et de balles",
+        en: "Explanation about the number of baskets and balls",
+    },
+    "param_alt_2": {
+        fr: "Image d'un panier",
+        en: "Image of a basket",
+    },
+    "param_alt_3": {
+        fr: "Image d'un ensemble de balles",
+        en: "Image of a set of balls",
+    },
+    "param_alt_4": {
+        fr: "Indicateurs du nombre de balles par couleur",
+        en: "Indicators of the number of balls per color",
+    },
+    "param_alt_5": {
+        fr: "Indicateur du numéro de panier",
+        en: "Basket number indicator",
+    },
+    "param_alt_6": {
+        fr: "Paramètres \"Coups possibles\" et \"Nombre de casiers\"",
+        en: "Parameters \"Possible moves\" and \"Number of baskets\"",
+    },
+    "param_alt_7": {
+        fr: "Paramètre \"Adversaire\"",
+        en: "Parameter \"Opponent\"",
+    },
+    "param_alt_8": {
+        fr: "Paramètres \"Balles par couleur\" \"Récompense\" et \"Pénalité\"",
+        en: "Parameters \"Balls per color\" \"Reward\" and \"Penalty\"",
+    },
+    "param_alt_9": {
+        fr: "Paramètre \"Cadence\"",
+        en: "Parameter \"Cadence\"",
+    },
+    "param_alt_10": {
+        fr: "Paramètres divers permettant de modifier les règles du jeu",
+        en: "Various parameters for modifying the rules of the game",
+    },
+    "param_alt_11": {
+        fr: "Paramètre permettant de choisir si l'IA doit apprendre des coups de son adversaire",
+        en: "Parameter allowing to choose if the AI should learn from its opponent's moves",
+    },
 
     /* ADAPTATION PART */
 
@@ -388,7 +448,7 @@ const texts = {
         en: "Number of baskets:"
     },
     "adaptation_balls_color" : {
-        fr: "Billes par couleur :",
+        fr: "Balles par couleur :",
         en: "Balls per color:"
     },
     "adaptation_reward": {

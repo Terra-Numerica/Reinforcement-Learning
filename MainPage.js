@@ -76,7 +76,11 @@ function setLang() {
         } else if (langPicked == "fr") {
             var value = texts[key][langPicked];
         }
-        $(this).html(value);
+        if($(this).is("img")){
+            $(this).attr("alt", value);
+        } else {
+            $(this).html(value);
+        }
     });
 }
 
